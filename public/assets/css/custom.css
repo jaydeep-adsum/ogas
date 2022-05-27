@@ -1,0 +1,111 @@
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header {
+    height: 175px;
+    padding: 10px;
+    text-align: center;
+}
+li.user-header {
+    background-color: #fff;
+}
+
+.dropdown-menu>li.user-header>img {
+    z-index: 5;
+    height: 90px;
+    width: 90px;
+    border: 3px solid;
+    border-color: transparent;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.img-circle {
+    border-radius: 50%;
+}
+
+.dropdown-menu>li.user-header>p {
+    z-index: 5;
+    color: #000;
+    font-size: 17px;
+    margin-top: 10px;
+}
+
+.dropdown-menu>.user-body {
+    padding: 15px;
+    border-bottom: 1px solid #f4f4f4;
+    border-top: 1px solid #dddddd;
+}
+
+.dropdown-menu>.user-footer {
+    /* background-color: #f9f9f9; */
+    padding: 10px;
+}
+
+.pull-left {
+    float: left !important;
+}
+
+.pull-right {
+    float: right !important;
+}
+
+.user-image {
+    float: left;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: -2px;
+}
+
+.user-card {
+    width: 280px;
+    right: 0;
+    left: auto;
+    padding-top: 0;
+    margin: 1.15rem 0 0;
+}
+
+.user-toggle::after {
+    display: none;
+}
+.sidebar{
+    background: #000000;
+}
+.nav-link{
+    color: #F58823 !important;
+}
+.nav-sidebar > .nav-item > .nav-link.active1 {
+    background-color: #F58823 !important;
+    color: #fff !important;
+}
+
+.nav-item > .nav-link.active1 {
+    background-color: #F58823 !important;
+    color: #fff !important;
+}
+
+.nav-pills .nav-link:not(.active):hover {
+    color: #1C75BC;
+}
+.navbar-light .navbar-nav .nav-link{
+    color: rgb(255 255 255);
+}
+.navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover{
+    color: rgb(255 255 255);
+}
+.card-header{
+    border: 0 !important;
+}
+.btn-primary{
+    background-color: #1C75BC;
+    border-color: #1C75BC;
+}
+.btn-primary:hover{
+    background-color: #1C75BC;
+    border-color: #1C75BC;
+}
+.page-item.active .page-link{
+    background-color: #1C75BC;
+    border-color: #1C75BC;
+}
+.page-link{
+    color: #1C75BC;
+}

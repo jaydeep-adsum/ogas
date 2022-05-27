@@ -1,0 +1,25 @@
+.edit-btn {
+  background: #1E4080;
+  color: #ffffff;
+}
+
+.edit-btn:hover {
+  color: #ffffff !important;
+}
+
+.delete-btn {
+  background: #D94B09;
+  color: #ffffff;
+}
+
+.delete-btn:hover {
+  color: #ffffff !important;
+}
+
+.table, tr, td, th {
+  border: 0 !important;
+}
+
+.table th {
+  border-bottom: 1px solid #e5e5e5 !important;
+}
