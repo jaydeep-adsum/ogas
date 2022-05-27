@@ -20,6 +20,12 @@
                     <p>Dashboard</p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{route('customer')}}" class="nav-link {{ Request::is('customer')? 'active1':''}}">
+                    <i class="fa-solid fa-users nav-icon"></i>
+                    <p>Customers</p>
+                </a>
+            </li>
         </ul>
     </nav>
 </div>

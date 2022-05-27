@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\AppBaseController;
-use App\Http\Controllers\Controller;
 use App\Models\Authenticator;
 use App\Models\Customer;
 use App\Repositories\CustomerRepository;
@@ -19,7 +18,8 @@ class CustomerController extends AppBaseController
      * @param CustomerRepository $customerRepository
      * @param Authenticator $authenticator
      */
-    public function __construct(CustomerRepository $customerRepository,Authenticator $authenticator){
+    public function __construct(CustomerRepository $customerRepository, Authenticator $authenticator)
+    {
         $this->customerRepository = $customerRepository;
         $this->authenticator = $authenticator;
     }
@@ -205,5 +205,4 @@ class CustomerController extends AppBaseController
         }
 
     }
-
 }

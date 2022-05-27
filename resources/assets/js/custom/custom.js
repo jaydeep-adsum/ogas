@@ -11,8 +11,8 @@ window.deleteItem = function (url, tableId, header, callFunction = null) {
             showCancelButton: true,
             closeOnConfirm: false,
             showLoaderOnConfirm: true,
-            confirmButtonColor: '#1e4080',
-            cancelButtonColor: '#d94b09',
+            confirmButtonColor: '#1c75bc',
+            cancelButtonColor: '#f58823',
             cancelButtonText: 'No',
             confirmButtonText: 'Yes',
         },
@@ -38,7 +38,7 @@ function deleteItemAjax(url, tableId, header, callFunction = null) {
                 title: 'Deleted !',
                 text: header + 'Has Been Deleted',
                 type: 'success',
-                confirmButtonColor: '#1e4080',
+                confirmButtonColor: '#1c75bc',
                 timer: 1000,
             });
             if (callFunction) {
@@ -50,7 +50,7 @@ function deleteItemAjax(url, tableId, header, callFunction = null) {
                 title: '',
                 text: data.responseJSON.message,
                 type: 'error',
-                confirmButtonColor: '#1e4080',
+                confirmButtonColor: '#1c75bc',
                 timer: 5000,
             });
         },
