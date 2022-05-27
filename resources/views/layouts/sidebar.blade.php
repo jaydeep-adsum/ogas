@@ -22,8 +22,14 @@
             </li>
             <li class="nav-item">
                 <a href="{{route('customer')}}" class="nav-link {{ Request::is('customer')? 'active1':''}}">
-                    <i class="fa-solid fa-users nav-icon"></i>
+                    <i class="fa-solid fa-user-group nav-icon"></i>
                     <p>Customers</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{route('category.index')}}" class="nav-link {{ Request::is('category')? 'active1':''}}">
+                    <i class="fa-solid fa-list nav-icon"></i>
+                    <p>Category</p>
                 </a>
             </li>
         </ul>

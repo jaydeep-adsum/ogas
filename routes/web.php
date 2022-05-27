@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
@@ -31,4 +32,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('customer', [CustomerController::class, 'index'])->name('customer');
     Route::delete('customer/{customer}', [CustomerController::class, 'destroy'])->name('customer.destroy');
+
+    Route::resource('category', CategoryController::class);
 });
