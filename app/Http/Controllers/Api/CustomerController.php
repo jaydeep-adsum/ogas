@@ -6,6 +6,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Models\Authenticator;
 use App\Models\Customer;
 use App\Repositories\CustomerRepository;
+use Auth;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -203,6 +204,30 @@ class CustomerController extends AppBaseController
         } catch (Exception $e) {
             return $this->sendError($e);
         }
+    }
 
+    public function edit(Request $request){
+        try {
+            if (Auth::user()->id != $request->customer_id) {
+                return $this->sendError('Unauthorized');
+            }
+            $customer = Customer::find($request->customer_id);
+            if (!$customer) {
+                return $this->sendError('User does not exist');
+            }
+            if (isset($request->address) && $request->address!='') {
+                $customer->address = $request->address;
+                $customer->save();
+            }
+
+            if ($request->hasFile('image') && $request->file('image')->isValid()) {
+                $customer->clearMediaCollection(Customer::PATH);
+                $customer->addMedia($request->image)->toMediaCollection(Customer::PATH);
+            }
+
+            return $this->sendResponse($customer->toArray(), ('Your profile updated successfully'));
+        } catch (\Exception $ex) {
+            return $this->sendResponse($ex);
+        }
     }
 }

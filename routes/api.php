@@ -24,5 +24,9 @@ Route::namespace('Api')->group(
         Route::get('swagger', 'SwaggerController@listItem');
         Route::post('signup', [CustomerController::class, 'signup']);
         Route::post('login', [CustomerController::class, 'login']);
+
+        Route::group(['middleware' => 'auth:api'], function () {
+            Route::post('edit', [CustomerController::class, 'edit']);
+        });
     }
 );

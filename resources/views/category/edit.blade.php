@@ -11,8 +11,8 @@
                 {{ Form::hidden('categoryId',null,['id'=>'categoryId']) }}
                 <div class="row">
                     <div class="form-group col-sm-12">
-                        {{ Form::label('category',__('Category').':') }}<span class="mandatory">*</span>
-                        {{ Form::text('category', null, ['class' => 'form-control','required','id'=>'editCategory']) }}
+                        {{ Form::label('category',__('Category(KG)').':') }}<span class="mandatory">*</span>
+                        {{ Form::number('category', null, ['class' => 'form-control','required','id'=>'editCategory']) }}
                     </div>
                 </div>
                 <div class="text-right">
