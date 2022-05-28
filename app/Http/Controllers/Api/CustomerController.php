@@ -206,6 +206,74 @@ class CustomerController extends AppBaseController
         }
     }
 
+    /**
+     * Swagger defination Customer profile edit
+     *
+     * @OA\Post(
+     *     tags={"Customer"},
+     *     path="/edit",
+     *     description="Edit Profile",
+     *     summary="Edit Profile",
+     *     operationId="edit",
+     * @OA\Parameter(
+     *     name="Content-Language",
+     *     in="header",
+     *     description="Content-Language",
+     *     required=false,@OA\Schema(type="string")
+     *     ),
+     * @OA\RequestBody(
+     *     required=true,
+     * @OA\MediaType(
+     *     mediaType="multipart/form-data",
+     * @OA\JsonContent(
+     * @OA\Property(
+     *     property="customer_id",
+     *     type="number"
+     *     ),
+     * @OA\Property(
+     *     property="name",
+     *     type="string"
+     *     ),
+     * @OA\Property(
+     *     property="mobile",
+     *     type="string"
+     *     ),
+     * @OA\Property(
+     *     property="address",
+     *     type="string"
+     *     ),
+     * @OA\Property(
+     *     property="image",
+     *     type="file"
+     *     ),
+     *    )
+     *   ),
+     *  ),
+     * @OA\Response(
+     *     response=200,
+     *     description="User response",@OA\JsonContent
+     *     (ref="#/components/schemas/SuccessResponse")
+     * ),
+     * @OA\Response(
+     *     response="400",
+     *     description="Validation error",@OA\JsonContent
+     *     (ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response="403",
+     *     description="Not Authorized Invalid or missing Authorization header",@OA\
+     *     JsonContent(ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response=500,
+     *     description="Unexpected error",@OA\JsonContent
+     *     (ref="#/components/schemas/ErrorResponse")
+     * ),
+     * security={
+     *     {"API-Key": {}}
+     * }
+     * )
+     */
     public function edit(Request $request){
         try {
             if (Auth::user()->id != $request->customer_id) {
@@ -215,10 +283,16 @@ class CustomerController extends AppBaseController
             if (!$customer) {
                 return $this->sendError('User does not exist');
             }
+            if (isset($request->name) && $request->name!='') {
+                $customer->name = $request->name;
+            }
+            if (isset($request->mobile) && $request->mobile!='') {
+                $customer->mobile = $request->mobile;
+            }
             if (isset($request->address) && $request->address!='') {
                 $customer->address = $request->address;
-                $customer->save();
             }
+            $customer->save();
 
             if ($request->hasFile('image') && $request->file('image')->isValid()) {
                 $customer->clearMediaCollection(Customer::PATH);
