@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -34,4 +35,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('customer/{customer}', [CustomerController::class, 'destroy'])->name('customer.destroy');
 
     Route::resource('category', CategoryController::class);
+
+    Route::get('products', [ProductController::class,'index'])->name('products');
+    Route::get('products/create', [ProductController::class, 'create'])->name('products.create');
+    Route::post('products/store', [ProductController::class, 'store'])->name('products.store');
+    Route::get('products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    Route::post('products/update/{id}', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 });

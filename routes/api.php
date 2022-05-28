@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,8 @@ Route::namespace('Api')->group(
 
         Route::group(['middleware' => 'auth:api'], function () {
             Route::post('edit', [CustomerController::class, 'edit']);
+
+            Route::get('products', [ProductController::class, 'index']);
         });
     }
 );

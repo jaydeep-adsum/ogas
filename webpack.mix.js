@@ -32,5 +32,7 @@ mix.js('resources/assets/js/custom/custom.js',
     'public/assets/js/customer/customer.js')
     .js('resources/assets/js/category/category.js',
         'public/assets/js/category/category.js')
+    .js('resources/assets/js/product/product.js',
+        'public/assets/js/product/product.js')
     .js('resources/assets/js/custom/phone-number-country-code.js',
         'public/assets/js/custom/phone-number-country-code.js').version();

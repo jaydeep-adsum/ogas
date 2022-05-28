@@ -13,5 +13,4 @@ class CustomerDatatable
 
         return $query;
     }
-
 }

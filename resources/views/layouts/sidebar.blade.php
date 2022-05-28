@@ -21,15 +21,21 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{route('customer')}}" class="nav-link {{ Request::is('customer')? 'active1':''}}">
+                <a href="{{route('customer')}}" class="nav-link {{ Request::is('customer*')? 'active1':''}}">
                     <i class="fa-solid fa-user-group nav-icon"></i>
                     <p>Customers</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{route('category.index')}}" class="nav-link {{ Request::is('category')? 'active1':''}}">
+                <a href="{{route('category.index')}}" class="nav-link {{ Request::is('category*')? 'active1':''}}">
                     <i class="fa-solid fa-list nav-icon"></i>
                     <p>Category</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{route('products')}}" class="nav-link {{ Request::is('products*')? 'active1':''}}">
+                    <i class="fas fa-gas-pump nav-icon"></i>
+                    <p>Products</p>
                 </a>
             </li>
         </ul>

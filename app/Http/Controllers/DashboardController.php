@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Product;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -16,6 +17,7 @@ class DashboardController extends Controller
     public function dashboard()
     {
         $data['customer'] = Customer::all()->count();
+        $data['product'] = Product::all()->count();
         return view('dashboard.index',compact('data'));
     }
 }

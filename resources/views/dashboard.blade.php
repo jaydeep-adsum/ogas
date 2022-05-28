@@ -103,8 +103,8 @@
         }
 
         .alert {
-            background: #D94B09 !important;
-            border-color: #D94B09 !important;
+            background: #f58823 !important;
+            border-color: #f58823 !important;
             font-weight: bold;
         }
 
@@ -114,12 +114,12 @@
         }
 
         .btn-default {
-            background-color: #d94b09;
+            background-color: #f58823;
             color: #fff;
         }
 
         .btn-default.hover, .btn-default:active, .btn-default:hover {
-            background-color: #d94b09;
+            background-color: #f58823;
             color: #fff;
         }
     </style>
