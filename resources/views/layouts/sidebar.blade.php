@@ -38,6 +38,12 @@
                     <p>Products</p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{route('order')}}" class="nav-link {{ Request::is('order*')? 'active1':''}}">
+                    <i class="fa-solid fa-clipboard-check nav-icon"></i>
+                    <p>Orders</p>
+                </a>
+            </li>
         </ul>
     </nav>
 </div>

@@ -5,7 +5,7 @@
  * @category SwaggerController
  * @author   Adsum <developer@Adsum.com>
  * @license  http://www.gnu.org/copyleft/gpl.html GNU General Public License
- * @link    http://ogas.adsumoriginator.com/api/
+ * @link    http://localhost/ogas/api/
  */
 
 /**
@@ -13,11 +13,11 @@
  *
  * @OA\Info(
  *     version="3.1",
- *     title="ogas Project REST Service",@OA\Contact(name="ogas", url="http://ogas.adsumoriginator.com/")
+ *     title="ogas Project REST Service",@OA\Contact(name="ogas", url="http://localhost/ogas/")
  * )
  * @OA\Server(
  *     description="Local Server",
- *     url="http://ogas.adsumoriginator.com/api/"
+ *     url="http://localhost/ogas/api/"
  * ),
  * @OA\Server(
  *     description="Dev Server",

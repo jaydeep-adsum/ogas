@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,7 @@ Route::namespace('Api')->group(
             Route::post('edit', [CustomerController::class, 'edit']);
 
             Route::get('products', [ProductController::class, 'index']);
+            Route::post('order', [OrderController::class, 'store']);
         });
     }
 );
