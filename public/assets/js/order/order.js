@@ -45,7 +45,7 @@ $(document).ready(function () {
   });
   $(document).on('click', '.delete-btn', function (event) {
     var orderId = $(event.currentTarget).attr('data-id');
-    deleteItem(orderUrl + '/' + orderId, tableName, 'Customer');
+    deleteItem(orderUrl + '/' + orderId, tableName, 'Order');
   });
 });
 /******/ })()

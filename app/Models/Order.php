@@ -11,8 +11,15 @@ class Order extends Model
     use HasFactory;
 
     public $table = 'orders';
+
+    /**
+     * @var string[]
+     */
     protected $with = ['product','customer'];
 
+    /**
+     * @var string[]
+     */
     public $fillable = [
         'location',
         'quantity',
