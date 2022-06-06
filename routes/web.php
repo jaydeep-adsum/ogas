@@ -31,6 +31,7 @@ require __DIR__.'/auth.php';
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::post('changePassword', [DashboardController::class,'changePassword'])->name('changePassword');
 
     Route::get('customer', [CustomerController::class, 'index'])->name('customer');
     Route::delete('customer/{customer}', [CustomerController::class, 'destroy'])->name('customer.destroy');

@@ -22,6 +22,7 @@ class CreateOrdersTable extends Migration
             $table->enum('type',[1,2]);
             $table->integer('total');
             $table->integer('driver_tip');
+            $table->string('status');
             $table->unsignedInteger('product_id');
             $table->unsignedInteger('customer_id');
 //            $table->unsignedInteger('driver_id');

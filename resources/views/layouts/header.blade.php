@@ -16,14 +16,16 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <div class="my-2">
+                        <a id="change_password" href="#" class="m-3">Change Password</a>
+                    </div>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-
-                        <x-dropdown-link :href="route('logout')"
+                        <a class="m-3" href="{{route('logout')}}"
                                          onclick="event.preventDefault();
                                                     this.closest('form').submit();">
                             {{ __('Logout') }}
-                        </x-dropdown-link>
+                        </a>
                     </form>
                 </div>
             </li>

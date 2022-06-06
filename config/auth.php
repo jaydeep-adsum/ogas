@@ -102,8 +102,8 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
-        'students' => [
-            'provider' => 'students',
+        'customers' => [
+            'provider' => 'customers',
             'table' => 'password_resets',
             'expire' => 60,
         ],

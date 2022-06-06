@@ -4,7 +4,7 @@
 {{--            </a>--}}
 
 <div class="sidebar-brand"
-     style="background: #ffffff;border-width: 0px 2px 0px 0px;padding-bottom: 9px;border-style: solid;border-color: #F58823;">
+     style="background: #ffffff;border-width: 0px 2px 0px 0px;padding-bottom: 7px;border-style: solid;border-color: #F58823;">
     <a href="{{route('dashboard')}}" class="text-center">
         <img src="{{asset('public/logo.png')}}" alt="O Gas" class="nav-logo">
 {{--                <h5 class="mt-3 brand-text" style="color: #ffffff;">admin</h5>--}}

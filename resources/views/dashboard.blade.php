@@ -163,6 +163,40 @@
     </div>
     <aside class="control-sidebar control-sidebar-dark">
     </aside>
+    <div class="modal fade" id="change" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Change Password</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="changePassword" autocomplete="off">
+                        <div class="form-group col-sm-12">
+                            @csrf
+                            <label class="col-form-label">Old Password</label>
+                            <input type="password" name="old_password" id="old_password" class="form-control"
+                                   placeholder="Old Password">
+                            <label class="col-form-label">New Password</label>
+                            <input type="password" name="new_password" id="new_password" class="form-control"
+                                   placeholder="New Password">
+                            <label class="col-form-label">Confirm Password</label>
+                            <input type="password" name="confirm_password" id="confirm_password"
+                                   class="form-control" placeholder="Confirm Password">
+                            <span style="color:red;" id="CheckPasswordMatch"></span>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="updatePassword">Change Password</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @yield('script2')
@@ -206,6 +240,50 @@
                 $(".nav-logo").addClass("nav-logo-width");
             }
         })
+    });
+    $('#change_password').on('click', function () {
+        $('#change').modal('show');
+        $('#changePassword').trigger("reset");
+        $("#CheckPasswordMatch").html("");
+    });
+    $('#confirm_password,#new_password').on('input', function (e) {
+        if ($("#new_password").val() != $("#confirm_password").val()) {
+            $("#CheckPasswordMatch").html("Passwords does not match!");
+        } else {
+            $("#CheckPasswordMatch").html("");
+        }
+    });
+    $('#updatePassword').click(function (event) {
+        event.preventDefault()
+        var myform = document.getElementById("changePassword");
+        var formData = new FormData(myform);
+
+        // $.ajaxSetup({
+        //     headers: {
+        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //     }
+        // });
+        $.ajax({
+            type: "POST",
+            url: "{{route('changePassword')}}",
+            data: formData,
+            success: function (data) {
+                if (data.status == 1) {
+                    $('#change').modal('hide');
+                    swal({
+                        title: "Done!",
+                        text: data.messages,
+                        type: "success"
+                    });
+                    $('#changePassword').trigger("reset");
+                } else {
+                    swal("ERROR!", data.messages, "error");
+                }
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
     });
 </script>
 @yield('scripts')
