@@ -38,6 +38,17 @@
                     </a>
                 </div>
             </div>
+            <div class="col-md-3">
+                <div class="card bg-danger">
+                    <a href="{{route('feedback')}}">
+                        <div class="card-body py-4 px-4">
+                            <span style="font-size: 40px;"><i class="fa-solid fa-comments"></i></span>
+                            <h2 class="fw">{{$data['complaint']?$data['complaint']:0}}</h2>
+                            <p>{{__('Complaint')}}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

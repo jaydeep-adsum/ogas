@@ -50,7 +50,7 @@
                                     <div class="col-md-3">{{ Form::label(__('quantity ').':') }}</div>
                                     <div class="col-md-9">{{ $order->quantity }}</div>
                                     <div class="col-md-3">{{ Form::label(__('driver_tip ').':') }}</div>
-                                    <div class="col-md-9">{{ $order->driver_tip }}</div>
+                                    <div class="col-md-9">{{ $order->driver_tip?$order->driver_tip:0 }}</div>
                                     <div class="col-md-3 border-top">{{ Form::label(__('total ').':') }}</div>
                                     <div class="col-md-9 border-top">{{ $order->total }}</div>
                                 </div>

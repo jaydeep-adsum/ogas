@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ComplaintController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
@@ -32,6 +33,7 @@ Route::namespace('Api')->group(
 
             Route::get('products', [ProductController::class, 'index']);
             Route::post('order', [OrderController::class, 'store']);
+            Route::post('complaint', [ComplaintController::class, 'store']);
         });
     }
 );

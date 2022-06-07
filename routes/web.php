@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -41,6 +42,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('orders', [OrderController::class, 'index'])->name('order');
     Route::delete('orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy');
     Route::get('orders/{id}', [OrderController::class, 'show'])->name('orders.show');
+
+    Route::get('feedback', [ComplaintController::class, 'index'])->name('feedback');
+    Route::delete('feedback/{feedback}', [ComplaintController::class, 'destroy'])->name('feedback.destroy');
 
     Route::get('products', [ProductController::class,'index'])->name('products');
     Route::get('products/create', [ProductController::class, 'create'])->name('products.create');

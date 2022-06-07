@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Complaint;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Product;
@@ -24,6 +25,8 @@ class DashboardController extends Controller
         $data['customer'] = Customer::all()->count();
         $data['product'] = Product::all()->count();
         $data['order'] = Order::all()->count();
+        $data['complaint'] = Complaint::all()->count();
+
         return view('dashboard.index',compact('data'));
     }
 

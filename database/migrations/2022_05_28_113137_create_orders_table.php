@@ -21,8 +21,8 @@ class CreateOrdersTable extends Migration
             $table->enum('time_slot',[0,1,2,3]);
             $table->enum('type',[1,2]);
             $table->integer('total');
-            $table->integer('driver_tip');
-            $table->string('status');
+            $table->integer('driver_tip')->nullable();
+            $table->enum('status',[0,1,2,3,4])->default(0);
             $table->unsignedInteger('product_id');
             $table->unsignedInteger('customer_id');
 //            $table->unsignedInteger('driver_id');

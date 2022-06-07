@@ -44,6 +44,12 @@
                     <p>Orders</p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{route('feedback')}}" class="nav-link {{ Request::is('feedback*')? 'active1':''}}">
+                    <i class="fa-solid fa-comments nav-icon"></i>
+                    <p>{{__('Complaints')}}</p>
+                </a>
+            </li>
         </ul>
     </nav>
 </div>
