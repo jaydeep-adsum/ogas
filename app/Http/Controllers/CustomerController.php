@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Datatable\CustomerDatatable;
+use App\Exports\CustomerExport;
 use App\Models\Customer;
 use App\Repositories\CustomerRepository;
 use DataTables;
@@ -11,6 +12,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends AppBaseController
 {
@@ -45,5 +47,10 @@ class CustomerController extends AppBaseController
         $customer->media()->delete();
 
         return $this->sendSuccess('Customer deleted successfully.');
+    }
+
+    public function export()
+    {
+        return Excel::download(new CustomerExport(), 'customer.xlsx');
     }
 }

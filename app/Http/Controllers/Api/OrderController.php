@@ -126,6 +126,9 @@ class OrderController extends AppBaseController
     {
         try {
             $order = $this->orderRepository->create($request->all());
+            $order->status()->create([
+                'order_id'=>$order->id,
+            ]);
 
             return $this->sendResponse($order, ('Order created successfully'));
         } catch (Exception $ex) {

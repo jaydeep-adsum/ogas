@@ -14,7 +14,7 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->text('location');
             $table->integer('quantity');
             $table->date('date');
@@ -22,7 +22,6 @@ class CreateOrdersTable extends Migration
             $table->enum('type',[1,2]);
             $table->integer('total');
             $table->integer('driver_tip')->nullable();
-            $table->enum('status',[0,1,2,3,4])->default(0);
             $table->unsignedInteger('product_id');
             $table->unsignedInteger('customer_id');
 //            $table->unsignedInteger('driver_id');

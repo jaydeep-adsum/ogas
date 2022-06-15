@@ -15,7 +15,7 @@ class Order extends Model
     /**
      * @var string[]
      */
-    protected $with = ['product','customer'];
+    protected $with = ['product','customer','status'];
 
     /**
      * @var string[]
@@ -30,6 +30,7 @@ class Order extends Model
         'driver_tip',
         'product_id',
         'customer_id',
+        'status_id',
     ];
 
     /**
@@ -44,5 +45,9 @@ class Order extends Model
      */
     public function customer(){
         return $this->belongsTo(Customer::class, 'customer_id');
+    }
+
+    public function status(){
+        return $this->hasMany(Status::class, 'order_id');
     }
 }

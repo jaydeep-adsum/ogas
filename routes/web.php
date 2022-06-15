@@ -35,6 +35,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('changePassword', [DashboardController::class,'changePassword'])->name('changePassword');
 
     Route::get('customer', [CustomerController::class, 'index'])->name('customer');
+    Route::get('customer/export', [CustomerController::class, 'export'])->name('customer.export');
     Route::delete('customer/{customer}', [CustomerController::class, 'destroy'])->name('customer.destroy');
 
     Route::resource('category', CategoryController::class);

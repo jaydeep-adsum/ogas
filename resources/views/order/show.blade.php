@@ -7,6 +7,9 @@
     </a>
 @endsection
 @section('content')
+    <style>
+
+    </style>
     <div class="row">
         <div class="col-md-12">
             <div class="col-md-12">
@@ -16,10 +19,10 @@
                             <div class="card-body">
                                 <h3 class="border-bottom">Order Detail</h3>
                                 <div class="row">
-                                <div class="col-md-3">{{ Form::label(__('product_id ').':') }}</div>
-                                <div class="col-md-9"> {{ $order->product->product_name }}</div>
-                                <div class="col-md-3">{{ Form::label(__('customer_id ').':') }}</div>
-                                <div class="col-md-9"> {{ $order->customer->name }}</div>
+                                    <div class="col-md-3">{{ Form::label(__('product_id ').':') }}</div>
+                                    <div class="col-md-9"> {{ $order->product->product_name }}</div>
+                                    <div class="col-md-3">{{ Form::label(__('customer_id ').':') }}</div>
+                                    <div class="col-md-9"> {{ $order->customer->name }}</div>
                                     <div class="col-md-3">{{ Form::label(__('date ').':') }}</div>
                                     <div class="col-md-9"> {{ $order->date }}</div>
                                     <div class="col-md-3">{{ Form::label(__('time_slot ').':') }}</div>
@@ -56,6 +59,37 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="border-bottom">Delivery Status</h3>
+                    <div class="p-2 mt-5">
+                        <div class="col-md-12">
+                            <div class="row">
+                                @foreach($order->status as $status)
+                                <div class="col-md-2 border-bottom border-danger"><img class="{{($status->status>0)?'float-right':''}}" src="{{asset('public/assets/images/delivery-vehicle.png')}}"></div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                             <div class="col-md-2 border-top"><h5>Ordered</h5></div>
+                                <div class="col-md-2 border-top"><h5 class="float-right">Confirmed</h5></div>
+                                <div class="col-md-2 border-top"><h5 class="float-right">On The Way</h5></div>
+                                <div class="col-md-2 border-top"><h5 class="float-right">Order Processing</h5></div>
+                                <div class="col-md-2 border-top"><h5 class="float-right">Delivered</h5></div>
+                                <div class="col-md-2 border-top"><h5 class="float-right">Canceled</h5></div>
+                            </div>
+                        </div>
+{{--                        @foreach($order->status as $status)--}}
+{{--                            {{$status->status==0?'Ordered':''}}--}}
+{{--                        @endforeach--}}
                     </div>
                 </div>
             </div>
