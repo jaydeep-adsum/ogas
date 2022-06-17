@@ -69,6 +69,9 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="border-bottom">Delivery Status</h3>
+                    @if($cancel==5)
+                        <div class="pt-3 col-md-12 text-danger text-center font-weight-bold"><h5 class="">Order Has Been Canceled.</h5></div>
+                    @else
                     <div class="p-2 mt-5">
                         <div class="col-md-12">
                             <div class="row">
@@ -77,20 +80,18 @@
                                 @endforeach
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="row">
-                             <div class="col-md-2 border-top"><h5>Ordered</h5></div>
-                                <div class="col-md-2 border-top"><h5 class="float-right">Confirmed</h5></div>
-                                <div class="col-md-2 border-top"><h5 class="float-right">On The Way</h5></div>
-                                <div class="col-md-2 border-top"><h5 class="float-right">Order Processing</h5></div>
-                                <div class="col-md-2 border-top"><h5 class="float-right">Delivered</h5></div>
-                                <div class="col-md-2 border-top"><h5 class="float-right">Canceled</h5></div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-2 border-top"><h5>Ordered</h5></div>
+                                    <div class="col-md-2 border-top"><h5 class="float-right">Confirmed</h5></div>
+                                    <div class="col-md-2 border-top"><h5 class="float-right">On The Way</h5></div>
+                                    <div class="col-md-2 border-top"><h5 class="float-right">Order Processing</h5></div>
+                                    <div class="col-md-2 border-top"><h5 class="float-right">Delivered</h5></div>
+                                    <div class="col-md-2 border-top"><h5 class="float-right">Canceled</h5></div>
+                                </div>
                             </div>
-                        </div>
-{{--                        @foreach($order->status as $status)--}}
-{{--                            {{$status->status==0?'Ordered':''}}--}}
-{{--                        @endforeach--}}
                     </div>
+                    @endif
                 </div>
             </div>
         </div>

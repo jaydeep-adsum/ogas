@@ -33,6 +33,9 @@ Route::namespace('Api')->group(
 
             Route::get('products', [ProductController::class, 'index']);
             Route::post('order', [OrderController::class, 'store']);
+            Route::post('store-order-history', [OrderController::class, 'storeOrderHistory']);
+            Route::post('order-history', [OrderController::class, 'orderHistory']);
+
             Route::post('complaint', [ComplaintController::class, 'store']);
         });
     }

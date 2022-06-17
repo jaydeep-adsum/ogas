@@ -45,8 +45,10 @@ class OrderController extends AppBaseController
     public function show($id)
     {
         $order = Order::find($id);
+        $stat = $order->status->toArray();
+        $cancel = end($stat)['status'];
 
-        return view('order.show', compact('order'));
+        return view('order.show', compact('order','cancel'));
     }
 
     /**
