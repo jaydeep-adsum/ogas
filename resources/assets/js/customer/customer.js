@@ -18,13 +18,7 @@ $(document).ready(function () {
         ],
         columns: [
             {
-                data: function data(row) {
-                    return `<div class="d-flex align-items-center">
-                            <div class="mr-2">
-                        <div class=""><img src="${row.image_url}" alt="" class="user-img rounded-circle" height="30px" width="30px"></div></div>
-                        <div class="d-flex flex-column">${row.name}
-                        </div></div>`;
-                },
+                data: 'name',
                 name: 'name'
             },
             {

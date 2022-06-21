@@ -19,9 +19,7 @@ $(document).ready(function () {
       'width': '8%'
     }],
     columns: [{
-      data: function data(row) {
-        return "<div class=\"d-flex align-items-center\">\n                            <div class=\"mr-2\">\n                        <div class=\"\"><img src=\"".concat(row.image_url, "\" alt=\"\" class=\"user-img rounded-circle\" height=\"30px\" width=\"30px\"></div></div>\n                        <div class=\"d-flex flex-column\">").concat(row.name, "\n                        </div></div>");
-      },
+      data: 'name',
       name: 'name'
     }, {
       data: 'mobile',

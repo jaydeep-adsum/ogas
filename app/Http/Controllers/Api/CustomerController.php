@@ -242,10 +242,6 @@ class CustomerController extends AppBaseController
      *     property="address",
      *     type="string"
      *     ),
-     * @OA\Property(
-     *     property="image",
-     *     type="file"
-     *     ),
      *    )
      *   ),
      *  ),
@@ -293,11 +289,6 @@ class CustomerController extends AppBaseController
                 $customer->address = $request->address;
             }
             $customer->save();
-
-            if ($request->hasFile('image') && $request->file('image')->isValid()) {
-                $customer->clearMediaCollection(Customer::PATH);
-                $customer->addMedia($request->image)->toMediaCollection(Customer::PATH);
-            }
 
             return $this->sendResponse($customer->toArray(), ('Your profile updated successfully'));
         } catch (\Exception $ex) {
