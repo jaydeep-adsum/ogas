@@ -44,7 +44,6 @@ class CustomerController extends AppBaseController
     public function destroy(Customer $customer)
     {
         $customer->delete();
-        $customer->media()->delete();
 
         return $this->sendSuccess('Customer deleted successfully.');
     }

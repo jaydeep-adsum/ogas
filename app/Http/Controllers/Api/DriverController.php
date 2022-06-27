@@ -4,39 +4,38 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\AppBaseController;
 use App\Models\Authenticator;
-use App\Models\Customer;
-use App\Repositories\CustomerRepository;
+use App\Models\Driver;
+use App\Repositories\DriverRepository;
 use Auth;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Validator;
 
-class CustomerController extends AppBaseController
+class DriverController extends AppBaseController
 {
+    private DriverRepository $driverRepository;
     private Authenticator $authenticator;
-    private CustomerRepository $customerRepository;
 
     /**
-     * CustomerController constructor.
-     * @param CustomerRepository $customerRepository
+     * @param DriverRepository $driverRepository
      * @param Authenticator $authenticator
      */
-    public function __construct(CustomerRepository $customerRepository, Authenticator $authenticator)
-    {
-        $this->customerRepository = $customerRepository;
-        $this->authenticator = $authenticator;
+    public function __construct(DriverRepository $driverRepository, Authenticator $authenticator){
+        $this->driverRepository =$driverRepository;
+        $this->authenticator =$authenticator;
     }
 
     /**
      * Swagger defination Signup
      *
      * @OA\Post(
-     *     tags={"Authentication"},
-     *     path="/signup",
-     *     description="Sign Un Customer",
-     *     summary="Sign Un Customer",
-     *     operationId="signup",
+     *     tags={"Driver Authentication"},
+     *     path="/driver-signup",
+     *     description="Sign Un Driver",
+     *     summary="Sign Un Driver",
+     *     operationId="driverSignup",
      * @OA\Parameter(
      *     name="Content-Language",
      *     in="header",
@@ -54,6 +53,18 @@ class CustomerController extends AppBaseController
      *     ),
      * @OA\Property(
      *     property="name",
+     *     type="string"
+     *     ),
+     * @OA\Property(
+     *     property="email",
+     *     type="string"
+     *     ),
+     * @OA\Property(
+     *     property="licence_no",
+     *     type="string"
+     *     ),
+     * @OA\Property(
+     *     property="vehicle_no",
      *     type="string"
      *     ),
      *    )
@@ -85,8 +96,11 @@ class CustomerController extends AppBaseController
     {
         try {
             $validator = Validator::make($request->all(), [
-                'mobile' => 'required|numeric|unique:customers|digits:10',
+                'mobile' => 'required|numeric|unique:drivers|digits:10',
                 'name' => 'required',
+                'email' => 'required|email',
+                'licence_no' => 'required',
+                'vehicle_no' => 'required',
             ]);
 
             $error = (object)[];
@@ -95,21 +109,21 @@ class CustomerController extends AppBaseController
                 return response()->json(['status' => "false", 'data' => $error, 'message' => implode(', ', $validator->errors()->all())]);
             }
             $input = $request->all();
-            $customer = Customer::create($input);
+            $driver = Driver::create($input);
 
-            if ($customer) {
-                $credentials['mobile'] = $customer->mobile;
-                $credentials['name'] = $customer->name;
-                if ($customer = $this->authenticator->attemptSignUp($credentials)) {
-                    $update = Customer::where('id', $customer->id)->update(['device_token' => $request->device_token, 'device_type' => $request->device_type]);
-                    $tokenResult = $customer->createToken('ogas');
+            if ($driver) {
+                $credentials['mobile'] = $driver->mobile;
+                $credentials['name'] = $driver->name;
+                if ($driver = $this->authenticator->attemptDriverSignUp($credentials)) {
+                    $update = Driver::where('id', $driver->id)->update(['device_token' => $request->device_token, 'device_type' => $request->device_type]);
+                    $tokenResult = $driver->createToken('ogas');
                     $token = $tokenResult->token;
                     $token->save();
                     $success['token'] = 'Bearer ' . $tokenResult->accessToken;
                     $success['expires_at'] = Carbon::parse(
                         $tokenResult->token->expires_at
                     )->toDateTimeString();
-                    $success['user'] = $customer;
+                    $success['user'] = $driver;
 
                     return $this->sendResponse(
                         $success, 'You Have Successfully Logged in to ogas.'
@@ -127,10 +141,10 @@ class CustomerController extends AppBaseController
      * Swagger defination Login
      *
      * @OA\Post(
-     *     tags={"Authentication"},
-     *     path="/login",
-     *     description="Log In Customer",
-     *     summary="Log In Customer",
+     *     tags={"Driver Authentication"},
+     *     path="/driver-login",
+     *     description="Log In Driver",
+     *     summary="Log In Driver",
      *     operationId="login",
      * @OA\Parameter(
      *     name="Content-Language",
@@ -186,17 +200,17 @@ class CustomerController extends AppBaseController
             }
             $credentials['mobile'] = $request->mobile;
 
-            if ($customer = $this->authenticator->attemptLogin($credentials)) {
-                $update = Customer::where('id', $customer->id)->update(['device_token' => $request->device_token, 'device_type' => $request->device_type]);
-                $customer = Customer::find($customer->id);
-                $tokenResult = $customer->createToken('ogas');
+            if ($driver = $this->authenticator->attemptDriverLogin($credentials)) {
+                $update = Driver::where('id', $driver->id)->update(['device_token' => $request->device_token, 'device_type' => $request->device_type]);
+                $driver = Driver::find($driver->id);
+                $tokenResult = $driver->createToken('ogas');
                 $token = $tokenResult->token;
                 $token->save();
                 $success['token'] = 'Bearer ' . $tokenResult->accessToken;
                 $success['expires_at'] = Carbon::parse(
                     $tokenResult->token->expires_at
                 )->toDateTimeString();
-                $success['user'] = $customer;
+                $success['user'] = $driver;
 
                 return $this->sendResponse(
                     $success, 'You Have Successfully Logged in to ogas.'
@@ -210,14 +224,14 @@ class CustomerController extends AppBaseController
     }
 
     /**
-     * Swagger defination Customer profile edit
+     * Swagger defination Driver profile edit
      *
      * @OA\Post(
-     *     tags={"Customer"},
-     *     path="/edit",
+     *     tags={"Driver"},
+     *     path="/driver-edit",
      *     description="Edit Profile",
      *     summary="Edit Profile",
-     *     operationId="edit",
+     *     operationId="driverEdit",
      * @OA\Parameter(
      *     name="Content-Language",
      *     in="header",
@@ -230,7 +244,7 @@ class CustomerController extends AppBaseController
      *     mediaType="multipart/form-data",
      * @OA\JsonContent(
      * @OA\Property(
-     *     property="customer_id",
+     *     property="driver_id",
      *     type="number"
      *     ),
      * @OA\Property(
@@ -242,7 +256,15 @@ class CustomerController extends AppBaseController
      *     type="string"
      *     ),
      * @OA\Property(
-     *     property="address",
+     *     property="email",
+     *     type="string"
+     *     ),
+     * @OA\Property(
+     *     property="licence_no",
+     *     type="string"
+     *     ),
+     * @OA\Property(
+     *     property="vehicle_no",
      *     type="string"
      *     ),
      *    )
@@ -273,27 +295,37 @@ class CustomerController extends AppBaseController
      * }
      * )
      */
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function edit(Request $request){
         try {
-            if (Auth::user()->id != $request->customer_id) {
+            if (Auth::user()->id != $request->driver_id) {
                 return $this->sendError('Unauthorized');
             }
-            $customer = Customer::find($request->customer_id);
-            if (!$customer) {
+            $driver = Driver::find($request->driver_id);
+            if (!$driver) {
                 return $this->sendError('User does not exist');
             }
             if (isset($request->name) && $request->name!='') {
-                $customer->name = $request->name;
+                $driver->name = $request->name;
             }
             if (isset($request->mobile) && $request->mobile!='') {
-                $customer->mobile = $request->mobile;
+                $driver->mobile = $request->mobile;
             }
-            if (isset($request->address) && $request->address!='') {
-                $customer->address = $request->address;
+            if (isset($request->email) && $request->email!='') {
+                $driver->email = $request->email;
             }
-            $customer->save();
+            if (isset($request->licence_no) && $request->licence_no!='') {
+                $driver->licence_no = $request->licence_no;
+            }
+            if (isset($request->vehicle_no) && $request->vehicle_no!='') {
+                $driver->vehicle_no = $request->vehicle_no;
+            }
+            $driver->save();
 
-            return $this->sendResponse($customer->toArray(), ('Your profile updated successfully'));
+            return $this->sendResponse($driver->toArray(), ('Your profile updated successfully'));
         } catch (\Exception $ex) {
             return $this->sendResponse($ex);
         }

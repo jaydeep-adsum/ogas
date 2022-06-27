@@ -8,17 +8,18 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
-class Customer extends Authenticatable
+class Driver extends Authenticatable
 {
     use Notifiable,HasApiTokens;
-    const PATH = 'customer';
 
-    public $table = 'customers';
+    public $table = 'drivers';
 
     public $fillable = [
         'name',
         'mobile',
-        'address',
+        'email',
+        'licence_no',
+        'vehicle_no',
         'device_token',
         'device_type',
     ];

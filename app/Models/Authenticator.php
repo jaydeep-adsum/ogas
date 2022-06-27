@@ -73,4 +73,39 @@ class Authenticator
          $user->save();
          return $user;
      }
+
+    /**
+     * @param array $credentials
+     * @return Authenticatable|null
+     */
+    public function attemptDriverSignUp(
+        array $credentials
+    ): ?Authenticatable {
+        if (! $model = config('auth.providers.'.'drivers'.'.model')) {
+            throw new RuntimeException('Unable to determine authentication model from configuration.');
+        }
+        /** @var Authenticatable $user */
+        if (!$user = (new $model)->Where([['mobile', $credentials['mobile']], ['name', $credentials['name']]])->first())
+        {
+            return null;
+        }
+
+        $user->save();
+        return $user;
+    }
+
+    public function attemptDriverLogin(
+        array $credentials
+    ): ?Authenticatable {
+        if (! $model = config('auth.providers.'.'drivers'.'.model')) {
+            throw new RuntimeException('Unable to determine authentication model from configuration.');
+        }
+        /** @var Authenticatable $user */
+        if (!$user = (new $model)->Where([['mobile', $credentials['mobile']]])->first())
+        {
+            return null;
+        }
+        $user->save();
+        return $user;
+    }
 }

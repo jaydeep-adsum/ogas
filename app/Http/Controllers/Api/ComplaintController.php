@@ -26,6 +26,56 @@ class ComplaintController extends AppBaseController
     }
 
     /**
+     * Swagger definition for Products
+     *
+     * @OA\Get(
+     *     tags={"Complaint"},
+     *     path="/all-complaints",
+     *     description="Complaints",
+     *     summary="Complaints",
+     *     operationId="complaints",
+     * @OA\Parameter(
+     *     name="Content-Language",
+     *     in="header",
+     *     description="Content-Language",
+     *     required=false,@OA\Schema(type="string")
+     *     ),
+     * @OA\Response(
+     *     response=200,
+     *     description="Succuess response"
+     *     ,@OA\JsonContent(ref="#/components/schemas/SuccessResponse")
+     *     ),
+     * @OA\Response(
+     *     response="400",
+     *     description="Validation error"
+     *     ,@OA\JsonContent(ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response="401",
+     *     description="Not Authorized Invalid or missing Authorization header"
+     *     ,@OA\JsonContent
+     *     (ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response=500,
+     *     description="Unexpected error"
+     *     ,@OA\JsonContent(ref="#/components/schemas/ErrorResponse")
+     *  ),
+     * security={
+     *     {"API-Key": {}}
+     * }
+     * )
+     */
+    public function index(){
+        try {
+            $complaint = $this->complaintRepository->paginate(10);
+
+            return $this->sendResponse($complaint, ('Complaint retrieved successfully'));
+        } catch (Exception $ex) {
+            return $this->sendError($ex);
+        }
+    }
+    /**
      * Swagger defination Complaint
      *
      * @OA\Post(
