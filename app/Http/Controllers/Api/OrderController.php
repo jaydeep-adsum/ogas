@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\AppBaseController;
+use App\Models\Order;
 use App\Models\Status;
 use App\Repositories\OrderRepository;
+use Auth;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -25,6 +27,83 @@ class OrderController extends AppBaseController
         $this->orderRepository = $orderRepository;
     }
 
+    /**
+     * Swagger defination Get Order
+     *
+     * @OA\Post(
+     *     tags={"Order"},
+     *     path="/get-order",
+     *     description="
+     *  Get Order
+     *   Status :
+     *     0: Ordered
+     *     1: Confirmed
+     *     2: On The Way
+     *     3: Order Processing
+     *     4: Delivered
+     *     5: Canceled",
+     *     summary="Get Order",
+     *     operationId="getOrder",
+     * @OA\Parameter(
+     *     name="Content-Language",
+     *     in="header",
+     *     description="Content-Language",
+     *     required=false,@OA\Schema(type="string")
+     *     ),
+     * @OA\RequestBody(
+     *     required=true,
+     * @OA\MediaType(
+     *     mediaType="multipart/form-data",
+     * @OA\JsonContent(
+     * @OA\Property(
+     *     property="status",
+     *     type="string"
+     *     ),
+     *    )
+     *   ),
+     *  ),
+     * @OA\Response(
+     *     response=200,
+     *     description="User response",@OA\JsonContent
+     *     (ref="#/components/schemas/SuccessResponse")
+     * ),
+     * @OA\Response(
+     *     response="400",
+     *     description="Validation error",@OA\JsonContent
+     *     (ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response="403",
+     *     description="Not Authorized Invalid or missing Authorization header",@OA\
+     *     JsonContent(ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response=500,
+     *     description="Unexpected error",@OA\JsonContent
+     *     (ref="#/components/schemas/ErrorResponse")
+     * ),
+     * security={
+     *     {"API-Key": {}}
+     * }
+     * )
+     */
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function index(Request $request)
+    {
+        try {
+            $order = Order::where('customer_id', Auth::id())->whereHas('status', function ($q) use ($request) {
+                $q->where('status', $request->status);
+            })->get();
+
+            return $this->sendResponse($order, ('Order retrieved successfully'));
+        } catch (Exception $ex) {
+            return $this->sendError($ex);
+        }
+    }
+    
     /**
      * Swagger defination create order
      *
@@ -128,7 +207,7 @@ class OrderController extends AppBaseController
         try {
             $order = $this->orderRepository->create($request->all());
             $order->status()->create([
-                'order_id'=>$order->id,
+                'order_id' => $order->id,
             ]);
 
             return $this->sendResponse($order, ('Order created successfully'));
@@ -188,16 +267,17 @@ class OrderController extends AppBaseController
      * }
      * )
      */
-    public function storeOrderHistory(Request $request){
+    public function storeOrderHistory(Request $request)
+    {
         try {
             $order = $this->orderRepository->find($request->order_id);
             $stat = $order->status->toArray();
 
-            $status= end($stat)['status']+1;
+            $status = end($stat)['status'] + 1;
 
             Status::create([
-                'order_id'=>$order->id,
-                'status'=>(string)$status,
+                'order_id' => $order->id,
+                'status' => (string)$status,
             ]);
 
             return $this->sendResponse($order, ('Order status changed'));
@@ -257,7 +337,8 @@ class OrderController extends AppBaseController
      * }
      * )
      */
-    public function OrderHistory(Request $request){
+    public function OrderHistory(Request $request)
+    {
         try {
             $order = $this->orderRepository->find($request->order_id);
 

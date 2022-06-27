@@ -37,6 +37,7 @@ Route::namespace('Api')->group(
             Route::post('driver-edit', [DriverController::class, 'edit']);
 
             Route::get('products', [ProductController::class, 'index']);
+            Route::post('get-order', [OrderController::class, 'index']);
             Route::post('order', [OrderController::class, 'store']);
             Route::post('store-order-history', [OrderController::class, 'storeOrderHistory']);
             Route::post('order-history', [OrderController::class, 'orderHistory']);
