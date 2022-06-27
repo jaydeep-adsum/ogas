@@ -27,6 +27,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{route('driver')}}" class="nav-link {{ Request::is('driver*')? 'active1':''}}">
+                    <i class="fa-solid fa-user-group nav-icon"></i>
+                    <p>Drivers</p>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{route('category.index')}}" class="nav-link {{ Request::is('category*')? 'active1':''}}">
                     <i class="fa-solid fa-list nav-icon"></i>
                     <p>Category</p>

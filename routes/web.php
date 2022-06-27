@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DriverController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('customer', [CustomerController::class, 'index'])->name('customer');
     Route::get('customer/export', [CustomerController::class, 'export'])->name('customer.export');
     Route::delete('customer/{customer}', [CustomerController::class, 'destroy'])->name('customer.destroy');
+
+    Route::get('driver', [DriverController::class, 'index'])->name('driver');
+    Route::delete('driver/{driver}', [DriverController::class, 'destroy'])->name('driver.destroy');
 
     Route::resource('category', CategoryController::class);
 
