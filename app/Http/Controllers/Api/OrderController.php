@@ -103,7 +103,7 @@ class OrderController extends AppBaseController
             return $this->sendError($ex);
         }
     }
-    
+
     /**
      * Swagger defination create order
      *
@@ -119,8 +119,8 @@ class OrderController extends AppBaseController
      *     3: 12pm - 03PM
      *     4: 03PM - 06pm
      *   Type:
-     *     1: Refill
-     *     2: New",
+     *     1: Refill  0,1
+     *     2: New  0,1",
      *     summary="Create Order",
      *     operationId="order",
      * @OA\Parameter(
@@ -139,7 +139,11 @@ class OrderController extends AppBaseController
      *     type="string"
      *     ),
      * @OA\Property(
-     *     property="quantity",
+     *     property="refill_quantity",
+     *     type="number"
+     *     ),
+     * @OA\Property(
+     *     property="new_quantity",
      *     type="number"
      *     ),
      * @OA\Property(
@@ -151,7 +155,19 @@ class OrderController extends AppBaseController
      *     type="number"
      *     ),
      * @OA\Property(
-     *     property="type",
+     *     property="refill",
+     *     type="number"
+     *     ),
+     * @OA\Property(
+     *     property="new",
+     *     type="number"
+     *     ),
+     * @OA\Property(
+     *     property="refill_price",
+     *     type="number"
+     *     ),
+     * @OA\Property(
+     *     property="new_price",
      *     type="number"
      *     ),
      * @OA\Property(

@@ -16,10 +16,14 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->text('location');
-            $table->integer('quantity');
+            $table->integer('refill_quantity')->nullable();
+            $table->integer('new_quantity')->nullable();
             $table->date('date');
             $table->enum('time_slot',[0,1,2,3]);
-            $table->enum('type',[1,2]);
+            $table->enum('refill',[0,1])->default(0);
+            $table->enum('new',[0,1])->default(0);
+            $table->integer('refill_price')->nullable();
+            $table->integer('new_price')->nullable();
             $table->integer('total');
             $table->integer('driver_tip')->nullable();
             $table->unsignedInteger('product_id');

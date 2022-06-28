@@ -22,10 +22,14 @@ class Order extends Model
      */
     public $fillable = [
         'location',
-        'quantity',
+        'refill_quantity',
+        'new_quantity',
         'date',
         'time_slot',
-        'type',
+        'refill',
+        'new',
+        'refill_price',
+        'new_price',
         'total',
         'driver_tip',
         'product_id',
