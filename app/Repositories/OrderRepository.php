@@ -10,19 +10,14 @@ class OrderRepository extends BaseRepository
 {
     protected $fieldsSearchable = [
         'location',
-        'refill_quantity',
-        'new_quantity',
+        'quantity',
         'date',
         'time_slot',
-        'refill',
-        'new',
-        'refill_price',
-        'new_price',
+        'type',
         'total',
         'driver_tip',
         'product_id',
         'customer_id',
-        'status_id',
     ];
 
     public function getFieldsSearchable()
