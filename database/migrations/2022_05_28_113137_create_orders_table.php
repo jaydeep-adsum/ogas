@@ -16,18 +16,24 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->text('location');
-            $table->integer('quantity');
+            $table->integer('quantity1');
+            $table->integer('quantity2');
             $table->date('date');
             $table->enum('time_slot',[0,1,2,3]);
-            $table->enum('type',[1,2]);
+            $table->enum('type1',[1,2]);
+            $table->enum('type2',[1,2]);
             $table->integer('total');
             $table->integer('driver_tip')->nullable();
-            $table->unsignedInteger('product_id');
+            $table->unsignedInteger('product1_id');
+            $table->unsignedInteger('product2_id');
             $table->unsignedInteger('customer_id');
 //            $table->unsignedInteger('driver_id');
             $table->timestamps();
 
-            $table->foreign('product_id')->references('id')->on('products')
+            $table->foreign('product1_id')->references('id')->on('products')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('product2_id')->references('id')->on('products')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->foreign('customer_id')->references('id')->on('customers')

@@ -22,11 +22,13 @@ $(document).ready(function () {
       data: 'id',
       name: 'id'
     }, {
+      data: function data(row) {
+        return row.customer.name;
+      },
+      name: 'customer_id'
+    }, {
       data: 'location',
       name: 'location'
-    }, {
-      data: 'quantity',
-      name: 'quantity'
     }, {
       data: function data(row) {
         return moment(row.date, 'YYYY-MM-DD hh:mm:ss').format('Do MMM, YYYY');

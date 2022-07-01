@@ -47,13 +47,19 @@
             <li class="nav-item">
                 <a href="{{route('order')}}" class="nav-link {{ Request::is('order*')? 'active1':''}}">
                     <i class="fa-solid fa-clipboard-check nav-icon"></i>
-                    <p>Orders</p>
+                    <p>{{__('Orders')}}</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{route('feedback')}}" class="nav-link {{ Request::is('feedback*')? 'active1':''}}">
                     <i class="fa-solid fa-comments nav-icon"></i>
                     <p>{{__('Complaints')}}</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{route('faq.index')}}" class="nav-link {{ Request::is('faq*')? 'active1':''}}">
+                    <i class="fa-solid fa-circle-question nav-icon"></i>
+                    <p>{{__('Faq')}}</p>
                 </a>
             </li>
         </ul>

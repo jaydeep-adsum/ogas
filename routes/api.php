@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\ComplaintController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\DriverController;
+use App\Http\Controllers\Api\FaqController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
@@ -44,6 +45,8 @@ Route::namespace('Api')->group(
 
             Route::get('all-complaints', [ComplaintController::class, 'index']);
             Route::post('complaint', [ComplaintController::class, 'store']);
+
+            Route::get('faq', [FaqController::class, 'index']);
         });
     }
 );

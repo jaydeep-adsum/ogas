@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Datatable\OrderDatatable;
 use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Repositories\OrderRepository;
 use DataTables;
 use Illuminate\Contracts\Foundation\Application;

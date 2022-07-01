@@ -15,29 +15,39 @@ class Order extends Model
     /**
      * @var string[]
      */
-    protected $with = ['product','customer','status'];
+    protected $with = ['product1','product2','customer','status'];
 
     /**
      * @var string[]
      */
     public $fillable = [
         'location',
-        'quantity',
+        'quantity1',
+        'quantity2',
         'date',
         'time_slot',
-        'type',
+        'type1',
+        'type2',
         'total',
         'driver_tip',
-        'product_id',
         'customer_id',
+        'product1_id',
+        'product2_id',
         'status_id',
     ];
 
     /**
      * @return BelongsTo
      */
-    public function product(){
-        return $this->belongsTo(Product::class, 'product_id');
+    public function product1(){
+        return $this->belongsTo(Product::class, 'product1_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function product2(){
+        return $this->belongsTo(Product::class, 'product2_id');
     }
 
     /**

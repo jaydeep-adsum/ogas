@@ -103,7 +103,7 @@ class OrderController extends AppBaseController
             return $this->sendError($ex);
         }
     }
-    
+
     /**
      * Swagger defination create order
      *
@@ -139,7 +139,11 @@ class OrderController extends AppBaseController
      *     type="string"
      *     ),
      * @OA\Property(
-     *     property="quantity",
+     *     property="quantity1",
+     *     type="number"
+     *     ),
+     * @OA\Property(
+     *     property="quantity2",
      *     type="number"
      *     ),
      * @OA\Property(
@@ -151,7 +155,11 @@ class OrderController extends AppBaseController
      *     type="number"
      *     ),
      * @OA\Property(
-     *     property="type",
+     *     property="type1",
+     *     type="number"
+     *     ),
+     * @OA\Property(
+     *     property="type2",
      *     type="number"
      *     ),
      * @OA\Property(
@@ -163,7 +171,11 @@ class OrderController extends AppBaseController
      *     type="number"
      *     ),
      * @OA\Property(
-     *     property="product_id",
+     *     property="product1_id",
+     *     type="number"
+     *     ),
+     * @OA\Property(
+     *     property="product2_id",
      *     type="number"
      *     ),
      * @OA\Property(

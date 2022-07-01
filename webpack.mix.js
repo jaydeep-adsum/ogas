@@ -40,5 +40,7 @@ mix.js('resources/assets/js/custom/custom.js',
         'public/assets/js/order/order.js')
     .js('resources/assets/js/complaint/complaint.js',
         'public/assets/js/complaint/complaint.js')
+    .js('resources/assets/js/faq/faq.js',
+        'public/assets/js/faq/faq.js')
     .js('resources/assets/js/custom/phone-number-country-code.js',
         'public/assets/js/custom/phone-number-country-code.js').version();

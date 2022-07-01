@@ -4,7 +4,6 @@ $(document).ready(function () {
         processing: true,
         serverSide: true,
         searchDelay: 500,
-
         ajax: {
             url: orderUrl
         },
@@ -22,12 +21,14 @@ $(document).ready(function () {
                 name: 'id'
             },
             {
-                data: 'location',
-                name: 'location'
+                data: function data(row){
+                    return row.customer.name
+                },
+                name: 'customer_id'
             },
             {
-                data: 'quantity',
-                name: 'quantity'
+                data: 'location',
+                name: 'location'
             },
             {
                 data: function data(row) {
