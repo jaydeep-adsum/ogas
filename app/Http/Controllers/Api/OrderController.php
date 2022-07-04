@@ -94,11 +94,15 @@ class OrderController extends AppBaseController
     public function index(Request $request)
     {
         try {
-            $order = Order::where('customer_id', Auth::id())->whereHas('status', function ($q) use ($request) {
-                $q->where('status', $request->status);
-            })->get();
+            $order = Order::where('customer_id', Auth::id());
+            if ($request->status!=null){
+                $order->whereHas('status', function ($q) use ($request) {
+                    $q->where('status', $request->status);
+                });
+            }
+            $orders= $order->get();
 
-            return $this->sendResponse($order, ('Order retrieved successfully'));
+            return $this->sendResponse($orders, ('Order retrieved successfully'));
         } catch (Exception $ex) {
             return $this->sendError($ex);
         }
@@ -136,6 +140,14 @@ class OrderController extends AppBaseController
      * @OA\JsonContent(
      * @OA\Property(
      *     property="location",
+     *     type="string"
+     *     ),
+     * @OA\Property(
+     *     property="latitude",
+     *     type="string"
+     *     ),
+     * @OA\Property(
+     *     property="longitude",
      *     type="string"
      *     ),
      * @OA\Property(

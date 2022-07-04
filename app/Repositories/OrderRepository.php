@@ -26,6 +26,8 @@ class OrderRepository extends BaseRepository
         'product1_id',
         'product2_id',
         'status_id',
+        'latitude',
+        'longitude',
     ];
 
     /**

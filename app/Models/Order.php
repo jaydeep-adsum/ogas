@@ -34,6 +34,8 @@ class Order extends Model
         'product1_id',
         'product2_id',
         'status_id',
+        'latitude',
+        'longitude',
     ];
 
     /**
