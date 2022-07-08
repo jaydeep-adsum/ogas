@@ -47,6 +47,9 @@ Route::namespace('Api')->group(
             Route::post('complaint', [ComplaintController::class, 'store']);
 
             Route::get('faq', [FaqController::class, 'index']);
+
+            Route::post('orders', [OrderController::class, 'index']);
+            Route::post('accept-order', [OrderController::class, 'acceptOrder']);
         });
     }
 );

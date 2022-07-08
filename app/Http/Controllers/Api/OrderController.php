@@ -371,4 +371,139 @@ class OrderController extends AppBaseController
             return $this->sendError($ex);
         }
     }
+
+    /**
+     * Swagger defination Get Order
+     *
+     * @OA\Post(
+     *     tags={"Driver Order"},
+     *     path="/orders",
+     *     description="Get Orders",
+     *     summary="Get Orders",
+     *     operationId="orders",
+     * @OA\Parameter(
+     *     name="Content-Language",
+     *     in="header",
+     *     description="Content-Language",
+     *     required=false,@OA\Schema(type="string")
+     *     ),
+     * @OA\RequestBody(
+     *     required=true,
+     * @OA\MediaType(
+     *     mediaType="multipart/form-data",
+     * @OA\JsonContent(
+     *    )
+     *   ),
+     *  ),
+     * @OA\Response(
+     *     response=200,
+     *     description="User response",@OA\JsonContent
+     *     (ref="#/components/schemas/SuccessResponse")
+     * ),
+     * @OA\Response(
+     *     response="400",
+     *     description="Validation error",@OA\JsonContent
+     *     (ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response="403",
+     *     description="Not Authorized Invalid or missing Authorization header",@OA\
+     *     JsonContent(ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response=500,
+     *     description="Unexpected error",@OA\JsonContent
+     *     (ref="#/components/schemas/ErrorResponse")
+     * ),
+     * security={
+     *     {"API-Key": {}}
+     * }
+     * )
+     */
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function driverOrder(Request $request)
+    {
+        try {
+            $orders = Order::all();
+
+            return $this->sendResponse($orders, ('Order retrieved successfully'));
+        } catch (Exception $ex) {
+            return $this->sendError($ex);
+        }
+    }
+
+    /**
+     * Swagger defination get Accept order
+     *
+     * @OA\Post(
+     *     tags={"Driver accept order"},
+     *     path="/accept-order",
+     *     summary="Accept Order",
+     *     operationId="acceptOrder",
+     * @OA\Parameter(
+     *     name="Content-Language",
+     *     in="header",
+     *     description="Content-Language",
+     *     required=false,@OA\Schema(type="string")
+     *     ),
+     * @OA\RequestBody(
+     *     required=true,
+     * @OA\MediaType(
+     *     mediaType="multipart/form-data",
+     * @OA\JsonContent(
+     * @OA\Property(
+     *     property="order_id",
+     *     type="number"
+     *     ),
+     *    )
+     *   ),
+     *  ),
+     * @OA\Response(
+     *     response=200,
+     *     description="User response",@OA\JsonContent
+     *     (ref="#/components/schemas/SuccessResponse")
+     * ),
+     * @OA\Response(
+     *     response="400",
+     *     description="Validation error",@OA\JsonContent
+     *     (ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response="403",
+     *     description="Not Authorized Invalid or missing Authorization header",@OA\
+     *     JsonContent(ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response=500,
+     *     description="Unexpected error",@OA\JsonContent
+     *     (ref="#/components/schemas/ErrorResponse")
+     * ),
+     * security={
+     *     {"API-Key": {}}
+     * }
+     * )
+     */
+    public function acceptOrder(Request $request)
+    {
+        try {
+            $order = $this->orderRepository->find($request->order_id);
+            if (!$order){
+                return response()->json(['status' => 'false', 'messages' => array('Order Not Found')]);
+            }
+            $order->driver_id = Auth::id();
+            $order->save();
+
+            Status::create([
+                'order_id' => $order->id,
+                'status' => '1',
+            ]);
+
+            return $this->sendResponse($order, ('Order Accepted'));
+        } catch (Exception $ex) {
+            return $this->sendError($ex);
+        }
+    }
 }

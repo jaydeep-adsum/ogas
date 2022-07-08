@@ -65,6 +65,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                        @if(isset($order->product2))
                                         <div class="d-flex">
                                             <div class="col-md-4">{{ Form::label(__('product ').':') }}</div>
                                             <div class="col-md-8"> {{ $order->product2->product_name }}</div>
@@ -81,6 +82,7 @@
                                             <div class="col-md-4 border-top">{{ Form::label(__('total ').':') }}</div>
                                             <div class="col-md-8 border-top">{{ $order->total }}</div>
                                         </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
