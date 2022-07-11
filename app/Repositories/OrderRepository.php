@@ -49,7 +49,6 @@ class OrderRepository extends BaseRepository
      * @return Model
      */
     public function store($input){
-        print_r($input);exit;
         $order = $this->create([
           "location" => $input['location'],
           "latitude" => $input['latitude'],
