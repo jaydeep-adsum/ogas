@@ -59,10 +59,13 @@ class OrderRepository extends BaseRepository
           "driver_tip" => $input['driver_tip'],
           "customer_id" => $input['customer_id'],
         ]);
+        $quantity = explode(',',$input['quantity']);
+        $type = explode(',',$input['type']);
         foreach (explode(',',$input['product_id']) as $key=>$product_id){
+
               orderHistory::create([
-                'quantity'=>$input['quantity'][$key],
-                'type'=>$input['type'][$key],
+                'quantity'=>$quantity[$key],
+                'type'=>$type[$key],
                 'product_id'=>$product_id,
                 'order_id'=>$order->id
             ]);
