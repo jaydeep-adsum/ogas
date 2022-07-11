@@ -96,9 +96,7 @@ class OrderController extends AppBaseController
         try {
             $order = Order::where('customer_id', Auth::id());
             if ($request->status!=null){
-                $order->whereHas('status', function ($q) use ($request) {
-                    $q->where('status', $request->status);
-                });
+                $order->where('status', $request->status);
             }
             $orders= $order->get();
 
@@ -122,6 +120,7 @@ class OrderController extends AppBaseController
      *     2: 09AM - 12PM
      *     3: 12pm - 03PM
      *     4: 03PM - 06pm
+     *   Pass quantity,type and product_id comma seprated.
      *   Type:
      *     1: Refill
      *     2: New",
@@ -151,12 +150,8 @@ class OrderController extends AppBaseController
      *     type="string"
      *     ),
      * @OA\Property(
-     *     property="quantity1",
-     *     type="number"
-     *     ),
-     * @OA\Property(
-     *     property="quantity2",
-     *     type="number"
+     *     property="quantity",
+     *     type="string",
      *     ),
      * @OA\Property(
      *     property="date",
@@ -167,12 +162,8 @@ class OrderController extends AppBaseController
      *     type="number"
      *     ),
      * @OA\Property(
-     *     property="type1",
-     *     type="number"
-     *     ),
-     * @OA\Property(
-     *     property="type2",
-     *     type="number"
+     *     property="type",
+     *     type="string",
      *     ),
      * @OA\Property(
      *     property="total",
@@ -183,12 +174,8 @@ class OrderController extends AppBaseController
      *     type="number"
      *     ),
      * @OA\Property(
-     *     property="product1_id",
-     *     type="number"
-     *     ),
-     * @OA\Property(
-     *     property="product2_id",
-     *     type="number"
+     *     property="product_id",
+     *     type="string",
      *     ),
      * @OA\Property(
      *     property="customer_id",
@@ -229,10 +216,7 @@ class OrderController extends AppBaseController
     public function store(Request $request)
     {
         try {
-            $order = $this->orderRepository->create($request->all());
-            $order->status()->create([
-                'order_id' => $order->id,
-            ]);
+            $order = $this->orderRepository->store($request->all());
 
             return $this->sendResponse($order, ('Order created successfully'));
         } catch (Exception $ex) {
@@ -262,6 +246,10 @@ class OrderController extends AppBaseController
      * @OA\Property(
      *     property="order_id",
      *     type="number"
+     *     ),
+     * @OA\Property(
+     *     property="status",
+     *     type="string"
      *     ),
      *    )
      *   ),
@@ -295,14 +283,11 @@ class OrderController extends AppBaseController
     {
         try {
             $order = $this->orderRepository->find($request->order_id);
-            $stat = $order->status->toArray();
-
-            $status = end($stat)['status'] + 1;
-
-            Status::create([
-                'order_id' => $order->id,
-                'status' => (string)$status,
-            ]);
+            if (!$order){
+                return response()->json(['status' => 'false', 'messages' => array('Order Not Found.')]);
+            }
+            $order->status = $request->status;
+            $order->save();
 
             return $this->sendResponse($order, ('Order status changed'));
         } catch (Exception $ex) {
@@ -365,6 +350,9 @@ class OrderController extends AppBaseController
     {
         try {
             $order = $this->orderRepository->find($request->order_id);
+            if (!$order){
+                return response()->json(['status' => 'false', 'messages' => array('Order Not Found.')]);
+            }
 
             return $this->sendResponse($order, ('Order History fetch successfully.'));
         } catch (Exception $ex) {
@@ -458,6 +446,10 @@ class OrderController extends AppBaseController
      *     property="order_id",
      *     type="number"
      *     ),
+     * @OA\Property(
+     *     property="status",
+     *     type="string"
+     *     ),
      *    )
      *   ),
      *  ),
@@ -494,12 +486,8 @@ class OrderController extends AppBaseController
                 return response()->json(['status' => 'false', 'messages' => array('Order Not Found')]);
             }
             $order->driver_id = Auth::id();
+            $order->status = $request->status;
             $order->save();
-
-            Status::create([
-                'order_id' => $order->id,
-                'status' => '1',
-            ]);
 
             return $this->sendResponse($order, ('Order Accepted'));
         } catch (Exception $ex) {

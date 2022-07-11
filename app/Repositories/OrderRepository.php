@@ -5,7 +5,8 @@ namespace App\Repositories;
 
 
 use App\Models\Order;
-use App\Models\OrderDetail;
+use App\Models\orderHistory;
+use Illuminate\Database\Eloquent\Model;
 
 class OrderRepository extends BaseRepository
 {
@@ -14,20 +15,17 @@ class OrderRepository extends BaseRepository
      */
     protected $fieldsSearchable = [
         'location',
-        'quantity1',
-        'quantity2',
         'date',
         'time_slot',
-        'type1',
-        'type2',
         'total',
         'driver_tip',
         'customer_id',
-        'product1_id',
-        'product2_id',
-        'status_id',
+        'status',
         'latitude',
         'longitude',
+        'quantity',
+        'type',
+        'product_id',
     ];
 
     /**
@@ -44,5 +42,32 @@ class OrderRepository extends BaseRepository
     public function model()
     {
         return Order::class;
+    }
+
+    /**
+     * @param $input
+     * @return Model
+     */
+    public function store($input){
+        print_r($input);exit;
+        $order = $this->create([
+          "location" => $input['location'],
+          "latitude" => $input['latitude'],
+          "longitude" => $input['longitude'],
+          "time_slot" => $input['time_slot'],
+          "date" => $input['date'],
+          "total" => $input['total'],
+          "driver_tip" => $input['driver_tip'],
+          "customer_id" => $input['customer_id'],
+        ]);
+        foreach (explode(',',$input['product_id']) as $key=>$product_id){
+              orderHistory::create([
+                'quantity'=>$input['quantity'][$key],
+                'type'=>$input['type'][$key],
+                'product_id'=>$product_id,
+                'order_id'=>$order->id
+            ]);
+        }
+        return $order;
     }
 }

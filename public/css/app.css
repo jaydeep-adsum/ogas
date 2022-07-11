@@ -690,9 +690,6 @@ select {
 .mt-4 {
   margin-top: 1rem;
 }
-.mt-5 {
-  margin-top: 1.25rem;
-}
 .ml-auto {
   margin-left: auto;
 }
@@ -728,6 +725,9 @@ select {
 }
 .-mr-2 {
   margin-right: -0.5rem;
+}
+.mt-5 {
+  margin-top: 1.25rem;
 }
 .block {
   display: block;
@@ -1006,11 +1006,11 @@ select {
 .pl-4 {
   padding-left: 1rem;
 }
-.pt-3 {
-  padding-top: 0.75rem;
-}
 .pt-8 {
   padding-top: 2rem;
+}
+.pt-3 {
+  padding-top: 0.75rem;
 }
 .pt-6 {
   padding-top: 1.5rem;

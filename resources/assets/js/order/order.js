@@ -37,6 +37,24 @@ $(document).ready(function () {
                 name: 'date'
             },
             {
+                data: function data(row) {
+                    if(row.status==0){
+                        return `<span class="badge badge-secondary">Ordered</span>`
+                    }else if (row.status==1){
+                        return `<span class="badge badge-primary">Confirmed</span>`
+                    }else if (row.status==2){
+                        return `<span class="badge badge-warning">Ongoing</span>`
+                    }else if (row.status==3){
+                        return `<span class="badge badge-info">Order Processing</span>`
+                    }else if (row.status==4){
+                        return `<span class="badge badge-success">Delivered</span>`
+                    }else if (row.status==5){
+                        return `<span class="badge badge-danger">Canceled</span>`
+                    }
+                },
+                name: 'status'
+            },
+            {
                 data: 'total',
                 name: 'total'
             },

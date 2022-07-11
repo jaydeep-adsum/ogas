@@ -7,133 +7,90 @@
     </a>
 @endsection
 @section('content')
-    <style>
-
-    </style>
     <div class="row">
         <div class="col-md-12">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="form-group col-md-6">
+                    <div class="col-12 form-group">
                         <div class="card card-default">
                             <div class="card-body">
-                                <h3 class="border-bottom">Order Detail</h3>
-                                <div class="row">
-                                    <div class="col-md-3">{{ Form::label(__('customer_id ').':') }}</div>
-                                    <div class="col-md-9"> {{ $order->customer->name }}</div>
-                                    <div class="col-md-3">{{ Form::label(__('date ').':') }}</div>
-                                    <div class="col-md-9"> {{ $order->date }}</div>
-                                    <div class="col-md-3">{{ Form::label(__('time_slot ').':') }}</div>
-                                    <div class="col-md-9"> @if($order->time_slot==0)
-                                            {{'Now'}}
-                                        @elseif($order->time_slot==1)
-                                            {{'9AM - 12PM'}}
-                                        @elseif($order->time_slot==2)
-                                            {{'12PM - 3PM'}}
-                                        @elseif($order->time_slot==3)
-                                            {{'3PM - 6PM'}}
-                                        @endif</div>
-                                    <div class="col-md-3">{{ Form::label(__('location ').':') }}</div>
-                                    <div class="col-md-9"> {{ $order->location }}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <div class="card card-default">
-                            <div class="card-body">
-                                <h3 class="border-bottom">Order Invoice</h3>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="d-flex">
-                                            <div class="col-md-4">{{ Form::label(__('product ').':') }}</div>
-                                            <div class="col-md-8"> {{ $order->product1->product_name }}</div>
-                                        </div>
-                                        <div class="d-flex">
-                                            <div class="col-md-4">{{ Form::label(__('type ').':') }}</div>
-                                            <div class="col-md-8">{{ ($order->type1==1)?'Refill':'New' }}</div>
-                                        </div>
-                                        <div class="d-flex">
-                                            <div class="col-md-4">{{ Form::label(__('quantity ').':') }}</div>
-                                            <div class="col-md-8">{{ $order->quantity1 }}</div>
-                                        </div>
-                                        <div class="d-flex">
+                                        <div class="row">
+                                            <h3 class="col-12 border-bottom">Order Detail</h3>
+                                            <div class="col-md-3">{{ Form::label(__('Order ID').':') }}</div>
+                                            <div class="col-md-9"> {{ $order->id }}</div>
+                                            <div class="col-md-3">{{ Form::label(__('Delivery Date ').':') }}</div>
                                             <div
-                                                class="col-md-4 border-top">{{ Form::label(__('driver_tip ').':') }}</div>
-                                            <div
-                                                class="col-md-8 border-top">{{ $order->driver_tip?$order->driver_tip:0 }}</div>
+                                                class="col-md-9"> {{ \Carbon\Carbon::parse($order->date)->format('d/m/Y') }}</div>
+                                            <div class="col-md-3">{{ Form::label(__('time_slot ').':') }}</div>
+                                            <div class="col-md-9"> @if($order->time_slot==0)
+                                                    {{'Now'}}
+                                                @elseif($order->time_slot==1)
+                                                    {{'9AM - 12PM'}}
+                                                @elseif($order->time_slot==2)
+                                                    {{'12PM - 3PM'}}
+                                                @elseif($order->time_slot==3)
+                                                    {{'3PM - 6PM'}}
+                                                @endif</div>
+                                            <div class="col-md-3">{{ Form::label(__('location ').':') }}</div>
+                                            <div class="col-md-9"> {{ $order->location }}</div>
+                                            <div class="col-md-3">{{ Form::label(__('driver_tip ').':') }}</div>
+                                            <div class="col-md-9">{{ $order->driver_tip?$order->driver_tip:0 }}</div>
+                                            <div class="col-md-3">{{ Form::label(__('total ').':') }}</div>
+                                            <div class="col-md-9">{{ $order->total }}</div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        @if(isset($order->product2))
-                                        <div class="d-flex">
-                                            <div class="col-md-4">{{ Form::label(__('product ').':') }}</div>
-                                            <div class="col-md-8"> {{ $order->product2->product_name }}</div>
+                                        <div class="row">
+                                            <h3 class="col-12 border-bottom">Customer Detail</h3>
+                                            <div class="col-md-3">{{ Form::label(__('customer ').':') }}</div>
+                                            <div class="col-md-9"> {{ $order->customer->name }}</div>
+                                            <div class="col-md-3">{{ Form::label(__('mobile ').':') }}</div>
+                                            <div class="col-md-9"> {{ $order->customer->mobile }}</div>
+                                            @if($order->customer->address)
+                                                <div class="col-md-3">{{ Form::label(__('address ').':') }}</div>
+                                                <div class="col-md-9"> {{ $order->customer->address }}</div>
+                                            @endif
                                         </div>
-                                        <div class="d-flex">
-                                            <div class="col-md-4">{{ Form::label(__('type ').':') }}</div>
-                                            <div class="col-md-8">{{ ($order->type2==1)?'Refill':'New' }}</div>
-                                        </div>
-                                        <div class="d-flex">
-                                            <div class="col-md-4">{{ Form::label(__('quantity ').':') }}</div>
-                                            <div class="col-md-8">{{ $order->quantity2 }}</div>
-                                        </div>
-                                        <div class="d-flex">
-                                            <div class="col-md-4 border-top">{{ Form::label(__('total ').':') }}</div>
-                                            <div class="col-md-8 border-top">{{ $order->total }}</div>
-                                        </div>
-                                        @endif
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="border-bottom">Delivery Status</h3>
-                            @if($cancel==5)
-                                <div class="pt-3 col-md-12 text-danger text-center font-weight-bold"><h5 class="">Order
-                                        Has
-                                        Been Canceled.</h5></div>
-                            @else
-                                <div class="p-2 mt-5">
-                                    <div class="col-md-12">
-                                        <div class="row">
-                                            @foreach($order->status as $status)
-                                                <div class="col-md-2 border-bottom border-danger"><img
-                                                        class="{{($status->status>0)?'float-right':''}}"
-                                                        src="{{asset('public/assets/images/delivery-vehicle.png')}}">
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="row">
-                                            <div class="col-md-2 border-top"><h5>Ordered</h5></div>
-                                            <div class="col-md-2 border-top"><h5 class="float-right">Confirmed</h5>
-                                            </div>
-                                            <div class="col-md-2 border-top"><h5 class="float-right">On The Way</h5>
-                                            </div>
-                                            <div class="col-md-2 border-top"><h5 class="float-right">Order
-                                                    Processing</h5>
-                                            </div>
-                                            <div class="col-md-2 border-top"><h5 class="float-right">Delivered</h5>
-                                            </div>
-                                            <div class="col-md-2 border-top"><h5 class="float-right">Canceled</h5></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
+                    <div class="col-12 form-group">
+                        <div class="card card-default">
+                            <div class="card-body">
+                                <table id="orderHistoryTbl" class="table table-striped" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>{{ Form::label(__('product')) }}</th>
+                                        <th>{{ Form::label(__('type ')) }}</th>
+                                        <th>{{ Form::label(__('quantity ')) }}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($order->orderHistory as $orderHistory)
+                                        <tr>
+                                            <td>{{ $orderHistory->product->product_name }}</td>
+                                            <td>{{ ($orderHistory->type==1)?'Refill':'New' }}</td>
+                                            <td>{{ $orderHistory->quantity }}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+@endsection
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            $('#orderHistoryTbl').DataTable();
+        });
+    </script>
 @endsection
