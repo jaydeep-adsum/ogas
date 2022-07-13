@@ -45,4 +45,20 @@ class DriverController extends AppBaseController
 
         return $this->sendSuccess('Driver deleted successfully.');
     }
+
+    public function accept(Driver $driver)
+    {
+        $driver->status='1';
+        $driver->save();
+
+        return $this->sendSuccess('Driver Accepted.');
+    }
+
+    public function reject(Driver $driver)
+    {
+        $driver->status='0';
+        $driver->save();
+
+        return $this->sendSuccess('Driver Rejected.');
+    }
 }

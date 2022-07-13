@@ -10,10 +10,9 @@ $(document).ready(function () {
         },
         columnDefs: [
             {
-                'targets': [5],
+                'targets': [6],
                 'className': 'text-center',
                 'orderable': false,
-                'width': '8%'
             }
         ],
         columns: [
@@ -38,10 +37,30 @@ $(document).ready(function () {
                 name: 'vehicle_no'
             },
             {
+                data: function data(row){
+                    if (row.status==null){
+                        return `-`
+                    }else {
+                        return `<span class="badge badge-${row.status==1?'success':'danger'}">${row.status==1?'Accepted':'Rejected'}</span>`
+                    }
+                },
+                name: 'status'
+            },
+            {
                 data: function data(row) {
-                    return `<a title="Delete" class="btn btn-sm delete-btn text-white" data-id="${row.id}" href="#">
+                    if (row.status==null){
+                        return `<a href="#" class="btn btn-sm bg-success text-white accept" data-id="${row.id}" title="Accept !">
+           <i class="fa-solid fa-thumbs-up"></i>
+                </a>    <a title="Reject !" class="btn btn-sm bg-danger text-white reject" data-id="${row.id}" href="#">
+           <i class="fa-solid fa-thumbs-down"></i>
+                </a>    <a title="Delete" class="btn btn-sm delete-btn text-white" data-id="${row.id}" href="#">
            <i class="fa-solid fa-trash"></i>
                 </a>`
+                    } else {
+                        return `<a title="Delete" class="btn btn-sm delete-btn text-white" data-id="${row.id}" href="#">
+           <i class="fa-solid fa-trash"></i>
+                </a>`
+                    }
                 },
                 name: 'id',
             }]
@@ -50,5 +69,99 @@ $(document).ready(function () {
     $(document).on('click', '.delete-btn', function (event) {
         var driverId = $(event.currentTarget).attr('data-id');
         deleteItem(driverUrl + '/' + driverId, tableName, 'Driver');
+    });
+
+    $(document).on('click', '.accept', function (event) {
+        var driverId = $(event.currentTarget).attr('data-id');
+        swal({
+                title: 'Accept !',
+                text: 'Are You Sure Want To Accept Driver Request ?',
+                type: 'info',
+                showCancelButton: true,
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true,
+                confirmButtonColor: '#1c75bc',
+                cancelButtonColor: '#f58823',
+                cancelButtonText: 'No',
+                confirmButtonText: 'Yes',
+            },
+            function () {
+                $.ajax({
+                    url: driverUrl+'/'+driverId+'/accept',
+                    type: 'get',
+                    dataType: 'json',
+                    success: function (obj) {
+                        if (obj.success) {
+                                $(tableName).DataTable().ajax.reload(null, false);
+                        }
+                        swal({
+                            title: 'Status !',
+                            text: 'Driver Status Has Been Changed',
+                            type: 'success',
+                            confirmButtonColor: '#1c75bc',
+                            timer: 1000,
+                        });
+                        if (callFunction) {
+                            eval(callFunction);
+                        }
+                    },
+                    error: function (data) {
+                        swal({
+                            title: '',
+                            text: data.responseJSON.message,
+                            type: 'error',
+                            confirmButtonColor: '#1c75bc',
+                            timer: 5000,
+                        });
+                    },
+                });
+            });
+    });
+
+    $(document).on('click', '.reject', function (event) {
+        var driverId = $(event.currentTarget).attr('data-id');
+        swal({
+                title: 'Accept !',
+                text: 'Are You Sure Want To Reject Driver Request ?',
+                type: 'info',
+                showCancelButton: true,
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true,
+                confirmButtonColor: '#1c75bc',
+                cancelButtonColor: '#f58823',
+                cancelButtonText: 'No',
+                confirmButtonText: 'Yes',
+            },
+            function () {
+                $.ajax({
+                    url: driverUrl+'/'+driverId+'/reject',
+                    type: 'get',
+                    dataType: 'json',
+                    success: function (obj) {
+                        if (obj.success) {
+                            $(tableName).DataTable().ajax.reload(null, false);
+                        }
+                        swal({
+                            title: 'Status !',
+                            text: 'Driver Status Has Been Changed',
+                            type: 'success',
+                            confirmButtonColor: '#1c75bc',
+                            timer: 1000,
+                        });
+                        if (callFunction) {
+                            eval(callFunction);
+                        }
+                    },
+                    error: function (data) {
+                        swal({
+                            title: '',
+                            text: data.responseJSON.message,
+                            type: 'error',
+                            confirmButtonColor: '#1c75bc',
+                            timer: 5000,
+                        });
+                    },
+                });
+            });
     });
 });

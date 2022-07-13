@@ -6,6 +6,7 @@
         <th scope="col">{{ __('Email') }}</th>
         <th scope="col">{{ __('Licence No.') }}</th>
         <th scope="col">{{ __('Vehicle No.') }}</th>
+        <th scope="col">{{ __('Status') }}</th>
         <th scope="col">{{ __('Action') }}</th>
     </tr>
     </thead>
