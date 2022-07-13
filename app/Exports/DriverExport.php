@@ -1,19 +1,20 @@
 <?php
+
 namespace App\Exports;
 
-use App\Models\Customer;
+use App\Models\Driver;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class CustomerExport implements FromCollection, WithHeadings
+class DriverExport implements FromCollection, WithHeadings
 {
     /**
-     * @return Collection
-     */
+    * @return Collection
+    */
     public function collection(): Collection
     {
-        return Customer::select('id','name','mobile','address')->get();
+        return Driver::select('id','name','email','mobile','licence_no','vehicle_no')->get();
     }
 
     /**
@@ -24,9 +25,10 @@ class CustomerExport implements FromCollection, WithHeadings
         return [
             'ID',
             'Name',
+            'Email',
             'Mobile',
-            'Address',
-            'Image',
+            'Licence No',
+            'Vehicle No',
         ];
     }
 }

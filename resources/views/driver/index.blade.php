@@ -4,7 +4,7 @@
 @endsection
 @section('header')
     <div class="d-flex px-4 px-sm-0 pt-2 pt-sm-0">
-{{--        <a href="{{route('customer.export')}}" class="btn btn-primary"><i class="fa-solid fa-file-excel"></i> Export Excel</a>--}}
+        <a href="{{route('driver.export')}}" class="btn btn-primary"><i class="fa-solid fa-file-excel"></i> Export Excel</a>
     </div>
 @endsection
 @section('content')

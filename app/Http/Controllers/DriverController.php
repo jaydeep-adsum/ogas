@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Datatable\DriverDatatable;
+use App\Exports\DriverExport;
 use App\Models\Driver;
 use App\Repositories\DriverRepository;
 use DataTables;
@@ -11,6 +12,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DriverController extends AppBaseController
 {
@@ -46,6 +48,10 @@ class DriverController extends AppBaseController
         return $this->sendSuccess('Driver deleted successfully.');
     }
 
+    /**
+     * @param Driver $driver
+     * @return JsonResponse
+     */
     public function accept(Driver $driver)
     {
         $driver->status='1';
@@ -54,11 +60,20 @@ class DriverController extends AppBaseController
         return $this->sendSuccess('Driver Accepted.');
     }
 
+    /**
+     * @param Driver $driver
+     * @return JsonResponse
+     */
     public function reject(Driver $driver)
     {
         $driver->status='0';
         $driver->save();
 
         return $this->sendSuccess('Driver Rejected.');
+    }
+
+    public function export()
+    {
+        return Excel::download(new DriverExport(), 'driver.xlsx');
     }
 }

@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('driver', [DriverController::class, 'index'])->name('driver');
     Route::delete('driver/{driver}', [DriverController::class, 'destroy'])->name('driver.destroy');
+    Route::get('driver/export', [DriverController::class, 'export'])->name('driver.export');
     Route::get('driver/{driver}/accept', [DriverController::class, 'accept'])->name('driver.accept');
     Route::get('driver/{driver}/reject', [DriverController::class, 'reject'])->name('driver.reject');
 

@@ -19,6 +19,7 @@ class Customer extends Authenticatable
         'name',
         'mobile',
         'address',
+        'payment_customer_id',
         'device_token',
         'device_type',
     ];

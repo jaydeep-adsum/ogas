@@ -13,6 +13,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class CustomerController extends AppBaseController
 {
@@ -48,6 +49,9 @@ class CustomerController extends AppBaseController
         return $this->sendSuccess('Customer deleted successfully.');
     }
 
+    /**
+     * @return BinaryFileResponse
+     */
     public function export()
     {
         return Excel::download(new CustomerExport(), 'customer.xlsx');

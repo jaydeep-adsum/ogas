@@ -56,6 +56,10 @@ class CustomerController extends AppBaseController
      *     property="name",
      *     type="string"
      *     ),
+     * @OA\Property(
+     *     property="payment_customer_id",
+     *     type="string"
+     *     ),
      *    )
      *   ),
      *  ),
@@ -87,6 +91,7 @@ class CustomerController extends AppBaseController
             $validator = Validator::make($request->all(), [
                 'mobile' => 'required|numeric|unique:customers|digits:10',
                 'name' => 'required',
+                'payment_customer_id' => 'required',
             ]);
 
             $error = (object)[];

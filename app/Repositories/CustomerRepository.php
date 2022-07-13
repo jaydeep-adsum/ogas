@@ -10,6 +10,7 @@ class CustomerRepository extends BaseRepository
         'name',
         'mobile',
         'address',
+        'payment_customer_id',
     ];
 
     public function getFieldsSearchable()
