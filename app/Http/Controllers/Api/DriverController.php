@@ -199,7 +199,15 @@ class DriverController extends AppBaseController
                 return response()->json(['status' => "false", 'data' => $error, 'message' => implode(', ', $validator->errors()->all())]);
             }
             $credentials['mobile'] = $request->mobile;
-
+            $checkDriver = Driver::where('mobile',$request->mobile)->first();
+            if ($checkDriver)
+            {
+                if ($checkDriver->status==null){
+                    return $this->sendError( 'Contact Admin For Accept Your Request.');
+                } elseif ($checkDriver->status==0){
+                    return $this->sendError( 'Your Request Is Rejected By Admin.');
+                }
+            }
             if ($driver = $this->authenticator->attemptDriverLogin($credentials)) {
                 $update = Driver::where('id', $driver->id)->update(['device_token' => $request->device_token, 'device_type' => $request->device_type]);
                 $driver = Driver::find($driver->id);
