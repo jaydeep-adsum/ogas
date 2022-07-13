@@ -69,9 +69,16 @@ class ProductController extends AppBaseController
      */
     public function index(){
         try {
-            $products = $this->productRepository->paginate(10);
+            $data = [];
+            $products = $this->productRepository->all()->toArray();
 
-            return $this->sendResponse($products, ('Products retrieved successfully'));
+            foreach ($products as $product){
+                $product['quantity']= 0;
+                $data[] =$product;
+            }
+            collect($data);
+
+            return $this->sendResponse($data, ('Products retrieved successfully'));
         } catch (Exception $ex) {
             return $this->sendError($ex);
         }
