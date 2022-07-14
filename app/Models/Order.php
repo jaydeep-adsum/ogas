@@ -16,7 +16,7 @@ class Order extends Model
     /**
      * @var string[]
      */
-    protected $with = ['customer','orderHistory'];
+    protected $with = ['customer','driver','orderHistory'];
 
     /**
      * @var string[]
@@ -31,6 +31,8 @@ class Order extends Model
         'status',
         'latitude',
         'longitude',
+        'driver_id',
+        'cancel_reason',
     ];
 
     /**
@@ -40,6 +42,9 @@ class Order extends Model
         return $this->belongsTo(Customer::class, 'customer_id');
     }
 
+    public function driver(){
+        return $this->belongsTo(Driver::class, 'driver_id');
+    }
     /**
      * @return HasMany
      */

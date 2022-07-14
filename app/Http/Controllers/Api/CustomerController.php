@@ -60,6 +60,10 @@ class CustomerController extends AppBaseController
      *     property="payment_customer_id",
      *     type="string"
      *     ),
+     * @OA\Property(
+     *     property="email",
+     *     type="string"
+     *     ),
      *    )
      *   ),
      *  ),
@@ -92,6 +96,7 @@ class CustomerController extends AppBaseController
                 'mobile' => 'required|numeric|unique:customers|digits:10',
                 'name' => 'required',
                 'payment_customer_id' => 'required',
+                'email' => 'required',
             ]);
 
             $error = (object)[];

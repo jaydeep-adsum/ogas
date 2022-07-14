@@ -17,6 +17,17 @@
                 </div>
             </div>
             <div class="col-md-3">
+                <div class="card bg-warning">
+                    <a href="{{route('driver')}}">
+                        <div class="card-body py-4 px-4">
+                            <span style="font-size: 40px;"><i class="fa-solid fa-taxi"></i></span>
+                            <h2 class="fw">{{$data['driver']?$data['driver']:0}}</h2>
+                            <p>{{ __('Drivers') }}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3">
                 <div class="card bg-success">
                     <a href="{{route('products')}}">
                         <div class="card-body py-4 px-4">

@@ -15,16 +15,16 @@
                         <div class="card card-default">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-{{$div}}">
                                         <div class="row">
                                             <h3 class="col-12 border-bottom">Order Detail</h3>
-                                            <div class="col-md-3">{{ Form::label(__('Order ID').':') }}</div>
-                                            <div class="col-md-9"> {{ $order->id }}</div>
-                                            <div class="col-md-3">{{ Form::label(__('Delivery Date ').':') }}</div>
+                                            <div class="col-md-4">{{ Form::label(__('Order ID').':') }}</div>
+                                            <div class="col-md-8"> {{ $order->id }}</div>
+                                            <div class="col-md-4">{{ Form::label(__('Delivery Date ').':') }}</div>
                                             <div
-                                                class="col-md-9"> {{ \Carbon\Carbon::parse($order->date)->format('d/m/Y') }}</div>
-                                            <div class="col-md-3">{{ Form::label(__('time_slot ').':') }}</div>
-                                            <div class="col-md-9"> @if($order->time_slot==0)
+                                                class="col-md-8"> {{ \Carbon\Carbon::parse($order->date)->format('d/m/Y') }}</div>
+                                            <div class="col-md-4">{{ Form::label(__('time_slot ').':') }}</div>
+                                            <div class="col-md-8"> @if($order->time_slot==0)
                                                     {{'Now'}}
                                                 @elseif($order->time_slot==1)
                                                     {{'9AM - 12PM'}}
@@ -33,15 +33,32 @@
                                                 @elseif($order->time_slot==3)
                                                     {{'3PM - 6PM'}}
                                                 @endif</div>
-                                            <div class="col-md-3">{{ Form::label(__('location ').':') }}</div>
-                                            <div class="col-md-9"> {{ $order->location }}</div>
-                                            <div class="col-md-3">{{ Form::label(__('driver_tip ').':') }}</div>
-                                            <div class="col-md-9">{{ $order->driver_tip?$order->driver_tip:0 }}</div>
-                                            <div class="col-md-3">{{ Form::label(__('total ').':') }}</div>
-                                            <div class="col-md-9">{{ $order->total }}</div>
+                                            <div class="col-md-4">{{ Form::label(__('location ').':') }}</div>
+                                            <div class="col-md-8"> {{ $order->location }}</div>
+                                            <div class="col-md-4">{{ Form::label(__('driver_tip ').':') }}</div>
+                                            <div class="col-md-8">{{ $order->driver_tip?$order->driver_tip:0 }}</div>
+                                            <div class="col-md-4">{{ Form::label(__('total ').':') }}</div>
+                                            <div class="col-md-8">{{ $order->total }}</div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    @if($div==4)
+                                        <div class="col-md-{{$div}}">
+                                            <div class="row">
+                                                <h3 class="col-12 border-bottom">Driver Detail</h3>
+                                                <div class="col-md-3">{{ Form::label(__('Driver ').':') }}</div>
+                                                <div class="col-md-9"> {{ $order->driver->name }}</div>
+                                                <div class="col-md-3">{{ Form::label(__('mobile ').':') }}</div>
+                                                <div class="col-md-9"> {{ $order->driver->mobile }}</div>
+                                                <div class="col-md-3">{{ Form::label(__('Email ').':') }}</div>
+                                                <div class="col-md-9"> {{ $order->driver->email }}</div>
+                                                <div class="col-md-3">{{ Form::label(__('licence_no ').':') }}</div>
+                                                <div class="col-md-9"> {{ $order->driver->licence_no }}</div>
+                                                <div class="col-md-3">{{ Form::label(__('vehicle_no ').':') }}</div>
+                                                <div class="col-md-9"> {{ $order->driver->vehicle_no }}</div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    <div class="col-md-{{$div}}">
                                         <div class="row">
                                             <h3 class="col-12 border-bottom">Customer Detail</h3>
                                             <div class="col-md-3">{{ Form::label(__('customer ').':') }}</div>

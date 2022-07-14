@@ -18,6 +18,7 @@ class Customer extends Authenticatable
     public $fillable = [
         'name',
         'mobile',
+        'email',
         'address',
         'payment_customer_id',
         'device_token',

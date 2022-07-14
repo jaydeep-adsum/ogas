@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Datatable\OrderDatatable;
+use App\Exports\OrderExport;
 use App\Models\Order;
-use App\Models\OrderDetail;
 use App\Repositories\OrderRepository;
 use DataTables;
 use Illuminate\Contracts\Foundation\Application;
@@ -12,6 +12,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends AppBaseController
 {
@@ -46,8 +47,9 @@ class OrderController extends AppBaseController
     public function show($id)
     {
         $order = Order::find($id);
-//dd($order->orderHistory);
-        return view('order.show', compact('order'));
+        $div = $order->driver==null?6:4;
+
+        return view('order.show', compact('order','div'));
     }
 
     /**
@@ -59,5 +61,10 @@ class OrderController extends AppBaseController
         $order->delete();
 
         return $this->sendSuccess('Order deleted successfully.');
+    }
+
+    public function export()
+    {
+        return Excel::download(new OrderExport(), 'order.xlsx');
     }
 }

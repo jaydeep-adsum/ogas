@@ -51,6 +51,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('orders', [OrderController::class, 'index'])->name('order');
     Route::delete('orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy');
+    Route::get('orders/export', [OrderController::class, 'export'])->name('orders.export');
     Route::get('orders/{id}', [OrderController::class, 'show'])->name('orders.show');
 
     Route::get('feedback', [ComplaintController::class, 'index'])->name('feedback');

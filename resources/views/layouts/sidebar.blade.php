@@ -28,7 +28,7 @@
             </li>
             <li class="nav-item">
                 <a href="{{route('driver')}}" class="nav-link {{ Request::is('driver*')? 'active1':''}}">
-                    <i class="fa-solid fa-user-group nav-icon"></i>
+                    <i class="fa-solid fa-taxi nav-icon"></i>
                     <p>Drivers</p>
                 </a>
             </li>

@@ -13,6 +13,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class DriverController extends AppBaseController
 {
@@ -72,6 +73,9 @@ class DriverController extends AppBaseController
         return $this->sendSuccess('Driver Rejected.');
     }
 
+    /**
+     * @return BinaryFileResponse
+     */
     public function export()
     {
         return Excel::download(new DriverExport(), 'driver.xlsx');
