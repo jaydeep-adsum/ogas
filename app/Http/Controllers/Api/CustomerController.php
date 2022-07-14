@@ -93,7 +93,7 @@ class CustomerController extends AppBaseController
     {
         try {
             $validator = Validator::make($request->all(), [
-                'mobile' => 'required|numeric|unique:customers|digits:10',
+                'mobile' => 'required|numeric|unique:customers',
                 'name' => 'required',
                 'payment_customer_id' => 'required',
                 'email' => 'required',
