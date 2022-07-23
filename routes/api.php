@@ -50,6 +50,7 @@ Route::namespace('Api')->group(
 
             Route::post('orders', [OrderController::class, 'index']);
             Route::post('accept-order', [OrderController::class, 'acceptOrder']);
+            Route::post('cancel-order', [OrderController::class, 'cancelOrder']);
         });
     }
 );

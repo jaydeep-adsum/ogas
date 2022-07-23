@@ -31,7 +31,7 @@ class DriverController extends AppBaseController
      * Swagger defination Signup
      *
      * @OA\Post(
-     *     tags={"Driver Authentication"},
+     *     tags={"Driver"},
      *     path="/driver-signup",
      *     description="Sign Un Driver",
      *     summary="Sign Un Driver",
@@ -98,7 +98,7 @@ class DriverController extends AppBaseController
             $validator = Validator::make($request->all(), [
                 'mobile' => 'required|numeric|unique:drivers|digits:10',
                 'name' => 'required',
-                'email' => 'required|email',
+                'email' => 'required|email|unique:drivers',
                 'licence_no' => 'required',
                 'vehicle_no' => 'required',
             ]);
@@ -112,25 +112,10 @@ class DriverController extends AppBaseController
             $driver = Driver::create($input);
 
             if ($driver) {
-                $credentials['mobile'] = $driver->mobile;
-                $credentials['name'] = $driver->name;
-                if ($driver = $this->authenticator->attemptDriverSignUp($credentials)) {
-                    $update = Driver::where('id', $driver->id)->update(['device_token' => $request->device_token, 'device_type' => $request->device_type]);
-                    $tokenResult = $driver->createToken('ogas');
-                    $token = $tokenResult->token;
-                    $token->save();
-                    $success['token'] = 'Bearer ' . $tokenResult->accessToken;
-                    $success['expires_at'] = Carbon::parse(
-                        $tokenResult->token->expires_at
-                    )->toDateTimeString();
                     $success['user'] = $driver;
-
-                    return $this->sendResponse(
-                        $success, 'You Have Successfully Logged in to ogas.'
+                     return $this->sendResponse(
+                        $success, 'You Have Successfully Signup in to ogas.'
                     );
-                } else {
-                    return response()->json(['success' => false, 'data' => $error, 'message' => 'These credentials do not match our records']);
-                }
             }
         } catch (Exception $e) {
             return $this->sendError($e);
@@ -141,7 +126,7 @@ class DriverController extends AppBaseController
      * Swagger defination Login
      *
      * @OA\Post(
-     *     tags={"Driver Authentication"},
+     *     tags={"Driver"},
      *     path="/driver-login",
      *     description="Log In Driver",
      *     summary="Log In Driver",

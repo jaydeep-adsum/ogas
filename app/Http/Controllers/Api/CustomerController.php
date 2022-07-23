@@ -32,7 +32,7 @@ class CustomerController extends AppBaseController
      * Swagger defination Signup
      *
      * @OA\Post(
-     *     tags={"Authentication"},
+     *     tags={"Customer"},
      *     path="/signup",
      *     description="Sign Un Customer",
      *     summary="Sign Un Customer",
@@ -137,7 +137,7 @@ class CustomerController extends AppBaseController
      * Swagger defination Login
      *
      * @OA\Post(
-     *     tags={"Authentication"},
+     *     tags={"Customer"},
      *     path="/login",
      *     description="Log In Customer",
      *     summary="Log In Customer",
