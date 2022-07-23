@@ -380,6 +380,10 @@ class OrderController extends AppBaseController
      * @OA\MediaType(
      *     mediaType="multipart/form-data",
      * @OA\JsonContent(
+     * @OA\Property(
+     *   property="status",
+     *   type="string"
+     *  ),
      *    )
      *   ),
      *  ),
@@ -415,7 +419,11 @@ class OrderController extends AppBaseController
     public function driverOrder(Request $request)
     {
         try {
-            $orders = Order::all();
+            $order = Order::where('driver_id', Auth::id());
+            if ($request->status!=null){
+                $order->where('status', $request->status);
+            }
+            $orders= $order->get();
 
             return $this->sendResponse($orders, ('Order retrieved successfully'));
         } catch (Exception $ex) {
