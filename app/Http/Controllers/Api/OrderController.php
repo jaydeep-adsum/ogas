@@ -361,9 +361,9 @@ class OrderController extends AppBaseController
     }
 
     /**
-     * Swagger defination Get All Orders
+     * Swagger definition for Products
      *
-     * @OA\Post(
+     * @OA\Get(
      *     tags={"Driver"},
      *     path="/orders",
      *     description="Get All Orders",
@@ -375,43 +375,33 @@ class OrderController extends AppBaseController
      *     description="Content-Language",
      *     required=false,@OA\Schema(type="string")
      *     ),
-     * @OA\RequestBody(
-     *     required=true,
-     * @OA\MediaType(
-     *     mediaType="multipart/form-data",
-     * @OA\JsonContent(
-     *    )
-     *   ),
-     *  ),
      * @OA\Response(
      *     response=200,
-     *     description="User response",@OA\JsonContent
-     *     (ref="#/components/schemas/SuccessResponse")
-     * ),
+     *     description="Succuess response"
+     *     ,@OA\JsonContent(ref="#/components/schemas/SuccessResponse")
+     *     ),
      * @OA\Response(
      *     response="400",
-     *     description="Validation error",@OA\JsonContent
-     *     (ref="#/components/schemas/ErrorResponse")
+     *     description="Validation error"
+     *     ,@OA\JsonContent(ref="#/components/schemas/ErrorResponse")
      * ),
      * @OA\Response(
-     *     response="403",
-     *     description="Not Authorized Invalid or missing Authorization header",@OA\
-     *     JsonContent(ref="#/components/schemas/ErrorResponse")
+     *     response="401",
+     *     description="Not Authorized Invalid or missing Authorization header"
+     *     ,@OA\JsonContent
+     *     (ref="#/components/schemas/ErrorResponse")
      * ),
      * @OA\Response(
      *     response=500,
-     *     description="Unexpected error",@OA\JsonContent
-     *     (ref="#/components/schemas/ErrorResponse")
-     * ),
+     *     description="Unexpected error"
+     *     ,@OA\JsonContent(ref="#/components/schemas/ErrorResponse")
+     *  ),
      * security={
      *     {"API-Key": {}}
      * }
      * )
      */
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     */
+
     public function driverOrder(Request $request)
     {
         try {
