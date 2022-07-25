@@ -189,9 +189,9 @@ class DriverController extends AppBaseController
             if ($checkDriver)
             {
                 if ($checkDriver->status==null){
-                    return $this->sendError( 'Contact Admin For Accept Your Request.');
+                    return $this->sendError( 'Contact Admin For Accept Your Request.',200);
                 } elseif ($checkDriver->status==0){
-                    return $this->sendError( 'Your Request Is Rejected By Admin.');
+                    return $this->sendError( 'Your Request Is Rejected By Admin.',200);
                 }
             }
             if ($driver = $this->authenticator->attemptDriverLogin($credentials)) {
