@@ -478,7 +478,7 @@ class OrderController extends AppBaseController
     public function driverAcceptedOrder(Request $request)
     {
         try {
-            $order = Order::wherewhere('driver_id',Auth::id());
+            $order = Order::where('driver_id',Auth::id());
             if ($request->status!=null){
                 $order->where('status', $request->status);
             }
