@@ -112,7 +112,8 @@ class DriverController extends AppBaseController
             $driver = Driver::create($input);
 
             if ($driver) {
-                    $success['user'] = $driver;
+                $drivers = Driver::find($driver->id);
+                    $success['user'] = $drivers;
                      return $this->sendResponse(
                         $success, 'You Have Successfully Signup in to ogas.'
                     );

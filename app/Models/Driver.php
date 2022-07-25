@@ -20,6 +20,7 @@ class Driver extends Authenticatable
         'email',
         'licence_no',
         'vehicle_no',
+        'status',
         'device_token',
         'device_type',
     ];
