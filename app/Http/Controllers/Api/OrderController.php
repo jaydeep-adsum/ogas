@@ -361,14 +361,77 @@ class OrderController extends AppBaseController
     }
 
     /**
-     * Swagger defination Get Order
+     * Swagger defination Get All Orders
      *
      * @OA\Post(
      *     tags={"Driver"},
      *     path="/orders",
+     *     description="Get All Orders",
+     *     summary="Get All Orders",
+     *     operationId="orders",
+     * @OA\Parameter(
+     *     name="Content-Language",
+     *     in="header",
+     *     description="Content-Language",
+     *     required=false,@OA\Schema(type="string")
+     *     ),
+     * @OA\RequestBody(
+     *     required=true,
+     * @OA\MediaType(
+     *     mediaType="multipart/form-data",
+     * @OA\JsonContent(
+     *    )
+     *   ),
+     *  ),
+     * @OA\Response(
+     *     response=200,
+     *     description="User response",@OA\JsonContent
+     *     (ref="#/components/schemas/SuccessResponse")
+     * ),
+     * @OA\Response(
+     *     response="400",
+     *     description="Validation error",@OA\JsonContent
+     *     (ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response="403",
+     *     description="Not Authorized Invalid or missing Authorization header",@OA\
+     *     JsonContent(ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response=500,
+     *     description="Unexpected error",@OA\JsonContent
+     *     (ref="#/components/schemas/ErrorResponse")
+     * ),
+     * security={
+     *     {"API-Key": {}}
+     * }
+     * )
+     */
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function driverOrder(Request $request)
+    {
+        try {
+            $orders = Order::where('driver_id', null)->where('status', 0)->get();
+
+            return $this->sendResponse($orders, ('Order retrieved successfully'));
+        } catch (Exception $ex) {
+            return $this->sendError($ex);
+        }
+    }
+
+    /**
+     * Swagger defination Get Order
+     *
+     * @OA\Post(
+     *     tags={"Driver"},
+     *     path="/driver-orders",
      *     description="Get Orders",
      *     summary="Get Orders",
-     *     operationId="orders",
+     *     operationId="driverAcceptedOrder",
      * @OA\Parameter(
      *     name="Content-Language",
      *     in="header",
@@ -412,14 +475,10 @@ class OrderController extends AppBaseController
      * }
      * )
      */
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function driverOrder(Request $request)
+    public function driverAcceptedOrder(Request $request)
     {
         try {
-            $order = Order::where('driver_id', Auth::id());
+            $order = Order::wherewhere('driver_id',Auth::id());
             if ($request->status!=null){
                 $order->where('status', $request->status);
             }

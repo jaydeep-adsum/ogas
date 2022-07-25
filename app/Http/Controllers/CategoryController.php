@@ -27,7 +27,7 @@ class CategoryController extends AppBaseController
      * @param Request $request
      * @return Application|Factory|View
      */
-    public function index(Request$request)
+    public function index(Request $request)
     {
         if ($request->ajax()) {
             return Datatables::of((new CategoryDatatable())->get())->make(true);
