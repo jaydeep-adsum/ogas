@@ -375,14 +375,6 @@ class OrderController extends AppBaseController
      *     description="Content-Language",
      *     required=false,@OA\Schema(type="string")
      *     ),
-     * @OA\RequestBody(
-     *     required=true,
-     * @OA\MediaType(
-     *     mediaType="multipart/form-data",
-     * @OA\JsonContent(
-     *    )
-     *   ),
-     *  ),
      * @OA\Response(
      *     response=200,
      *     description="User response",@OA\JsonContent
@@ -409,10 +401,9 @@ class OrderController extends AppBaseController
      * )
      */
     /**
-     * @param Request $request
      * @return JsonResponse
      */
-    public function driverOrder(Request $request)
+    public function driverOrder()
     {
         try {
             $orders = Order::where('status', '0')->where('driver_id',null)->get();
