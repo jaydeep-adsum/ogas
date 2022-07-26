@@ -194,16 +194,16 @@ class DriverController extends AppBaseController
                     return $this->sendError( 'Your Request Is Rejected By Admin.',200);
                 }
             }
-            if ($driver = $this->authenticator->attemptDriverLogin($credentials)) {
-                $update = Driver::where('id', $driver->id)->update(['device_token' => $request->device_token, 'device_type' => $request->device_type]);
-                $tokenResult = $driver->createToken('ogas');
+            if ($driverLogin = $this->authenticator->attemptDriverLogin($credentials)) {
+                $update = Driver::where('id', $driverLogin->id)->update(['device_token' => $request->device_token, 'device_type' => $request->device_type]);
+                $tokenResult = $driverLogin->createToken('ogas');
                 $token = $tokenResult->token;
                 $token->save();
                 $success['token'] = 'Bearer ' . $tokenResult->accessToken;
                 $success['expires_at'] = Carbon::parse(
                     $tokenResult->token->expires_at
                 )->toDateTimeString();
-                $success['user'] = $driver;
+                $success['user'] = $driverLogin;
 
                 return $this->sendResponse(
                     $success, 'You Have Successfully Logged in to ogas.'
