@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Order extends Model
 {
@@ -16,7 +17,7 @@ class Order extends Model
     /**
      * @var string[]
      */
-    protected $with = ['customer','driver','orderHistory'];
+    protected $with = ['customer','driver','orderHistory','payment'];
 
     /**
      * @var string[]
@@ -50,5 +51,12 @@ class Order extends Model
      */
     public function orderHistory(){
         return $this->hasMany(orderHistory::class);
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function payment(){
+        return $this->hasOne(PaymentStatus::class, 'order_id');
     }
 }

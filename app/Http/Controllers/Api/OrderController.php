@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\AppBaseController;
 use App\Models\Order;
+use App\Models\PaymentStatus;
 use App\Models\Status;
 use App\Repositories\OrderRepository;
 use Auth;
@@ -284,7 +285,7 @@ class OrderController extends AppBaseController
         try {
             $order = $this->orderRepository->find($request->order_id);
             if (!$order){
-                return response()->json(['status' => 'false', 'messages' => array('Order Not Found.')]);
+                return response()->json(['status' => false, 'messages' => array('Order Not Found.')]);
             }
             $order->status = $request->status;
             $order->save();
@@ -351,7 +352,7 @@ class OrderController extends AppBaseController
         try {
             $order = $this->orderRepository->find($request->order_id);
             if (!$order){
-                return response()->json(['status' => 'false', 'messages' => array('Order Not Found.')]);
+                return response()->json(['status' => false, 'messages' => array('Order Not Found.')]);
             }
 
             return $this->sendResponse($order, ('Order History fetch successfully.'));
@@ -541,7 +542,7 @@ class OrderController extends AppBaseController
         try {
             $order = $this->orderRepository->find($request->order_id);
             if (!$order){
-                return response()->json(['status' => 'false', 'messages' => array('Order Not Found')]);
+                return response()->json(['status' => false, 'messages' => array('Order Not Found')]);
             }
             $order->driver_id = Auth::id();
             $order->status = $request->status;
@@ -617,13 +618,105 @@ class OrderController extends AppBaseController
         try {
             $order = $this->orderRepository->find($request->order_id);
             if (!$order){
-                return response()->json(['status' => 'false', 'messages' => array('Order Not Found.')]);
+                return response()->json(['status' => false, 'messages' => array('Order Not Found.')]);
             }
             $order->status = $request->status;
             $order->cancel_reason = $request->cancel_reason;
             $order->save();
 
             return $this->sendResponse($order, ('Order canceled'));
+        } catch (Exception $ex) {
+            return $this->sendError($ex);
+        }
+    }
+
+    /**
+     * Swagger defination get Accept order
+     *
+     * @OA\Post(
+     *     tags={"Customer"},
+     *     path="/payment",
+     *     summary="Payment",
+     *     operationId="payment",
+     * @OA\Parameter(
+     *     name="Content-Language",
+     *     in="header",
+     *     description="Content-Language",
+     *     required=false,@OA\Schema(type="string")
+     *     ),
+     * @OA\RequestBody(
+     *     required=true,
+     * @OA\MediaType(
+     *     mediaType="multipart/form-data",
+     * @OA\JsonContent(
+     * @OA\Property(
+     *     property="order_id",
+     *     type="number"
+     *     ),
+     * @OA\Property(
+     *     property="customer_id",
+     *     type="string"
+     *     ),
+     * @OA\Property(
+     *     property="invoice_id",
+     *     type="string"
+     *     ),
+     * @OA\Property(
+     *     property="total_amount",
+     *     type="string"
+     *     ),
+     * @OA\Property(
+     *     property="payment_mode",
+     *     type="string"
+     *     ),
+     * @OA\Property(
+     *     property="payment_status",
+     *     type="string"
+     *     ),
+     *    )
+     *   ),
+     *  ),
+     * @OA\Response(
+     *     response=200,
+     *     description="User response",@OA\JsonContent
+     *     (ref="#/components/schemas/SuccessResponse")
+     * ),
+     * @OA\Response(
+     *     response="400",
+     *     description="Validation error",@OA\JsonContent
+     *     (ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response="403",
+     *     description="Not Authorized Invalid or missing Authorization header",@OA\
+     *     JsonContent(ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response=500,
+     *     description="Unexpected error",@OA\JsonContent
+     *     (ref="#/components/schemas/ErrorResponse")
+     * ),
+     * security={
+     *     {"API-Key": {}}
+     * }
+     * )
+     */
+    public function paymentStatus(Request $request){
+        try {
+            $order = $this->orderRepository->find($request->order_id);
+            if (!$order){
+                return response()->json(['status' => false, 'messages' => array('Order Not Found.')]);
+            }
+            $payment = PaymentStatus::create([
+                'order_id'=>$request->order_id,
+                'customer_id'=>$request->customer_id,
+                'invoice_id'=>$request->invoice_id,
+                'total_amount'=>$request->total_amount,
+                'payment_mode'=>$request->payment_mode,
+                'payment_status'=>$request->payment_status,
+            ]);
+
+            return $this->sendResponse($payment, ('Payment Done'));
         } catch (Exception $ex) {
             return $this->sendError($ex);
         }

@@ -42,6 +42,7 @@ Route::namespace('Api')->group(
             Route::post('order', [OrderController::class, 'store']);
             Route::post('store-order-history', [OrderController::class, 'storeOrderHistory']);
             Route::post('order-history', [OrderController::class, 'orderHistory']);
+            Route::post('payment', [OrderController::class, 'paymentStatus']);
 
             Route::get('all-complaints', [ComplaintController::class, 'index']);
             Route::post('complaint', [ComplaintController::class, 'store']);
