@@ -38,7 +38,7 @@ $(document).ready(function () {
             },
             {
                 data: function data(row) {
-                    if (row.payment) {
+                    if (row.payment!=null) {
                         return `<span class="badge badge-danger">${row.payment.payment_status}</span>`;
                     } else {
                         return `<span class="badge badge-danger">Unpaid</span>`;

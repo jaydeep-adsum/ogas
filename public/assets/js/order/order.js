@@ -36,7 +36,7 @@ $(document).ready(function () {
       name: 'date'
     }, {
       data: function data(row) {
-        if (row.payment) {
+        if (row.payment != null) {
           return "<span class=\"badge badge-danger\">".concat(row.payment.payment_status, "</span>");
         } else {
           return "<span class=\"badge badge-danger\">Unpaid</span>";
