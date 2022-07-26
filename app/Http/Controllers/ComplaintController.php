@@ -40,11 +40,12 @@ class ComplaintController extends AppBaseController
     }
 
     /**
-     * @param Complaint $complaint
+     * @param $id
      * @return JsonResponse
      */
-    public function destroy(Complaint $complaint): JsonResponse
+    public function destroy($id)
     {
+        $complaint = $this->complaintRepository->find($id);
         $complaint->delete();
 
         return $this->sendSuccess('Complaint deleted successfully.');
