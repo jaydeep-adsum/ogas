@@ -365,10 +365,10 @@ class OrderController extends AppBaseController
      *
      * @OA\Post(
      *     tags={"Driver"},
-     *     path="/all-orders",
+     *     path="/orders",
      *     description="Get All Orders",
      *     summary="Get All Orders",
-     *     operationId="allOrders",
+     *     operationId="orders",
      * @OA\Parameter(
      *     name="Content-Language",
      *     in="header",
