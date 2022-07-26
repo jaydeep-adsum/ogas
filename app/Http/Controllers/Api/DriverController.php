@@ -106,7 +106,7 @@ class DriverController extends AppBaseController
             $error = (object)[];
             if ($validator->fails()) {
 
-                return response()->json(['status' => "false", 'data' => $error, 'message' => implode(', ', $validator->errors()->all())]);
+                return response()->json(['status' => false, 'data' => $error, 'message' => implode(', ', $validator->errors()->all())]);
             }
             $input = $request->all();
             $driver = Driver::create($input);
@@ -182,7 +182,7 @@ class DriverController extends AppBaseController
             $error = (object)[];
             if ($validator->fails()) {
 
-                return response()->json(['status' => "false", 'data' => $error, 'message' => implode(', ', $validator->errors()->all())]);
+                return response()->json(['status' => false, 'data' => $error, 'message' => implode(', ', $validator->errors()->all())]);
             }
             $credentials['mobile'] = $request->mobile;
             $checkDriver = Driver::where('mobile',$request->mobile)->first();
@@ -322,6 +322,62 @@ class DriverController extends AppBaseController
             return $this->sendResponse($driver->toArray(), ('Your profile updated successfully'));
         } catch (\Exception $ex) {
             return $this->sendResponse($ex);
+        }
+    }
+
+    /**
+     * Swagger defination Driver profile edit
+     *
+     * @OA\Post(
+     *     tags={"Driver"},
+     *     path="/check-driver",
+     *     description="Check Driver",
+     *     summary="Check Driver",
+     *     operationId="checkDriver",
+     * @OA\Parameter(
+     *     name="Content-Language",
+     *     in="header",
+     *     description="Content-Language",
+     *     required=false,@OA\Schema(type="string")
+     *     ),
+     * @OA\RequestBody(
+     *     required=true,
+     * @OA\MediaType(
+     *     mediaType="multipart/form-data",
+     * @OA\JsonContent(
+     * @OA\Property(
+     *     property="mobile",
+     *     type="string"
+     *     ),
+     *    )
+     *   ),
+     *  ),
+     * @OA\Response(
+     *     response=200,
+     *     description="User response",@OA\JsonContent
+     *     (ref="#/components/schemas/SuccessResponse")
+     * ),
+     * @OA\Response(
+     *     response="400",
+     *     description="Validation error",@OA\JsonContent
+     *     (ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response="403",
+     *     description="Not Authorized Invalid or missing Authorization header",@OA\
+     *     JsonContent(ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response=500,
+     *     description="Unexpected error",@OA\JsonContent
+     *     (ref="#/components/schemas/ErrorResponse")
+     * ),
+     * )
+     */
+    public function checkDriver(Request $request){
+        $driver = Driver::where('mobile',$request->mobile)->first();
+        if ($driver){
+           return $this->sendError('Mobile no already taken.');
         }
     }
 }

@@ -102,7 +102,7 @@ class CustomerController extends AppBaseController
             $error = (object)[];
             if ($validator->fails()) {
 
-                return response()->json(['status' => "false", 'data' => $error, 'message' => implode(', ', $validator->errors()->all())]);
+                return response()->json(['status' => false, 'data' => $error, 'message' => implode(', ', $validator->errors()->all())]);
             }
             $input = $request->all();
             $customer = Customer::create($input);
@@ -192,7 +192,7 @@ class CustomerController extends AppBaseController
             $error = (object)[];
             if ($validator->fails()) {
 
-                return response()->json(['status' => "false", 'data' => $error, 'message' => implode(', ', $validator->errors()->all())]);
+                return response()->json(['status' => false, 'data' => $error, 'message' => implode(', ', $validator->errors()->all())]);
             }
             $credentials['mobile'] = $request->mobile;
 

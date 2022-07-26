@@ -32,6 +32,7 @@ Route::namespace('Api')->group(
 
         Route::post('driver-signup', [DriverController::class, 'signup']);
         Route::post('driver-login', [DriverController::class, 'login']);
+        Route::post('check-driver', [DriverController::class, 'checkDriver']);
 
         Route::group(['middleware' => 'auth:api'], function () {
             Route::post('edit', [CustomerController::class, 'edit']);
@@ -48,7 +49,7 @@ Route::namespace('Api')->group(
 
             Route::get('faq', [FaqController::class, 'index']);
 
-            Route::post('orders', [OrderController::class, 'driverOrder']);
+            Route::post('all-orders', [OrderController::class, 'driverOrder']);
             Route::post('driver-orders', [OrderController::class, 'driverAcceptedOrder']);
             Route::post('accept-order', [OrderController::class, 'acceptOrder']);
             Route::post('cancel-order', [OrderController::class, 'cancelOrder']);
