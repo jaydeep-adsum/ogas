@@ -101,7 +101,7 @@ class Authenticator
             throw new RuntimeException('Unable to determine authentication model from configuration.');
         }
         /** @var Authenticatable $user */
-        if (!$user = (new $model)->Where([['mobile', $credentials['mobile']],['status', '1']])->first())
+        if (!$user = (new $model)->Where('mobile', $credentials['mobile'])->first())
         {
             return null;
         }
