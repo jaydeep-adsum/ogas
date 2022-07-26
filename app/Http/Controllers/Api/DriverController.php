@@ -196,7 +196,6 @@ class DriverController extends AppBaseController
             }
             if ($driver = $this->authenticator->attemptDriverLogin($credentials)) {
                 $update = Driver::where('id', $driver->id)->update(['device_token' => $request->device_token, 'device_type' => $request->device_type]);
-                $drivers = Driver::find($driver->id);
                 $tokenResult = $driver->createToken('ogas');
                 $token = $tokenResult->token;
                 $token->save();
@@ -204,7 +203,7 @@ class DriverController extends AppBaseController
                 $success['expires_at'] = Carbon::parse(
                     $tokenResult->token->expires_at
                 )->toDateTimeString();
-                $success['user'] = $drivers;
+                $success['user'] = $driver;
 
                 return $this->sendResponse(
                     $success, 'You Have Successfully Logged in to ogas.'
