@@ -198,7 +198,7 @@ class CustomerController extends AppBaseController
 
             if ($customer = $this->authenticator->attemptLogin($credentials)) {
                 $update = Customer::where('id', $customer->id)->update(['device_token' => $request->device_token, 'device_type' => $request->device_type]);
-                $customer = Customer::find($customer->id);
+                $customers = Customer::find($customer->id);
                 $tokenResult = $customer->createToken('ogas');
                 $token = $tokenResult->token;
                 $token->save();
@@ -206,7 +206,7 @@ class CustomerController extends AppBaseController
                 $success['expires_at'] = Carbon::parse(
                     $tokenResult->token->expires_at
                 )->toDateTimeString();
-                $success['user'] = $customer;
+                $success['user'] = $customers;
 
                 return $this->sendResponse(
                     $success, 'You Have Successfully Logged in to ogas.'
