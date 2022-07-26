@@ -9,7 +9,7 @@ $(document).ready(function () {
         },
         columnDefs: [
             {
-                'targets': [5],
+                'targets': [7],
                 'className': 'text-center',
                 'orderable': false,
                 'width': '8%'
@@ -35,6 +35,16 @@ $(document).ready(function () {
                     return moment(row.date, 'YYYY-MM-DD hh:mm:ss').format('Do MMM, YYYY');
                 },
                 name: 'date'
+            },
+            {
+                data: function data(row) {
+                    if (row.payment) {
+                        return `<span class="badge badge-danger">${row.payment.payment_status}</span>`;
+                    } else {
+                        return `<span class="badge badge-danger">Unpaid</span>`;
+                    }
+                },
+                name: 'id'
             },
             {
                 data: function data(row) {
