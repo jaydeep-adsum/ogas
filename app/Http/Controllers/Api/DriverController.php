@@ -378,5 +378,6 @@ class DriverController extends AppBaseController
         if ($driver){
            return $this->sendError('Mobile no already taken.');
         }
+        return $this->sendSuccess('success.');
     }
 }
