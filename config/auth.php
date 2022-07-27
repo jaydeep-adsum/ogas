@@ -45,7 +45,7 @@ return [
             'provider' => 'customers',
             'hash' => false,
         ],
-        [
+        'drivers' => [
             'driver' => 'passport',
             'provider' => 'drivers',
             'hash' => false,

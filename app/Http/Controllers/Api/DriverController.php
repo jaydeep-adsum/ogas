@@ -196,7 +196,7 @@ class DriverController extends AppBaseController
             }
             if ($driverLogin = $this->authenticator->attemptDriverLogin($credentials)) {
                 $update = Driver::where('id', $driverLogin->id)->update(['device_token' => $request->device_token, 'device_type' => $request->device_type]);
-                $tokenResult = $driverLogin->createToken('ogas');
+                $tokenResult = $driverLogin->createToken('driver-token');
                 $token = $tokenResult->token;
                 $token->save();
                 $success['token'] = 'Bearer ' . $tokenResult->accessToken;
