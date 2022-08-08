@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class loginMail extends Mailable
+class orderConfirmMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -30,6 +30,6 @@ class loginMail extends Mailable
      */
     public function build()
     {
-        return $this->view('email.loginmail');
+        return $this->view('email.order_confirm');
     }
 }

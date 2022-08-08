@@ -28,6 +28,7 @@ class DashboardController extends Controller
         $data['order'] = Order::all()->count();
         $data['complaint'] = Complaint::all()->count();
         $data['driver'] = Driver::all()->count();
+        $data['orderAmountTotal'] = Order::pluck('total')->sum();
 
         return view('dashboard.index',compact('data'));
     }

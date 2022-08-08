@@ -105,18 +105,31 @@ class DriverController extends AppBaseController
 
             $error = (object)[];
             if ($validator->fails()) {
-
                 return response()->json(['status' => false, 'data' => $error, 'message' => implode(', ', $validator->errors()->all())]);
             }
             $input = $request->all();
             $driver = Driver::create($input);
 
             if ($driver) {
-                $drivers = Driver::find($driver->id);
-                    $success['user'] = $drivers;
-                     return $this->sendResponse(
+                $credentials['mobile'] = $driver->mobile;
+                $credentials['name'] = $driver->name;
+                if ($driver = $this->authenticator->attemptDriverSignUp($credentials)) {
+                    $update = Driver::where('id', $driver->id)->update(['device_token' => $request->device_token, 'device_type' => $request->device_type]);
+                    $tokenResult = $driver->createToken('driver-token');
+                    $token = $tokenResult->token;
+                    $token->save();
+                    $success['token'] = 'Bearer ' . $tokenResult->accessToken;
+                    $success['expires_at'] = Carbon::parse(
+                        $tokenResult->token->expires_at
+                    )->toDateTimeString();
+                    $success['user'] = $driver;
+
+                    return $this->sendResponse(
                         $success, 'You Have Successfully Signup in to ogas.'
                     );
+                }else {
+                    return response()->json(['success' => false, 'data' => $error, 'message' => 'These credentials do not match our records']);
+                }
             }
         } catch (Exception $e) {
             return $this->sendError($e);

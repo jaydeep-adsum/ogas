@@ -19,4 +19,8 @@ class PaymentStatus extends Model
         'payment_mode',
         'payment_status',
     ];
+
+    public function order(){
+        return $this->belongsTo(Order::class, 'order_id');
+    }
 }

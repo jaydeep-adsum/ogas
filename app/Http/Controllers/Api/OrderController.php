@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\AppBaseController;
+use App\Mail\orderConfirmMail;
 use App\Models\Order;
 use App\Models\PaymentStatus;
 use App\Models\Status;
@@ -715,8 +716,18 @@ class OrderController extends AppBaseController
                 'payment_mode'=>$request->payment_mode,
                 'payment_status'=>$request->payment_status,
             ]);
+        if ($payment) {
+//            $order = PaymentStatus::where('id',1)->with('order')->first();
+//            dd($order);
+//            $email = $order->order->customer->email;
+//            $details = [
+//                'username' => $input['email'],
+//                'password' => $password,
+//            ];
+//            \Mail::to($email)->send(new orderConfirmMail($details));
 
             return $this->sendResponse($payment, ('Payment Done'));
+        }
         } catch (Exception $ex) {
             return $this->sendError($ex);
         }

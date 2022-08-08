@@ -60,6 +60,17 @@
                     </a>
                 </div>
             </div>
+            <div class="col-md-3">
+                <div class="card bg-dark">
+                    <a href="{{route('order')}}">
+                        <div class="card-body py-4 px-4">
+                            <span style="font-size: 40px;">ر.ع</span>
+                            <h2 class="fw">{{$data['orderAmountTotal']?$data['orderAmountTotal']:0}}</h2>
+                            <p>{{__('Total Order Amount')}}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
