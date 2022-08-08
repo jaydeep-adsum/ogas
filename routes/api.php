@@ -33,26 +33,27 @@ Route::namespace('Api')->group(
         Route::post('driver-login', [DriverController::class, 'login']);
         Route::post('check-driver', [DriverController::class, 'checkDriver']);
 
-        Route::group(['middleware' => 'auth:api'], function () {
-            Route::post('edit', [CustomerController::class, 'edit']);
+        //driver
+        Route::group(['middleware' => 'auth:drivers'], function () {
             Route::post('driver-edit', [DriverController::class, 'edit']);
-
-            Route::get('products', [ProductController::class, 'index']);
-            Route::post('get-order', [OrderController::class, 'index']);
-            Route::post('order', [OrderController::class, 'store']);
-            Route::post('store-order-history', [OrderController::class, 'storeOrderHistory']);
-            Route::post('order-history', [OrderController::class, 'orderHistory']);
-            Route::post('payment', [OrderController::class, 'paymentStatus']);
-
-            Route::get('all-complaints', [ComplaintController::class, 'index']);
-            Route::post('complaint', [ComplaintController::class, 'store']);
-
-            Route::get('faq', [FaqController::class, 'index']);
-
             Route::post('orders', [OrderController::class, 'driverOrder']);
             Route::post('driver-orders', [OrderController::class, 'driverAcceptedOrder']);
             Route::post('accept-order', [OrderController::class, 'acceptOrder']);
             Route::post('cancel-order', [OrderController::class, 'cancelOrder']);
+        });
+
+        //customer
+        Route::group(['middleware' => 'auth:api'], function () {
+            Route::post('edit', [CustomerController::class, 'edit']);
+            Route::post('payment', [OrderController::class, 'paymentStatus']);
+            Route::get('all-complaints', [ComplaintController::class, 'index']);
+            Route::post('complaint', [ComplaintController::class, 'store']);
+            Route::get('faq', [FaqController::class, 'index']);
+            Route::post('get-order', [OrderController::class, 'index']);
+            Route::post('order', [OrderController::class, 'store']);
+            Route::post('store-order-history', [OrderController::class, 'storeOrderHistory']);
+            Route::post('order-history', [OrderController::class, 'orderHistory']);
+            Route::get('products', [ProductController::class, 'index']);
         });
     }
 );

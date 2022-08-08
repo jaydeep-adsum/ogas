@@ -708,14 +708,22 @@ class OrderController extends AppBaseController
             if (!$order){
                 return response()->json(['status' => false, 'messages' => array('Order Not Found.')]);
             }
-            $payment = PaymentStatus::create([
-                'order_id'=>$request->order_id,
-                'customer_id'=>$request->customer_id,
-                'invoice_id'=>$request->invoice_id,
-                'total_amount'=>$request->total_amount,
-                'payment_mode'=>$request->payment_mode,
-                'payment_status'=>$request->payment_status,
-            ]);
+            $orderPayment = PaymentStatus::where('order_id',$request->order_id)->first();
+            if ($orderPayment){
+                $orderPayment->payment_status=$request->payment_status;
+                $orderPayment->save();
+                $payment = PaymentStatus::where('order_id',$request->order_id)->first();;
+            } else {
+                $payment = PaymentStatus::create([
+                    'order_id'=>$request->order_id,
+                    'customer_id'=>$request->customer_id,
+                    'invoice_id'=>$request->invoice_id,
+                    'total_amount'=>$request->total_amount,
+                    'payment_mode'=>$request->payment_mode,
+                    'payment_status'=>$request->payment_status,
+                ]);
+            }
+
         if ($payment) {
 //            $order = PaymentStatus::where('id',1)->with('order')->first();
 //            dd($order);
