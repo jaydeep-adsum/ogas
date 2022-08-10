@@ -16,6 +16,8 @@ class DriverRepository extends BaseRepository
         'licence_no',
         'vehicle_no',
         'status',
+        'latitude',
+        'longitude',
     ];
 
     /**

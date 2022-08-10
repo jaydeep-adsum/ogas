@@ -273,6 +273,14 @@ class DriverController extends AppBaseController
      *     property="vehicle_no",
      *     type="string"
      *     ),
+     * @OA\Property(
+     *     property="latitude",
+     *     type="string"
+     *     ),
+     * @OA\Property(
+     *     property="longitude",
+     *     type="string"
+     *     ),
      *    )
      *   ),
      *  ),
@@ -329,6 +337,13 @@ class DriverController extends AppBaseController
             if (isset($request->vehicle_no) && $request->vehicle_no!='') {
                 $driver->vehicle_no = $request->vehicle_no;
             }
+            if (isset($request->latitude) && $request->latitude!='') {
+                $driver->latitude = $request->latitude;
+            }
+            if (isset($request->longitude) && $request->longitude!='') {
+                $driver->longitude = $request->longitude;
+            }
+
             $driver->save();
 
             return $this->sendResponse($driver->toArray(), ('Your profile updated successfully'));

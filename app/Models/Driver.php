@@ -21,5 +21,7 @@ class Driver extends Authenticatable
         'status',
         'device_token',
         'device_type',
+        'latitude',
+        'longitude',
     ];
 }
