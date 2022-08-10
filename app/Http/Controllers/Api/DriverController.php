@@ -389,7 +389,7 @@ class DriverController extends AppBaseController
     public function checkDriver(Request $request){
         $driver = Driver::where('mobile',$request->mobile)->first();
         if ($driver){
-           return $this->sendError('Mobile no already taken.');
+           return $this->sendError('Mobile no already taken.',200);
         }
         return $this->sendSuccess('success.');
     }
