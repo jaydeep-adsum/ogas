@@ -34,6 +34,8 @@ class Order extends Model
         'longitude',
         'driver_id',
         'cancel_reason',
+        'invoice_id',
+        'payment_method',
     ];
 
     /**

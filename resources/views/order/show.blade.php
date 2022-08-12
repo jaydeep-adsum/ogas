@@ -35,8 +35,8 @@
                                                 @endif</div>
                                             <div class="col-md-4">{{ Form::label(__('location ').':') }}</div>
                                             <div class="col-md-8"> {{ $order->location }}</div>
-                                            <div class="col-md-4">{{ Form::label(__('driver_tip ').':') }}</div>
-                                            <div class="col-md-8">{{ $order->driver_tip?$order->driver_tip:0 }}</div>
+{{--                                            <div class="col-md-4">{{ Form::label(__('driver_tip ').':') }}</div>--}}
+{{--                                            <div class="col-md-8">{{ $order->driver_tip?$order->driver_tip:0 }}</div>--}}
                                             <div class="col-md-4">{{ Form::label(__('total ').':') }}</div>
                                             <div class="col-md-8">{{ $order->total }}</div>
                                         </div>

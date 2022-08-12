@@ -183,6 +183,10 @@ class OrderController extends AppBaseController
      *     property="customer_id",
      *     type="number"
      *     ),
+     * @OA\Property(
+     *     property="payment_method",
+     *     type="string"
+     *     ),
      *    )
      *   ),
      *  ),
