@@ -30,7 +30,7 @@ $(document).ready(function () {
                 data: function data(row) {
                     return row.address.location;
                 },
-                name: 'location'
+                name: 'id'
             },
             {
                 data: function data(row) {
