@@ -15,15 +15,12 @@ class OrderRepository extends BaseRepository
      * @var string[]
      */
     protected $fieldsSearchable = [
-        'location',
         'date',
         'time_slot',
         'total',
         'driver_tip',
         'customer_id',
         'status',
-        'latitude',
-        'longitude',
         'quantity',
         'type',
         'product_id',
