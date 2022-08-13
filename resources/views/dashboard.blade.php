@@ -221,7 +221,6 @@
 <script src="{{asset('public/assets/js/adminlte.js')}}"></script>
 <script src="{{ asset('public/assets/plugins/moment/moment.min.js')}}"></script>
 <script src="{{ asset('public/assets/plugins/daterangepicker/daterangepicker.js')}}"></script>
-{{-- <script src="{{ asset('public/plugins/chart/Chart.js') }}"></script> --}}
 <script src="{{ asset('public/assets/js/sweetalert.min.js') }}"></script>
 <script src="{{asset('public/assets/izitoast/js/iziToast.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('public/assets/js/pnotify.custom.min.js')}}"></script>

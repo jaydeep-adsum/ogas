@@ -47,9 +47,8 @@ class OrderController extends AppBaseController
     public function show($id)
     {
         $order = Order::find($id);
-        $div = $order->driver==null?6:4;
 
-        return view('order.show', compact('order','div'));
+        return view('order.show', compact('order'));
     }
 
     /**

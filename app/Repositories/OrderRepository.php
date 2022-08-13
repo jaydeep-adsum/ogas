@@ -64,13 +64,22 @@ class OrderRepository extends BaseRepository
           "customer_id" => $input['customer_id'],
           "invoice_id" => $invoiceId,
         ]);
-        $quantity = explode(',',$input['quantity']);
-        $type = explode(',',$input['type']);
-        foreach (explode(',',$input['product_id']) as $key=>$product_id){
+//        $quantity = explode(',',$input['quantity']);
+//        $type = explode(',',$input['type']);
+//        foreach (explode(',',$input['product_id']) as $key=>$product_id){
+//            orderHistory::create([
+//                'quantity'=>$quantity[$key],
+//                'type'=>$type[$key],
+//                'product_id'=>$product_id,
+//                'order_id'=>$order->id
+//            ]);
+//        }
+        $products = json_decode($input['product']);
+        foreach ($products as $data){
               orderHistory::create([
-                'quantity'=>$quantity[$key],
-                'type'=>$type[$key],
-                'product_id'=>$product_id,
+                'quantity'=>$data->quantity,
+                'type'=>$data->type,
+                'product_id'=>$data->id,
                 'order_id'=>$order->id
             ]);
         }

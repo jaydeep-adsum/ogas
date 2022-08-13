@@ -71,6 +71,74 @@
                     </a>
                 </div>
             </div>
+{{--            <div class="col-md-12">--}}
+{{--                <div class="card">--}}
+{{--                    <div class="card-body">--}}
+{{--                        <canvas id="myChart" height="100px"></canvas>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
         </div>
     </div>
+@endsection
+@section('scripts')
+{{--    @dd($data['product'])--}}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript">
+
+        var labels =  {{ Js::from($data['product']) }};
+        var users =  {{ Js::from($data['orderHistory']) }};
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'Total Orders',
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255,0,56)',
+                    'rgb(72,255,0)',
+                    'rgb(54, 162, 235)',
+                ],
+                data: users,
+            }]
+        };
+
+        const config = {
+            type: 'pie',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Order Details'
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Products'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Product Sold'
+                        },
+                        min: 0,
+                        max: 100,
+                        ticks: {
+                            stepSize: 20
+                        }
+                    }
+                }
+            }
+        };
+
+        const myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+
+    </script>
 @endsection

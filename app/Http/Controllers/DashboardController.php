@@ -6,9 +6,11 @@ use App\Models\Complaint;
 use App\Models\Customer;
 use App\Models\Driver;
 use App\Models\Order;
+use App\Models\orderHistory;
 use App\Models\Product;
 use App\Models\User;
 use Auth;
+use DB;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -23,9 +25,15 @@ class DashboardController extends Controller
      */
     public function dashboard()
     {
-        $data['customer'] = Customer::all()->count();
+             $data['customer'] = Customer::all()->count();
+//        $data['product'] = Product::pluck('product_name');
         $data['product'] = Product::all()->count();
         $data['order'] = Order::all()->count();
+        $orderHistoryArr = orderHistory::select(DB::raw('count(product_id) as total'))->groupBy('product_id')->get()->toArray();
+        $data['orderHistory'] = [];
+        foreach ($orderHistoryArr as $orderHistory){
+            $data['orderHistory'][] = $orderHistory['total'];
+        }
         $data['complaint'] = Complaint::all()->count();
         $data['driver'] = Driver::all()->count();
         $data['orderAmountTotal'] = Order::pluck('total')->sum();
