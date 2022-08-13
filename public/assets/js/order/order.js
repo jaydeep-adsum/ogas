@@ -27,7 +27,9 @@ $(document).ready(function () {
       },
       name: 'customer_id'
     }, {
-      data: 'location',
+      data: function data(row) {
+        return row.address.location;
+      },
       name: 'location'
     }, {
       data: function data(row) {
