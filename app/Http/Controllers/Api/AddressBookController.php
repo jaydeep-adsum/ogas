@@ -69,6 +69,60 @@ class AddressBookController extends AppBaseController
     }
 
     /**
+     * Swagger definition for Products
+     *
+     * @OA\Get(
+     *     tags={"Address"},
+     *     path="/last-address",
+     *     description="Address",
+     *     summary="Address",
+     *     operationId="getAddress",
+     * @OA\Parameter(
+     *     name="Content-Language",
+     *     in="header",
+     *     description="Content-Language",
+     *     required=false,@OA\Schema(type="string")
+     *     ),
+     * @OA\Response(
+     *     response=200,
+     *     description="Succuess response"
+     *     ,@OA\JsonContent(ref="#/components/schemas/SuccessResponse")
+     *     ),
+     * @OA\Response(
+     *     response="400",
+     *     description="Validation error"
+     *     ,@OA\JsonContent(ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response="401",
+     *     description="Not Authorized Invalid or missing Authorization header"
+     *     ,@OA\JsonContent
+     *     (ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response=500,
+     *     description="Unexpected error"
+     *     ,@OA\JsonContent(ref="#/components/schemas/ErrorResponse")
+     *  ),
+     * security={
+     *     {"API-Key": {}}
+     * }
+     * )
+     */
+    /**
+     * @return JsonResponse
+     */
+    public function address(){
+        try {
+            $address = AddressBook::where('customer_id', Auth::id())->latest();
+
+            return $this->sendResponse($address, ('Address retrieved successfully'));
+        } catch (Exception $ex) {
+            return $this->sendError($ex);
+        }
+    }
+
+    /**
      * Swagger defination Complaint
      *
      * @OA\Post(

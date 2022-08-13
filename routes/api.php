@@ -47,6 +47,7 @@ Route::namespace('Api')->group(
         Route::group(['middleware' => 'auth:api'], function () {
             Route::post('edit', [CustomerController::class, 'edit']);
             Route::get('address', [AddressBookController::class, 'index']);
+            Route::get('last-address', [AddressBookController::class, 'address']);
             Route::post('store-address', [AddressBookController::class, 'store']);
             Route::post('delete-address', [AddressBookController::class, 'destroy']);
             Route::post('payment', [OrderController::class, 'paymentStatus']);
