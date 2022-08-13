@@ -19,9 +19,9 @@ class OrderExport implements FromCollection, WithHeadings
         foreach ($order as $item){
             $data[] = [
                 'id'=>$item->id,
-                'location'=>$item->location,
-                'latitude'=>$item->latitude,
-                'longitude'=>$item->longitude,
+                'location'=>$item->address->location,
+                'latitude'=>$item->address->latitude,
+                'longitude'=>$item->address->longitude,
                 'date'=>$item->date,
                 'time_slot'=> $item->time_slot == 1 ? 'Now' : ($item->time_slot == 2 ? '09Am-12pm' : ($item->time_slot == 3 ? '12pm-03pm' : ($item->time_slot == 4 ? '03pm-06pm' : '-'))),
                 'total'=> $item->total,
