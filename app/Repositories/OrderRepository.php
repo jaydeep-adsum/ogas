@@ -54,9 +54,7 @@ class OrderRepository extends BaseRepository
     public function store($input){
         $invoiceId = Str::random(6);
         $order = $this->create([
-          "location" => $input['location'],
-          "latitude" => $input['latitude'],
-          "longitude" => $input['longitude'],
+          "address_book_id" => $input['address_book_id'],
           "time_slot" => $input['time_slot'],
           "date" => $input['date'],
           "total" => $input['total'],

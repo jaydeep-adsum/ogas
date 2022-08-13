@@ -17,21 +17,19 @@ class Order extends Model
     /**
      * @var string[]
      */
-    protected $with = ['customer','driver','orderHistory','payment'];
+    protected $with = ['customer','driver','orderHistory','payment','address'];
 
     /**
      * @var string[]
      */
     public $fillable = [
-        'location',
         'date',
         'time_slot',
         'total',
         'driver_tip',
         'customer_id',
         'status',
-        'latitude',
-        'longitude',
+        'address_book_id',
         'driver_id',
         'cancel_reason',
         'invoice_id',
@@ -43,6 +41,13 @@ class Order extends Model
      */
     public function customer(){
         return $this->belongsTo(Customer::class, 'customer_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function address(){
+        return $this->belongsTo(AddressBook::class, 'address_book_id');
     }
 
     public function driver(){

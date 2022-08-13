@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AddressBookController;
 use App\Http\Controllers\Api\ComplaintController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\DriverController;
@@ -45,6 +46,9 @@ Route::namespace('Api')->group(
         //customer
         Route::group(['middleware' => 'auth:api'], function () {
             Route::post('edit', [CustomerController::class, 'edit']);
+            Route::get('address', [AddressBookController::class, 'index']);
+            Route::post('store-address', [AddressBookController::class, 'store']);
+            Route::post('delete-address', [AddressBookController::class, 'destroy']);
             Route::post('payment', [OrderController::class, 'paymentStatus']);
             Route::get('all-complaints', [ComplaintController::class, 'index']);
             Route::post('complaint', [ComplaintController::class, 'store']);

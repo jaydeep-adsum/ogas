@@ -140,16 +140,8 @@ class OrderController extends AppBaseController
      *     mediaType="multipart/form-data",
      * @OA\JsonContent(
      * @OA\Property(
-     *     property="location",
-     *     type="string"
-     *     ),
-     * @OA\Property(
-     *     property="latitude",
-     *     type="string"
-     *     ),
-     * @OA\Property(
-     *     property="longitude",
-     *     type="string"
+     *     property="address_book_id",
+     *     type="number"
      *     ),
      * @OA\Property(
      *     property="date",
