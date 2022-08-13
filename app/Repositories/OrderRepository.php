@@ -60,6 +60,7 @@ class OrderRepository extends BaseRepository
           "time_slot" => $input['time_slot'],
           "date" => $input['date'],
           "total" => $input['total'],
+          "payment_method" => $input['payment_method'],
           "driver_tip" => $input['driver_tip'],
           "customer_id" => $input['customer_id'],
           "invoice_id" => $invoiceId,

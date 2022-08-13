@@ -34,6 +34,8 @@ require __DIR__.'/auth.php';
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard-chart-data', [DashboardController::class, 'dashboardChartData'])->name('dashboard.chart.data');
+    Route::get('/income-chart-data', [DashboardController::class, 'incomeChartData'])->name('income.chart.data');
     Route::post('changePassword', [DashboardController::class,'changePassword'])->name('changePassword');
 
     Route::get('customer', [CustomerController::class, 'index'])->name('customer');

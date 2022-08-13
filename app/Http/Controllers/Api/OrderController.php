@@ -152,20 +152,12 @@ class OrderController extends AppBaseController
      *     type="string"
      *     ),
      * @OA\Property(
-     *     property="quantity",
-     *     type="string",
-     *     ),
-     * @OA\Property(
      *     property="date",
      *     type="string"
      *     ),
      * @OA\Property(
      *     property="time_slot",
      *     type="number"
-     *     ),
-     * @OA\Property(
-     *     property="type",
-     *     type="string",
      *     ),
      * @OA\Property(
      *     property="total",
@@ -176,15 +168,15 @@ class OrderController extends AppBaseController
      *     type="number"
      *     ),
      * @OA\Property(
-     *     property="product_id",
-     *     type="string",
-     *     ),
-     * @OA\Property(
      *     property="customer_id",
      *     type="number"
      *     ),
      * @OA\Property(
      *     property="payment_method",
+     *     type="string"
+     *     ),
+     * @OA\Property(
+     *     property="product",
      *     type="string"
      *     ),
      *    )
