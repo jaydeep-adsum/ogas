@@ -39,6 +39,27 @@ class CustomerController extends AppBaseController
     }
 
     /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function edit($id)
+    {
+        $customer = $this->customerRepository->find($id);
+        return $this->sendResponse($customer, 'Customer Retrieved Successfully.');
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
+     */
+    public function update(Request $request,$id){
+        $this->customerRepository->update($request->all(), $id);
+
+        return $this->sendSuccess('Customer updated successfully.');
+    }
+
+    /**
      * @param Customer $customer
      * @return JsonResponse
      */

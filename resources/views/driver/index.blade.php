@@ -16,6 +16,7 @@
                 </div>
             </div>
         </div>
+        @include('driver.edit')
     </div>
 @endsection
 @section('scripts')

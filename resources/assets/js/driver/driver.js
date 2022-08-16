@@ -53,17 +53,67 @@ $(document).ready(function () {
            <i class="fa-solid fa-thumbs-up"></i>
                 </a>    <a title="Reject !" class="btn btn-sm bg-danger text-white reject" data-id="${row.id}" href="#">
            <i class="fa-solid fa-thumbs-down"></i>
+                </a>    <a title="Edit" class="btn btn-sm edit-btn" data-id="${row.id}" href="#">
+            <i class="fa fa-edit"></i>
                 </a>    <a title="Delete" class="btn btn-sm delete-btn text-white" data-id="${row.id}" href="#">
            <i class="fa-solid fa-trash"></i>
                 </a>`
                     } else {
-                        return `<a title="Delete" class="btn btn-sm delete-btn text-white" data-id="${row.id}" href="#">
+                        return `<a title="Edit" class="btn btn-sm edit-btn" data-id="${row.id}" href="#">
+            <i class="fa fa-edit"></i>
+                </a>    <a title="Delete" class="btn btn-sm delete-btn text-white" data-id="${row.id}" href="#">
            <i class="fa-solid fa-trash"></i>
                 </a>`
                     }
                 },
                 name: 'id',
             }]
+    });
+
+    $(document).on('click', '.edit-btn', function (event) {
+        let driverId = $(event.currentTarget).attr('data-id');
+        renderData(driverId);
+    });
+
+    window.renderData = function (id) {
+        $.ajax({
+            url: driverUrl + '/' + id + '/edit',
+            type: 'GET',
+            success: function (result) {
+                if (result.success) {
+                    $('#editName').val(result.data.name);
+                    $('#editMobile').val(result.data.mobile);
+                    $('#editEmail').val(result.data.email);
+                    $('#editLicenceNo').val(result.data.licence_no);
+                    $('#editVehicleNo').val(result.data.vehicle_no);
+                    $('#driverId').val(result.data.id);
+                    $('#editModal').appendTo('body').modal('show');
+                }
+            },
+            error: function (result) {
+                displayErrorMessage(result.responseJSON.message);
+            },
+        });
+    };
+
+    $(document).on('submit', '#editForm', function (e) {
+        e.preventDefault();
+        var id = $('#driverId').val();
+        $.ajax({
+            url: driverUrl +'/'+id,
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function (result) {
+                if (result.success) {
+                    displaySuccessMessage(result.message);
+                    $('#editModal').modal('hide');
+                    $(tableName).DataTable().ajax.reload(null, false);
+                }
+            },
+            error: function (result) {
+                displayErrorMessage(result.responseJSON.message);
+            },
+        });
     });
 
     $(document).on('click', '.delete-btn', function (event) {

@@ -40,11 +40,15 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('customer', [CustomerController::class, 'index'])->name('customer');
     Route::get('customer/export', [CustomerController::class, 'export'])->name('customer.export');
+    Route::get('customer/{customer}/edit', [CustomerController::class, 'edit'])->name('customer.edit');
+    Route::post('customer/{customer}', [CustomerController::class, 'update'])->name('customer.update');
     Route::delete('customer/{customer}', [CustomerController::class, 'destroy'])->name('customer.destroy');
 
     Route::get('driver', [DriverController::class, 'index'])->name('driver');
     Route::delete('driver/{driver}', [DriverController::class, 'destroy'])->name('driver.destroy');
     Route::get('driver/export', [DriverController::class, 'export'])->name('driver.export');
+    Route::get('driver/{driver}/edit', [DriverController::class, 'edit'])->name('driver.edit');
+    Route::post('driver/{driver}', [DriverController::class, 'update'])->name('driver.update');
     Route::get('driver/{driver}/accept', [DriverController::class, 'accept'])->name('driver.accept');
     Route::get('driver/{driver}/reject', [DriverController::class, 'reject'])->name('driver.reject');
 

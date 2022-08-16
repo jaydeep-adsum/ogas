@@ -16,6 +16,7 @@
                 </div>
             </div>
         </div>
+        @include('customer.edit')
     </div>
 @endsection
 @section('scripts')

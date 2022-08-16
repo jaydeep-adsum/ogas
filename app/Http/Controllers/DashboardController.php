@@ -76,17 +76,19 @@ class DashboardController extends Controller
         $startDate = isset($input['start_date']) ? Carbon::parse($input['start_date']) : '';
         $endDate = isset($input['end_date']) ? Carbon::parse($input['end_date']) : '';
         $data = [];
-        $data['orderAmountTotal'] = Order::pluck('total')->sum();
+
         $orderAmountTotal = Order::addSelect([\DB::raw('DAY(created_at) as day,created_at')])
             ->addSelect([\DB::raw('Month(created_at) as month,created_at')])
             ->addSelect([\DB::raw('YEAR(created_at) as year,created_at')])
+            ->addSelect([\DB::raw('SUM(total) as total')])
             ->orderBy('created_at')
+            ->groupBy('created_at')
             ->get();
 
         $period = CarbonPeriod::create($startDate, $endDate);
 
         foreach ($period as $date) {
-            $data['customer'][] = $orderAmountTotal->where('day', $date->format('d'))->where('month', $date->format('m'))->where('year', $date->format('Y'))->count();
+            $data['orderAmountTotal'][] = $orderAmountTotal->where('day', $date->format('d'))->where('month', $date->format('m'))->where('year', $date->format('Y'))->sum('total');
             $data['labels'][] = $date->format('d-m-y');
         }
 

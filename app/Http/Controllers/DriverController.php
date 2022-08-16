@@ -39,6 +39,27 @@ class DriverController extends AppBaseController
     }
 
     /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function edit($id)
+    {
+        $driver = $this->driverRepository->find($id);
+        return $this->sendResponse($driver, 'Driver Retrieved Successfully.');
+    }
+
+    /**+
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
+     */
+    public function update(Request $request,$id){
+        $this->driverRepository->update($request->all(), $id);
+
+        return $this->sendSuccess('Driver updated successfully.');
+    }
+
+    /**
      * @param Driver $driver
      * @return JsonResponse
      */
