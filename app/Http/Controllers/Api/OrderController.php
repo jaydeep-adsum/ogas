@@ -351,6 +351,60 @@ class OrderController extends AppBaseController
     }
 
     /**
+     * Swagger definition for Products
+     *
+     * @OA\Get(
+     *     tags={"Order"},
+     *     path="/last-order",
+     *     description="Last Order",
+     *     summary="Last Order",
+     *     operationId="lastOrder",
+     * @OA\Parameter(
+     *     name="Content-Language",
+     *     in="header",
+     *     description="Content-Language",
+     *     required=false,@OA\Schema(type="string")
+     *     ),
+     * @OA\Response(
+     *     response=200,
+     *     description="Succuess response"
+     *     ,@OA\JsonContent(ref="#/components/schemas/SuccessResponse")
+     *     ),
+     * @OA\Response(
+     *     response="400",
+     *     description="Validation error"
+     *     ,@OA\JsonContent(ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response="401",
+     *     description="Not Authorized Invalid or missing Authorization header"
+     *     ,@OA\JsonContent
+     *     (ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response=500,
+     *     description="Unexpected error"
+     *     ,@OA\JsonContent(ref="#/components/schemas/ErrorResponse")
+     *  ),
+     * security={
+     *     {"API-Key": {}}
+     * }
+     * )
+     */
+    /**
+     * @return JsonResponse
+     */
+    public function order(){
+        try {
+            $Order = Order::where('customer_id', Auth::id())->latest('id')->first();
+
+            return $this->sendResponse($Order, ('Order retrieved successfully'));
+        } catch (Exception $ex) {
+            return $this->sendError($ex);
+        }
+    }
+
+    /**
      * Swagger defination Get All Orders
      *
      * @OA\Post(

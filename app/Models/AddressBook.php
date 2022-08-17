@@ -16,5 +16,6 @@ class AddressBook extends Model
         'latitude',
         'longitude',
         'customer_id',
+        'address_type',
     ];
 }

@@ -47,7 +47,6 @@ Route::namespace('Api')->group(
         Route::group(['middleware' => 'auth:api'], function () {
             Route::post('edit', [CustomerController::class, 'edit']);
             Route::get('address', [AddressBookController::class, 'index']);
-            Route::get('last-address', [AddressBookController::class, 'address']);
             Route::post('store-address', [AddressBookController::class, 'store']);
             Route::post('delete-address', [AddressBookController::class, 'destroy']);
             Route::post('payment', [OrderController::class, 'paymentStatus']);
@@ -57,6 +56,7 @@ Route::namespace('Api')->group(
             Route::post('get-order', [OrderController::class, 'index']);
             Route::post('order', [OrderController::class, 'store']);
             Route::post('store-order-history', [OrderController::class, 'storeOrderHistory']);
+            Route::get('last-order', [OrderController::class, 'order']);
             Route::post('order-history', [OrderController::class, 'orderHistory']);
             Route::get('products', [ProductController::class, 'index']);
         });

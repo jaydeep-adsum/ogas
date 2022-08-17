@@ -10,6 +10,7 @@ use Auth;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Validator;
 
 class AddressBookController extends AppBaseController
 {
@@ -60,61 +61,7 @@ class AddressBookController extends AppBaseController
      */
     public function index(){
         try {
-            $address = AddressBook::where('customer_id', Auth::id())->get();
-
-            return $this->sendResponse($address, ('Address retrieved successfully'));
-        } catch (Exception $ex) {
-            return $this->sendError($ex);
-        }
-    }
-
-    /**
-     * Swagger definition for Products
-     *
-     * @OA\Get(
-     *     tags={"Address"},
-     *     path="/last-address",
-     *     description="Address",
-     *     summary="Address",
-     *     operationId="getAddress",
-     * @OA\Parameter(
-     *     name="Content-Language",
-     *     in="header",
-     *     description="Content-Language",
-     *     required=false,@OA\Schema(type="string")
-     *     ),
-     * @OA\Response(
-     *     response=200,
-     *     description="Succuess response"
-     *     ,@OA\JsonContent(ref="#/components/schemas/SuccessResponse")
-     *     ),
-     * @OA\Response(
-     *     response="400",
-     *     description="Validation error"
-     *     ,@OA\JsonContent(ref="#/components/schemas/ErrorResponse")
-     * ),
-     * @OA\Response(
-     *     response="401",
-     *     description="Not Authorized Invalid or missing Authorization header"
-     *     ,@OA\JsonContent
-     *     (ref="#/components/schemas/ErrorResponse")
-     * ),
-     * @OA\Response(
-     *     response=500,
-     *     description="Unexpected error"
-     *     ,@OA\JsonContent(ref="#/components/schemas/ErrorResponse")
-     *  ),
-     * security={
-     *     {"API-Key": {}}
-     * }
-     * )
-     */
-    /**
-     * @return JsonResponse
-     */
-    public function address(){
-        try {
-            $address = AddressBook::where('customer_id', Auth::id())->latest();
+            $address = AddressBook::where('customer_id', Auth::id())->orderBy('id', 'DESC')->get();
 
             return $this->sendResponse($address, ('Address retrieved successfully'));
         } catch (Exception $ex) {
@@ -158,6 +105,10 @@ class AddressBookController extends AppBaseController
      *     property="longitude",
      *     type="string"
      *     ),
+     * @OA\Property(
+     *     property="address_type",
+     *     type="string"
+     *     ),
      *    )
      *   ),
      *  ),
@@ -196,6 +147,13 @@ class AddressBookController extends AppBaseController
             if($request->customer_id != Auth::user()->id)
             {
                 return $this->sendError('Unauthorized access');
+            }
+            $validator = Validator::make($request->all(), [
+                'location' => 'required|unique:address_books',
+            ]);
+            $error = (object)[];
+            if ($validator->fails()) {
+                return response()->json(['status' => false, 'data' => $error, 'message' => implode(', ', $validator->errors()->all())]);
             }
             $address = $this->addressBookRepository->create($request->all());
 
