@@ -767,14 +767,21 @@ class OrderController extends AppBaseController
             }
 
         if ($payment) {
-//            $order = PaymentStatus::where('id',1)->with('order')->first();
-//            dd($order);
-//            $email = $order->order->customer->email;
-//            $details = [
-//                'username' => $input['email'],
-//                'password' => $password,
-//            ];
-//            \Mail::to($email)->send(new orderConfirmMail($details));
+            $paymentStatus = PaymentStatus::where('id',$payment->id)->with('order')->first();
+            if ($paymentStatus->payment_status=='paid') {
+                $email = $paymentStatus->order->customer->email;
+                $details = [
+                    'username' => $paymentStatus->order->customer->name,
+                    'invoice_id' => $paymentStatus->order->invoice_id,
+                    'address' => $paymentStatus->order->address->location,
+                    'order_date' => $paymentStatus->order->created_at,
+                    'payment_method' => $paymentStatus->order->payment_method,
+                    'products' => $paymentStatus->order->orderHistory,
+                    'total' => $paymentStatus->order->total,
+                ];
+
+                \Mail::to($email)->send(new orderConfirmMail($details));
+            }
 
             return $this->sendResponse($payment, ('Payment Done'));
         }

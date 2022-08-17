@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\orderConfirmMail;
 use App\Models\Complaint;
 use App\Models\Customer;
 use App\Models\Driver;
 use App\Models\Order;
 use App\Models\orderHistory;
+use App\Models\PaymentStatus;
 use App\Models\Product;
 use App\Models\User;
 use Auth;

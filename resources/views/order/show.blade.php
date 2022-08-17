@@ -20,6 +20,32 @@
                         </h4>
                     </div>
                 </div>
+                @if($order->status==0)
+                    <div class="p-2 m-1 bg-secondary rounded">
+                        <span class="font-weight-bold">Ordered</span>
+                    </div>
+
+                @elseif ($order->status==1)
+                    <div class="p-2 m-1 bg-primary rounded">
+                        <span class="font-weight-bold">Confirmed</span>
+                    </div>
+                @elseif ($order->status==2)
+                    <div class="p-2 m-1 bg-warning rounded">
+                        <span class="font-weight-bold">Ongoing</span>
+                    </div>
+                @elseif ($order->status==3)
+                    <div class="p-2 m-1 bg-info rounded">
+                        <span class="font-weight-bold">Order Processing</span>
+                    </div>
+                @elseif ($order->status==4)
+                    <div class="p-2 m-1 bg-success rounded">
+                        <span class="font-weight-bold">Delivered</span>
+                    </div>
+                @elseif ($order->status==5)
+                    <div class="p-2 m-1 border border-danger rounded">
+                       <label>Cancel Reason :-</label> <span class="font-weight-bold">{{$order->cancel_reason??''}}</span>
+                    </div>
+                @endif
                 <div class="row invoice-info" style="margin-top:2rem">
                     @if($order->driver)
                         <div class="col-sm-4 invoice-col">
