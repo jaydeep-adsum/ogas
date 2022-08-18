@@ -28,7 +28,7 @@ $(document).ready(function () {
       name: 'customer_id'
     }, {
       data: function data(row) {
-        return row.address.location;
+        return row.address.location.substring(0, 50) + '...';
       },
       name: 'id'
     }, {

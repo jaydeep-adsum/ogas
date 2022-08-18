@@ -28,7 +28,7 @@ $(document).ready(function () {
             },
             {
                 data: function data(row) {
-                    return row.address.location;
+                    return row.address.location.substring(0, 50) + '...';
                 },
                 name: 'id'
             },
