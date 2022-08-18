@@ -252,7 +252,7 @@ class CustomerController extends AppBaseController
      *     type="string"
      *     ),
      * @OA\Property(
-     *     property="address",
+     *     property="email",
      *     type="string"
      *     ),
      *    )
@@ -298,8 +298,8 @@ class CustomerController extends AppBaseController
             if (isset($request->mobile) && $request->mobile!='') {
                 $customer->mobile = $request->mobile;
             }
-            if (isset($request->address) && $request->address!='') {
-                $customer->address = $request->address;
+            if (isset($request->email) && $request->email!='') {
+                $customer->email = $request->email;
             }
             $customer->save();
 

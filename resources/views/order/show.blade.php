@@ -60,17 +60,17 @@
                         <div class="col-md-12">
                         <label>{{ Form::label(__('order_status ').':') }} </label>
                         @if($order->status==0)
-                            <span class="badge badge-secondary">Ordered</span>
+                            <span>Ordered</span>
                         @elseif ($order->status==1)
-                            <span class="badge badge-primary">Confirmed</span>
+                            <span>Confirmed</span>
                         @elseif ($order->status==2)
-                            <span class="badge badge-warning">Ongoing</span>
+                            <span>Ongoing</span>
                         @elseif ($order->status==3)
-                            <span class="badge badge-info">Order Processing</span>
+                            <span>Order Processing</span>
                         @elseif ($order->status==4)
-                            <span class="badge badge-success">Delivered</span>
+                            <span>Delivered</span>
                         @elseif ($order->status==5)
-                            <span class="badge badge-danger">Canceled</span><br>
+                            <span>Canceled</span><br>
                             <label>Cancel Reason :-</label> <span>{{$order->cancel_reason??''}}</span>
                         @endif
                     </div>
