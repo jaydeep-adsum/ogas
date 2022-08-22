@@ -58,6 +58,7 @@ Route::namespace('Api')->group(
             Route::post('store-order-history', [OrderController::class, 'storeOrderHistory']);
             Route::get('last-order', [OrderController::class, 'order']);
             Route::post('order-history', [OrderController::class, 'orderHistory']);
+            Route::post('cancel-customer-order', [OrderController::class, 'cancelCustomerOrder']);
             Route::get('products', [ProductController::class, 'index']);
         });
     }

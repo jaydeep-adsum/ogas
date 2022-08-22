@@ -678,6 +678,78 @@ class OrderController extends AppBaseController
      *
      * @OA\Post(
      *     tags={"Customer"},
+     *     path="/cancel-customer-order",
+     *     summary="Cancel Order",
+     *     operationId="cancelCustomerOrder",
+     * @OA\Parameter(
+     *     name="Content-Language",
+     *     in="header",
+     *     description="Content-Language",
+     *     required=false,@OA\Schema(type="string")
+     *     ),
+     * @OA\RequestBody(
+     *     required=true,
+     * @OA\MediaType(
+     *     mediaType="multipart/form-data",
+     * @OA\JsonContent(
+     * @OA\Property(
+     *     property="order_id",
+     *     type="number"
+     *     ),
+     * @OA\Property(
+     *     property="status",
+     *     type="string"
+     *     ),
+     *    )
+     *   ),
+     *  ),
+     * @OA\Response(
+     *     response=200,
+     *     description="User response",@OA\JsonContent
+     *     (ref="#/components/schemas/SuccessResponse")
+     * ),
+     * @OA\Response(
+     *     response="400",
+     *     description="Validation error",@OA\JsonContent
+     *     (ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response="403",
+     *     description="Not Authorized Invalid or missing Authorization header",@OA\
+     *     JsonContent(ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response=500,
+     *     description="Unexpected error",@OA\JsonContent
+     *     (ref="#/components/schemas/ErrorResponse")
+     * ),
+     * security={
+     *     {"API-Key": {}}
+     * }
+     * )
+     */
+    public function cancelCustomerOrder(Request $request)
+    {
+        try {
+            $order = $this->orderRepository->find($request->order_id);
+            if (!$order){
+                return response()->json(['status' => false, 'messages' => array('Order Not Found.')]);
+            }
+            $order->status = $request->status;
+            $order->cancel_reason = 'Order Canceled By Customer';
+            $order->save();
+
+            return $this->sendResponse($order, ('Order canceled'));
+        } catch (Exception $ex) {
+            return $this->sendError($ex);
+        }
+    }
+
+    /**
+     * Swagger defination get Accept order
+     *
+     * @OA\Post(
+     *     tags={"Customer"},
      *     path="/payment",
      *     summary="Payment",
      *     operationId="payment",
