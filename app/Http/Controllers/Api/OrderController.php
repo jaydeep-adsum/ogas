@@ -100,7 +100,7 @@ class OrderController extends AppBaseController
             if ($request->status!=null){
                 $order->where('status', $request->status);
             }
-            $orders= $order->get();
+            $orders= $order->orderBy('id','DESC')->get();
 
             return $this->sendResponse($orders, ('Order retrieved successfully'));
         } catch (Exception $ex) {
@@ -505,7 +505,7 @@ class OrderController extends AppBaseController
     public function driverOrder()
     {
         try {
-            $orders = Order::where('status', '0')->where('driver_id',null)->get();
+            $orders = Order::where('status', '0')->where('driver_id',null)->orderBy('id','DESC')->get();
 
             return $this->sendResponse($orders, ('Order retrieved successfully'));
         } catch (Exception $ex) {
@@ -572,7 +572,7 @@ class OrderController extends AppBaseController
             if ($request->status!=null){
                 $order->where('status', $request->status);
             }
-            $orders= $order->get();
+            $orders= $order->orderBy('id','DESC')->get();
 
             return $this->sendResponse($orders, ('Order retrieved successfully'));
         } catch (Exception $ex) {
