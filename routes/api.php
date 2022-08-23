@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::namespace('Api')->group(
     function () {
+        Route::get('customer-order-history', [OrderController::class, 'customerOrderHistory']);
         Route::get('swagger', 'SwaggerController@listItem');
         Route::post('signup', [CustomerController::class, 'signup']);
         Route::post('login', [CustomerController::class, 'login']);
@@ -58,6 +59,7 @@ Route::namespace('Api')->group(
             Route::post('store-order-history', [OrderController::class, 'storeOrderHistory']);
             Route::get('last-order', [OrderController::class, 'order']);
             Route::post('order-history', [OrderController::class, 'orderHistory']);
+
             Route::post('cancel-customer-order', [OrderController::class, 'cancelCustomerOrder']);
             Route::get('products', [ProductController::class, 'index']);
         });

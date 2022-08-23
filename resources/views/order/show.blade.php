@@ -85,20 +85,20 @@
                         <table id="orderHistoryTbl" class="table table-striped" style="width:100%">
                             <thead>
                             <tr>
-                                <th>{{ Form::label(__('quantity')) }}</th>
                                 <th>{{ Form::label(__('product')) }}</th>
-                                <th>{{ Form::label(__('product price')) }}</th>
                                 <th>{{ Form::label(__('type')) }}</th>
+                                <th>{{ Form::label(__('product price')) }}</th>
+                                <th>{{ Form::label(__('quantity')) }}</th>
                                 <th>{{ Form::label(__('Subtotal')) }}</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($order->orderHistory as $orderHistory)
                                 <tr>
-                                    <td>{{ $orderHistory->quantity }}</td>
                                     <td>{{ $orderHistory->product->product_name }}</td>
-                                    <td>{{ $orderHistory->type==1?$orderHistory->product->refill_price:$orderHistory->product->new_price }}</td>
                                     <td>{{ ($orderHistory->type==1)?'Refill':'New' }}</td>
+                                    <td>{{ $orderHistory->type==1?$orderHistory->product->refill_price:$orderHistory->product->new_price }}</td>
+                                    <td>{{ $orderHistory->quantity }}</td>
                                     <td>{{ ($orderHistory->type==1?$orderHistory->product->refill_price:$orderHistory->product->new_price)*$orderHistory->quantity }}</td>
                                 </tr>
                             @endforeach
