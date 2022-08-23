@@ -37,6 +37,7 @@ Route::namespace('Api')->group(
         //driver
         Route::group(['middleware' => 'auth:drivers'], function () {
             Route::post('driver-edit', [DriverController::class, 'edit']);
+            Route::get('ongoing-orders', [OrderController::class, 'ongoingOrders']);
             Route::post('orders', [OrderController::class, 'driverOrder']);
             Route::post('driver-orders', [OrderController::class, 'driverAcceptedOrder']);
             Route::post('accept-order', [OrderController::class, 'acceptOrder']);
