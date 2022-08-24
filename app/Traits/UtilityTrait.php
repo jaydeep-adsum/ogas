@@ -374,13 +374,13 @@ trait UtilityTrait
         );
     }
 
-    public function sendSingle($registration_ids, $message)
+    public function sendSingle($registration_ids, $message,$fcm_token)
     {
         $fields = array(
             'to' => $registration_ids,
             'notification' => $message,
         );
-        return $this->sendPushNotification($fields);
+        return $this->sendPushNotification($fields,$fcm_token);
     }
 
     public function sendMultiple($registration_ids, $message, $fcm_token)

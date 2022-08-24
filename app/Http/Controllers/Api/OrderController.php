@@ -8,6 +8,8 @@ use App\Models\Order;
 use App\Models\PaymentStatus;
 use App\Models\Status;
 use App\Repositories\OrderRepository;
+use App\Traits\ResponseTrait;
+use App\Traits\UtilityTrait;
 use Auth;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -15,6 +17,7 @@ use Illuminate\Http\Request;
 
 class OrderController extends AppBaseController
 {
+    use ResponseTrait, UtilityTrait;
     /**
      * @var OrderRepository
      */
@@ -642,7 +645,24 @@ class OrderController extends AppBaseController
             if (!$order){
                 return response()->json(['status' => false, 'messages' => array('Order Not Found')]);
             }
-            $order->driver_id = Auth::id();
+            if ($request->status=='1'){
+                $msg = 'Your Order Is Assigned';
+            }elseif($request->status=='2'){
+                $msg = 'Your Order is Out For Delivery';
+            }elseif($request->status=='4'){
+                $msg = 'Your Order Is Delivered';
+            }
+            $message = [
+                'title' => 'Order',
+                'body' => $msg,
+                'sound' => 'default'
+            ];
+            $user_device_token = $order->customer->device_token;
+
+            $fcm_token = config('app.firebase_customer_key');
+            $this->sendSingle($user_device_token, $message,$fcm_token);
+
+            $order->driver_id = Auth::id();;
             $order->status = $request->status;
             $order->save();
 

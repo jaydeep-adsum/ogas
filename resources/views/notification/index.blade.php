@@ -23,7 +23,7 @@
                     <div class="row">
                         <div class="form-group col-xl-8 col-md-8 col-sm-12">
                             {{ Form::label(__('User').':') }} <span class="mandatory">*</span>
-                            {{ Form::select('user', ['customer','driver'],null, ['class' => 'form-control','required','id'=>'user_id']) }}
+                            {{ Form::select('user', ['Customer','Driver'],null, ['class' => 'form-control','required','id'=>'user_id']) }}
                         </div>
                         <div class="form-group col-xl-8 col-md-8 col-sm-12">
                             {{ Form::label(__('title').':') }} <span class="mandatory">*</span>
