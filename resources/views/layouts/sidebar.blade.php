@@ -17,31 +17,31 @@
             <li class="nav-item">
                 <a href="{{route('dashboard')}}" class="nav-link {{ Request::is('dashboard')? 'active1':''}}">
                     <i class="fa-solid fa-gauge nav-icon"></i>
-                    <p>Dashboard</p>
+                    <p>{{__('Dashboard')}}</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{route('customer')}}" class="nav-link {{ Request::is('customer*')? 'active1':''}}">
                     <i class="fa-solid fa-user-group nav-icon"></i>
-                    <p>Customers</p>
+                    <p>{{__('Customers')}}</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{route('driver')}}" class="nav-link {{ Request::is('driver*')? 'active1':''}}">
                     <i class="fa-solid fa-taxi nav-icon"></i>
-                    <p>Drivers</p>
+                    <p>{{__('Drivers')}}</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{route('category.index')}}" class="nav-link {{ Request::is('category*')? 'active1':''}}">
                     <i class="fa-solid fa-list nav-icon"></i>
-                    <p>Category</p>
+                    <p>{{__('Category')}}</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{route('products')}}" class="nav-link {{ Request::is('products*')? 'active1':''}}">
                     <i class="fas fa-gas-pump nav-icon"></i>
-                    <p>Products</p>
+                    <p>{{__('Products')}}</p>
                 </a>
             </li>
             <li class="nav-item">
@@ -60,6 +60,12 @@
                 <a href="{{route('faq.index')}}" class="nav-link {{ Request::is('faq*')? 'active1':''}}">
                     <i class="fa-solid fa-circle-question nav-icon"></i>
                     <p>{{__('Faq')}}</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{route('notification')}}" class="nav-link {{ Request::is('notification*')? 'active1':''}}">
+                    <i class="fa-solid fa-bell nav-icon"></i>
+                    <p>{{__('Notification')}}</p>
                 </a>
             </li>
         </ul>

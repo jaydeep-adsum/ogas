@@ -25,7 +25,7 @@ use Auth;
  * @category UtilityTrait
  * @author   Adsum Originator <developer@adsumoriginator.com>
  * @license  http://www.gnu.org/copyleft/gpl.html GNU General Public License
- * @link     
+ * @link
  */
 trait UtilityTrait
 {
@@ -88,8 +88,8 @@ trait UtilityTrait
     }
     /**
      * getPaymentStatus
-     * @param object $user 
-     * 
+     * @param object $user
+     *
      * @return boolean
      */
     public function getPaymentStatus($user)
@@ -105,8 +105,8 @@ trait UtilityTrait
 
     /**
      * getPaymentCheck
-     * @param object $user 
-     * 
+     * @param object $user
+     *
      * @return boolean
      */
     public function getJoinPoolPayment($user)
@@ -157,9 +157,9 @@ trait UtilityTrait
 
     /**
      *  This get customer detail
-     * 
+     *
      *  @param string $id customer_id
-     * 
+     *
      * @return object
      */
     public function getcustomerdetail($id){
@@ -172,9 +172,9 @@ trait UtilityTrait
     }
      /**
      *  This create payment on stripe
-     * 
+     *
      *  @param object $data data
-     * 
+     *
      * @return object
      */
     public function paymentcreate($data)
@@ -240,7 +240,7 @@ trait UtilityTrait
         return false;
     }
 
-   
+
     /**
      * This will prepare Data for send email
      *
@@ -266,7 +266,7 @@ trait UtilityTrait
         $this->sendMail($input['email'], $fromEmail, $fromName, $body, $subject, 'verifyAccount');
     }
 
- 
+
     /**
      * This will get current site protocol as per url defined in env
      *
@@ -362,7 +362,7 @@ trait UtilityTrait
         return $newRecurringDate;
     }
 
-   
+
 
     public function getRoundedNumber($number, $afterDigit = 2)
     {
@@ -383,19 +383,19 @@ trait UtilityTrait
         return $this->sendPushNotification($fields);
     }
 
-    public function sendMultiple($registration_ids, $message)
+    public function sendMultiple($registration_ids, $message, $fcm_token)
     {
         $fields = array(
             'registration_ids' => $registration_ids,
             'notification' => $message,
         );
-        return $this->sendPushNotification($fields);
+        return $this->sendPushNotification($fields,$fcm_token);
     }
 
-    public function sendPushNotification($fields)
+    public function sendPushNotification($fields,$fcm_token)
     {
         $headers = [
-            'Authorization: key=AAAAGhTPmzY:APA91bGLNPNMPvGSjfei1d7eMI58QoAz2yty0R5vQIMq6Z47U2Z9u8ZkmaUjn11foZ36My9U9F_j6R30xTtp9zQhAiHR_ay1ezLXySNYZ0aipRg2EhEuzLYWrVgkpV2a2hyzw-vSNqxO',
+            'Authorization: key='.$fcm_token,
             'Content-Type: application/json',
         ];
 
@@ -408,7 +408,7 @@ trait UtilityTrait
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
 
         $result = curl_exec($ch);
-        
+
         \Log::info("Cron is working 🤩".$result);
 
         curl_close($ch);

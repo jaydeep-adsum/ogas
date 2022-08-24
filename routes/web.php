@@ -5,6 +5,7 @@ use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -69,4 +70,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
     Route::post('products/update/{id}', [ProductController::class, 'update'])->name('products.update');
     Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+
+    Route::get('notification', [NotificationController::class,'index'])->name('notification');
+    Route::post('notification/store', [NotificationController::class, 'store'])->name('notification.store');
+    Route::delete('notification/{notification}', [NotificationController::class, 'destroy'])->name('notification.destroy');
 });

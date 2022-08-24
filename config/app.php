@@ -120,6 +120,8 @@ return [
     */
 
     'key' => env('APP_KEY'),
+    'firebase_customer_key' => env('CUSTOMER_FCM_TOKEN'),
+    'firebase_driver_key' => env('DRIVER_FCM_TOKEN'),
 
     'cipher' => 'AES-256-CBC',
 
