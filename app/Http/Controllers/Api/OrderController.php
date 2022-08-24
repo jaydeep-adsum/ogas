@@ -961,7 +961,7 @@ class OrderController extends AppBaseController
     public function ongoingOrders(Request $request)
     {
         try {
-            $order = Order::where('driver_id',Auth::id())->where('status','!=','4')->orWhere('status','!=','5')->get();
+            $order = Order::where('driver_id',Auth::id())->where('status','!=','4')->Where('status','!=','5')->get();
             if (!$order){
                 return response()->json(['status' => false, 'messages' => array('Order Not Found.')]);
             }
