@@ -64,6 +64,14 @@ class CustomerController extends AppBaseController
      *     property="email",
      *     type="string"
      *     ),
+     * @OA\Property(
+     *     property="device_token",
+     *     type="string"
+     *     ),
+     * @OA\Property(
+     *     property="device_type",
+     *     type="string"
+     *     ),
      *    )
      *   ),
      *  ),
@@ -111,7 +119,6 @@ class CustomerController extends AppBaseController
                 $credentials['mobile'] = $customer->mobile;
                 $credentials['name'] = $customer->name;
                 if ($customer = $this->authenticator->attemptSignUp($credentials)) {
-                    $update = Customer::where('id', $customer->id)->update(['device_token' => $request->device_token, 'device_type' => $request->device_type]);
                     $tokenResult = $customer->createToken('ogas');
                     $token = $tokenResult->token;
                     $token->save();

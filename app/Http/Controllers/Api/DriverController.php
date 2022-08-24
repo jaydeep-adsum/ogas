@@ -67,6 +67,14 @@ class DriverController extends AppBaseController
      *     property="vehicle_no",
      *     type="string"
      *     ),
+     *  @OA\Property(
+     *     property="device_token",
+     *     type="string"
+     *     ),
+     * @OA\Property(
+     *     property="device_type",
+     *     type="string"
+     *     ),
      *    )
      *   ),
      *  ),
@@ -114,7 +122,6 @@ class DriverController extends AppBaseController
                 $credentials['mobile'] = $driver->mobile;
                 $credentials['name'] = $driver->name;
                 if ($driver = $this->authenticator->attemptDriverSignUp($credentials)) {
-                    $update = Driver::where('id', $driver->id)->update(['device_token' => $request->device_token, 'device_type' => $request->device_type]);
                     $tokenResult = $driver->createToken('driver-token');
                     $token = $tokenResult->token;
                     $token->save();
