@@ -662,7 +662,7 @@ class OrderController extends AppBaseController
             $fcm_token = config('app.firebase_customer_key');
             $this->sendSingle($user_device_token, $message,$fcm_token);
 
-            $order->driver_id = Auth::id();;
+            $order->driver_id = Auth::id();
             $order->status = $request->status;
             $order->save();
 

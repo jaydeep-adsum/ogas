@@ -33,14 +33,14 @@ Route::namespace('Api')->group(
         Route::post('driver-signup', [DriverController::class, 'signup']);
         Route::post('driver-login', [DriverController::class, 'login']);
         Route::post('check-driver', [DriverController::class, 'checkDriver']);
-        Route::post('accept-order', [OrderController::class, 'acceptOrder']);
+
         //driver
         Route::group(['middleware' => 'auth:drivers'], function () {
             Route::post('driver-edit', [DriverController::class, 'edit']);
             Route::get('ongoing-orders', [OrderController::class, 'ongoingOrders']);
             Route::post('orders', [OrderController::class, 'driverOrder']);
             Route::post('driver-orders', [OrderController::class, 'driverAcceptedOrder']);
-
+            Route::post('accept-order', [OrderController::class, 'acceptOrder']);
             Route::post('cancel-order', [OrderController::class, 'cancelOrder']);
         });
 
