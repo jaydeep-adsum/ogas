@@ -15,8 +15,7 @@ $(document).ready(function () {
     columnDefs: [{
       'targets': [7],
       'className': 'text-center',
-      'orderable': false,
-      'width': '8%'
+      'orderable': false
     }],
     columns: [{
       data: 'id',

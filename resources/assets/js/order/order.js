@@ -12,7 +12,6 @@ $(document).ready(function () {
                 'targets': [7],
                 'className': 'text-center',
                 'orderable': false,
-                'width': '8%'
             }
         ],
         columns: [

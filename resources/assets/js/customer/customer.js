@@ -13,7 +13,6 @@ $(document).ready(function () {
                 'targets': [5],
                 'className': 'text-center',
                 'orderable': false,
-                'width': '8%'
             }
         ],
         columns: [
