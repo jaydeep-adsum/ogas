@@ -397,7 +397,7 @@ class OrderController extends AppBaseController
     public function customerOrderHistory(Request $request)
     {
         try {
-            $order = Order::where('customer_id',Auth::id())->where('status','4')->orWhere('status','5')->get();
+            $order = Order::where('customer_id',Auth::id())->orWhere('status','4')->Where('status','5')->get();
             if (!$order){
                 return response()->json(['status' => false, 'messages' => array('Order Not Found.')]);
             }
