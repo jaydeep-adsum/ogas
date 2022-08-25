@@ -675,6 +675,9 @@ select {
 .-ml-px {
   margin-left: -1px;
 }
+.ml-1 {
+  margin-left: 0.25rem;
+}
 .mr-2 {
   margin-right: 0.5rem;
 }
@@ -692,9 +695,6 @@ select {
 }
 .mb-0 {
   margin-bottom: 0px;
-}
-.ml-1 {
-  margin-left: 0.25rem;
 }
 .mt-2 {
   margin-top: 0.5rem;
