@@ -5,7 +5,10 @@ $(document).ready(function () {
         serverSide: true,
         searchDelay: 500,
         ajax: {
-            url: orderUrl
+            url: orderUrl,
+            data: function (d) {
+                d.status = $('#status_id').val()
+            }
         },
         columnDefs: [
             {
@@ -17,8 +20,8 @@ $(document).ready(function () {
         ],
         columns: [
             {
-                data: 'id',
-                name: 'id'
+                data: 'order_invoice',
+                name: 'order_invoice'
             },
             {
                 data: function data(row){
@@ -82,7 +85,9 @@ $(document).ready(function () {
                 name: 'id',
             }]
     });
-
+    $("#status_id").change(function () {
+        $(tableName).DataTable().draw(true);
+    });
     $(document).on('click', '.delete-btn', function (event) {
         var orderId = $(event.currentTarget).attr('data-id');
         deleteItem(orderUrl + '/' + orderId, tableName, 'Order');

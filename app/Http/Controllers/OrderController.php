@@ -34,10 +34,11 @@ class OrderController extends AppBaseController
      * @return Application|Factory|View
      */
     public function index(Request $request){
+        $status = Order::STATUS;
         if ($request->ajax()) {
-            return Datatables::of((new OrderDatatable())->get())->make(true);
+            return Datatables::of((new OrderDatatable())->get($request->all()))->make(true);
         }
-        return view('order.index');
+        return view('order.index',compact('status'));
     }
 
     /**

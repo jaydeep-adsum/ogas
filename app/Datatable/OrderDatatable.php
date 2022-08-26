@@ -12,6 +12,9 @@ class OrderDatatable
     {
         /** @var Order $query */
         $query = Order::query()->select('orders.*');
+        if (isset($input['status'])){
+            $query->where('status', $input['status']);
+        }
 
         return $query;
     }

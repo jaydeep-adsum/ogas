@@ -19,6 +19,13 @@ class Order extends Model
      */
     protected $with = ['customer','driver','orderHistory','payment','address'];
 
+    Const STATUS = [
+        '0'=>'Ordered',
+        '1'=>'Confirmed',
+        '2'=>'Ongoing',
+        '4'=>'Delivered',
+        '5'=>'Canceled',
+    ];
     /**
      * @var string[]
      */
@@ -33,6 +40,7 @@ class Order extends Model
         'driver_id',
         'cancel_reason',
         'invoice_id',
+        'order_invoice',
         'payment_method',
     ];
 

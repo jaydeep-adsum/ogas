@@ -25,6 +25,7 @@ class OrderRepository extends BaseRepository
         'type',
         'product_id',
         'invoice_id',
+        'order_invoice',
         'payment_method',
     ];
 
@@ -49,7 +50,8 @@ class OrderRepository extends BaseRepository
      * @return Model
      */
     public function store($input){
-        $invoiceId = Str::random(6);
+        $orderInvoice = 'OGAS'.rand(6,999999);
+        $invoiceId = 'INVOGAS'.rand(6,999999);
         $order = $this->create([
           "address_book_id" => $input['address_book_id'],
           "time_slot" => $input['time_slot'],
@@ -59,6 +61,7 @@ class OrderRepository extends BaseRepository
           "driver_tip" => $input['driver_tip'],
           "customer_id" => $input['customer_id'],
           "invoice_id" => $invoiceId,
+          "order_invoice" => $orderInvoice,
         ]);
 //        $quantity = explode(',',$input['quantity']);
 //        $type = explode(',',$input['type']);

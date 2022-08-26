@@ -49,6 +49,7 @@ Route::namespace('Api')->group(
             Route::post('edit', [CustomerController::class, 'edit']);
             Route::get('address', [AddressBookController::class, 'index']);
             Route::post('store-address', [AddressBookController::class, 'store']);
+            Route::post('update-address', [AddressBookController::class, 'update']);
             Route::post('delete-address', [AddressBookController::class, 'destroy']);
             Route::post('payment', [OrderController::class, 'paymentStatus']);
             Route::get('all-complaints', [ComplaintController::class, 'index']);
@@ -60,6 +61,7 @@ Route::namespace('Api')->group(
             Route::get('last-order', [OrderController::class, 'order']);
             Route::post('order-history', [OrderController::class, 'orderHistory']);
             Route::get('customer-order-history', [OrderController::class, 'customerOrderHistory']);
+            Route::get('home-order-history', [OrderController::class, 'homeOrderHistory']);
             Route::post('cancel-customer-order', [OrderController::class, 'cancelCustomerOrder']);
             Route::get('products', [ProductController::class, 'index']);
         });

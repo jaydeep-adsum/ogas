@@ -14,7 +14,7 @@
                     <div class="col-12">
                         <h4>
                             <span>Order Id : </span>
-                            <span class="badge badge-danger"><i class="fa-solid fa-hashtag"></i>{{ $order->invoice_id }}</span>
+                            <span class="badge badge-danger"><i class="fa-solid fa-hashtag"></i>{{ $order->order_invoice }}</span>
                             <small class="float-right">Delivery
                                 Date: {{\Carbon\Carbon::parse($order->date)->format('d/m/Y') }}</small>
                         </h4>
@@ -48,6 +48,7 @@
                     </div>
                     <div class="col-sm-4 invoice-col">
                         <h5><label>Order Detail</label></h5>
+                        <div class="col-md-12">{{ Form::label(__('invoice_id ').':') }} <i class="fa-solid fa-hashtag"></i>{{ $order->invoice_id }}</div>
                         <div class="col-md-12">{{ Form::label(__('time_slot ').':') }}@if($order->time_slot==0)
                                 {{'Now'}}
                             @elseif($order->time_slot==1)

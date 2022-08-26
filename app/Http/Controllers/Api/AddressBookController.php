@@ -157,7 +157,95 @@ class AddressBookController extends AppBaseController
             }
             $address = $this->addressBookRepository->create($request->all());
 
-            return $this->sendResponse($address, ('Complaint created successfully'));
+            return $this->sendResponse($address, ('Address created successfully'));
+        } catch (Exception $ex) {
+            return $this->sendError($ex);
+        }
+    }
+
+    /**
+     * Swagger defination Complaint
+     *
+     * @OA\Post(
+     *     tags={"Address"},
+     *     path="/update-address",
+     *     description="Update Address",
+     *     summary="Update Address",
+     *     operationId="updateAddress",
+     * @OA\Parameter(
+     *     name="Content-Language",
+     *     in="header",
+     *     description="Content-Language",
+     *     required=false,@OA\Schema(type="string")
+     *     ),
+     * @OA\RequestBody(
+     *     required=true,
+     * @OA\MediaType(
+     *     mediaType="multipart/form-data",
+     * @OA\JsonContent(
+     * @OA\Property(
+     *     property="address_id",
+     *     type="number"
+     *     ),
+     * @OA\Property(
+     *     property="customer_id",
+     *     type="number"
+     *     ),
+     * @OA\Property(
+     *     property="location",
+     *     type="string"
+     *     ),
+     * @OA\Property(
+     *     property="latitude",
+     *     type="string"
+     *     ),
+     * @OA\Property(
+     *     property="longitude",
+     *     type="string"
+     *     ),
+     * @OA\Property(
+     *     property="address_type",
+     *     type="string"
+     *     ),
+     *    )
+     *   ),
+     *  ),
+     * @OA\Response(
+     *     response=200,
+     *     description="User response",@OA\JsonContent
+     *     (ref="#/components/schemas/SuccessResponse")
+     * ),
+     * @OA\Response(
+     *     response="400",
+     *     description="Validation error",@OA\JsonContent
+     *     (ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response="403",
+     *     description="Not Authorized Invalid or missing Authorization header",@OA\
+     *     JsonContent(ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response=500,
+     *     description="Unexpected error",@OA\JsonContent
+     *     (ref="#/components/schemas/ErrorResponse")
+     * ),
+     * security={
+     *     {"API-Key": {}}
+     * }
+     * )
+     */
+    public function update(Request $request): JsonResponse
+    {
+        try {
+            if($request->customer_id != Auth::user()->id)
+            {
+                return $this->sendError('Unauthorized access');
+            }
+
+            $address = $this->addressBookRepository->update($request->all(),$request->address_id);
+
+            return $this->sendResponse($address, ('Address Updated successfully'));
         } catch (Exception $ex) {
             return $this->sendError($ex);
         }

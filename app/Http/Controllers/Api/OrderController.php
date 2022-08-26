@@ -413,6 +413,61 @@ class OrderController extends AppBaseController
      *
      * @OA\Get(
      *     tags={"Order"},
+     *     path="/home-order-history",
+     *     description="Order History",
+     *     summary="Order History",
+     *     operationId="homeOrderHistory",
+     * @OA\Parameter(
+     *     name="Content-Language",
+     *     in="header",
+     *     description="Content-Language",
+     *     required=false,@OA\Schema(type="string")
+     *     ),
+     * @OA\Response(
+     *     response=200,
+     *     description="Succuess response"
+     *     ,@OA\JsonContent(ref="#/components/schemas/SuccessResponse")
+     *     ),
+     * @OA\Response(
+     *     response="400",
+     *     description="Validation error"
+     *     ,@OA\JsonContent(ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response="401",
+     *     description="Not Authorized Invalid or missing Authorization header"
+     *     ,@OA\JsonContent
+     *     (ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response=500,
+     *     description="Unexpected error"
+     *     ,@OA\JsonContent(ref="#/components/schemas/ErrorResponse")
+     *  ),
+     * security={
+     *     {"API-Key": {}}
+     * }
+     * )
+     */
+    public function homeOrderHistory(Request $request)
+    {
+        try {
+            $order = Order::where('customer_id',Auth::id())->WhereIn('status',['0','1','2'])->get();
+            if (!$order){
+                return response()->json(['status' => false, 'messages' => array('Order Not Found.')]);
+            }
+
+            return $this->sendResponse($order, ('Order History fetch successfully.'));
+        } catch (Exception $ex) {
+            return $this->sendError($ex);
+        }
+    }
+
+    /**
+     * Swagger definition for Products
+     *
+     * @OA\Get(
+     *     tags={"Order"},
      *     path="/last-order",
      *     description="Last Order",
      *     summary="Last Order",
