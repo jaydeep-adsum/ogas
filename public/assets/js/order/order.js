@@ -22,8 +22,8 @@ $(document).ready(function () {
       'width': '10%'
     }],
     columns: [{
-      data: 'id',
-      name: 'id'
+      data: 'order_invoice',
+      name: 'order_invoice'
     }, {
       data: function data(row) {
         return row.customer.name;
