@@ -22,7 +22,9 @@ $(document).ready(function () {
       'width': '10%'
     }],
     columns: [{
-      data: 'order_invoice',
+      data: function data(row) {
+        return "<span class=\"badge order_id_badge\"><i class=\"fa-solid fa-hashtag\"></i>".concat(row.order_invoice, "</span>");
+      },
       name: 'order_invoice'
     }, {
       data: function data(row) {
