@@ -12,7 +12,7 @@ $(document).ready(function () {
         },
         columnDefs: [
             {
-                'targets': [7],
+                'targets': [11],
                 'className': 'text-center',
                 'orderable': false,
                 'width': '10%'
@@ -24,6 +24,12 @@ $(document).ready(function () {
                     return `<span class="badge order_id_badge"><i class="fa-solid fa-hashtag"></i>${row.order_invoice}</span>`
                 },
                 name: 'order_invoice'
+            },
+            {
+                data: function data(row){
+                    return `<span class="badge order_invoice_badge"><i class="fa-solid fa-hashtag"></i>${row.invoice_id}</span>`
+                },
+                name: 'invoice_id'
             },
             {
                 data: function data(row){
@@ -44,11 +50,15 @@ $(document).ready(function () {
                 name: 'date'
             },
             {
+                data: 'payment_method',
+                name: 'payment_method'
+            },
+            {
                 data: function data(row) {
-                    if (row.payment==null) {
-                        return `<span class="badge badge-danger">Unpaid</span>`;
+                    if (row.payment && row.payment.payment_status=="paid") {
+                        return `<span class="badge badge-paid-success">Paid</span>`;
                     } else {
-                        return `<span class="badge badge-danger">${row.payment.payment_status}</span>`;
+                        return `<span class="badge badge-unpaid-danger">Unpaid</span>`;
                     }
                 },
                 name: 'id'
@@ -66,10 +76,22 @@ $(document).ready(function () {
                     }else if (row.status==4){
                         return `<span class="badge badge-success">Delivered</span>`
                     }else if (row.status==5){
-                        return `<span class="badge badge-danger">Canceled</span>`
+                        return `<span class="badge badge-danger">Cancelled</span>`
                     }
                 },
                 name: 'status'
+            },
+            {
+                data: function data(row){
+                    return row.driver?row.driver.name:'-'
+                },
+                name: 'driver_id'
+            },
+            {
+                data: function data(row){
+                    return row.driver?row.driver.mobile:'-'
+                },
+                name: 'driver_id'
             },
             {
                 data: 'total',
@@ -78,11 +100,12 @@ $(document).ready(function () {
             {
                 data: function data(row) {
                     var url = orderUrl + '/' + row.id;
-                    return `<a title="Show" class="btn btn-sm edit-btn" data-id="${row.id}" href="${url}">
+                    return `
+<div class="d-flex"> <a title="Show" class="btn btn-sm mr-1 edit-btn" data-id="${row.id}" href="${url}">
             <i class="fa-solid fa-eye"></i>
                 </a> <a title="Delete" class="btn btn-sm delete-btn text-white" data-id="${row.id}" href="#">
            <i class="fa-solid fa-trash"></i>
-                </a>`
+                </a></div>`
                 },
                 name: 'id',
             }]

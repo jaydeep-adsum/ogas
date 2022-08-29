@@ -16,6 +16,18 @@
             background-color: #e0e3ff;
             color: #6571ff;
         }
+        .order_invoice_badge{
+            background-color: #fff2e0;
+            color: #f9a134;
+        }
+        .badge-paid-success{
+            background-color: #c1f3ce;
+            color: #249128;
+        }
+        .badge-unpaid-danger{
+            background-color: #ffe0e0;
+            color: #f93434;
+        }
     </style>
     <div class="row">
         <div class="col-md-12">
