@@ -5,6 +5,9 @@
 @section('header')
     <div class="d-flex px-4 px-sm-0 pt-2 pt-sm-0">
         <div class="mr-2">
+            {{ Form::select('payment', ['Paid','Unpaid'],null, ['class' => 'form-control','id'=>'payment','placeholder'=>'Select Payment Status']) }}
+        </div>
+        <div class="mr-2">
             {{ Form::select('status', $status,null, ['class' => 'form-control','id'=>'status_id','placeholder'=>'Select Order Status']) }}
         </div>
         <a href="{{route('orders.export')}}" class="btn btn-primary btn-sm"><i class="fa-solid fa-file-excel"></i> {{__('Export Excel')}}</a>
@@ -41,7 +44,7 @@
 @endsection
 @section('scripts')
     <script>
-        $("#status_id ").select2();
+        $("#status_id,#payment").select2();
         let orderUrl = "{{route('order')}}";
     </script>
     <script src="{{asset('public/assets/js/order/order.js')}}"></script>

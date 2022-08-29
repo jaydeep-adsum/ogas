@@ -8,6 +8,7 @@ $(document).ready(function () {
             url: orderUrl,
             data: function (d) {
                 d.status = $('#status_id').val()
+                d.payment = $('#payment').val()
             }
         },
         columnDefs: [
@@ -50,7 +51,9 @@ $(document).ready(function () {
                 name: 'date'
             },
             {
-                data: 'payment_method',
+                data: function data(row) {
+                    return row.payment_method=='Cash on Delivery'?'Cash':row.payment_method=='Debit card / Credit card'?'Card':'-';
+                },
                 name: 'payment_method'
             },
             {
@@ -111,6 +114,9 @@ $(document).ready(function () {
             }]
     });
     $("#status_id").change(function () {
+        $(tableName).DataTable().draw(true);
+    });
+    $("#payment").change(function () {
         $(tableName).DataTable().draw(true);
     });
     $(document).on('click', '.delete-btn', function (event) {
