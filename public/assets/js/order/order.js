@@ -17,6 +17,10 @@ $(document).ready(function () {
       }
     },
     columnDefs: [{
+      'targets': [4],
+      'className': 'text-center',
+      'width': '11%'
+    }, {
       'targets': [11],
       'className': 'text-center',
       'orderable': false,
