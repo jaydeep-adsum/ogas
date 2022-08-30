@@ -101,7 +101,7 @@
                         <div class="card border h-100">
                             <div class="card-header pb-0">
                                 <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-xl-5">
                                 <h4>Total Amount</h4>
                                 </div>
                                 <div id="dateRange" class="time_range time_range_width w-30">
