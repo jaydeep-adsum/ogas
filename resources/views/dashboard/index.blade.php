@@ -100,8 +100,8 @@
                     <div class="col-lg-6 col-md-6 col-sm-12 my-2 my-sm-0">
                         <div class="card border h-100">
                             <div class="card-header pb-0">
-                                <div class="row">
-                                <div class="col-xl-5">
+                                <div class="row justify-content-between">
+                                <div class="">
                                 <h4>Total Amount</h4>
                                 </div>
                                 <div id="dateRange" class="time_range time_range_width w-30">
