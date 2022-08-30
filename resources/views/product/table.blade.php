@@ -1,4 +1,4 @@
-<table class="table table-bordered" id="productTbl">
+<table class="table table-bordered product-table" id="productTbl">
     <thead>
     <tr>
         <th scope="col">{{ __('Product Name') }}</th>

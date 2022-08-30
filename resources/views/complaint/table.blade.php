@@ -1,4 +1,4 @@
-<table class="table table-bordered" id="feedbackTbl">
+<table class="table table-bordered complaint-table" id="feedbackTbl">
     <thead>
     <tr>
         <th scope="col">{{ __('Id') }}</th>

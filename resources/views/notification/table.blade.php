@@ -1,4 +1,4 @@
-<table class="table table-bordered" id="notificationTbl">
+<table class="table table-bordered notification-table" id="notificationTbl">
     <thead>
     <tr>
         <th scope="col">{{ __('Title') }}</th>

@@ -122,6 +122,23 @@
             background-color: #f58823;
             color: #fff;
         }
+
+        .category-table{
+            width: 100% !important;
+            min-width: 300px !important;
+        }
+        .customer-table, .driver-table{
+            width: 100% !important;
+            min-width: 900px !important;
+        }
+        .product-table, .complaint-table, .notification-table{
+            width: 100% !important;
+            min-width: 650px !important;
+        }
+        .faq-table{
+            width: 100% !important;
+            min-width: 500px !important;
+        }
     </style>
     @yield("extra_css")
 </head>
@@ -149,7 +166,7 @@
             {{--            </div>--}}
         </div>
         <section class="content mt-4">
-            <div class="container-fluid px-5">
+            <div class="container-fluid px-sm-3 px-xl-5">
                 @include('flash::message')
                 @yield('content')
             </div>

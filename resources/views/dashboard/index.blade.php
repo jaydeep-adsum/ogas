@@ -10,6 +10,12 @@
             padding: 0.5rem !important;
             border-radius: 0.313rem !important;
         }
+
+        @media screen and (max-width: 576px) {
+            .myChartCard, .incomeChartCard, .customerChartCard, .driverChartCard{
+                padding: 7px;
+            }
+        }
     </style>
     <div class="container">
         {{--            <div class="col-md-3">--}}
@@ -81,17 +87,17 @@
         <div class="card">
             <div class="card-body mt-0">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-6 col-md-6 col-sm-12 my-2 my-sm-0">
                         <div class="card border h-100">
                             <div class="card-header pb-0">
                                 <h4>Orders</h4>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body myChartCard">
                                 <canvas id="myChart" width="515" height="400"></canvas>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-6 col-md-6 col-sm-12 my-2 my-sm-0">
                         <div class="card border h-100">
                             <div class="card-header pb-0">
                                 <div class="row">
@@ -107,7 +113,7 @@
                             <div class="card-header d-flex justify-content-end pb-0">
 
                             </div>
-                            <div class="card-body" id="incomeContainer">
+                            <div class="card-body incomeChartCard" id="incomeContainer">
                                 <canvas id="incomeChart" width="515" height="500"></canvas>
                             </div>
                         </div>
@@ -125,7 +131,7 @@
             </div>
             <div class="card-body mt-0">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-6 col-md-6 col-sm-12 my-2 my-sm-0">
                         <div class="card border h-100">
                             <div class="card-header justify-content-between">
                                 <h4>Customers</h4>
@@ -133,17 +139,17 @@
                             {{--                                    <div class="card-body p-0 mt-0" id="customerContainer">--}}
                             {{--                                        <canvas id="customerChart" width="515" height="400"></canvas>--}}
                             {{--                                    </div>--}}
-                            <div class="card-body p-0 mt-0" id="customerContainer">
+                            <div class="card-body p-0 mt-0 customerChartCard" id="customerContainer">
                                 <canvas id="customerChart" width="515" height="400"></canvas>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-6 col-md-6 col-sm-12 my-2 my-sm-0">
                         <div class="card border h-100">
                             <div class="card-header justify-content-between">
                                 <h4>Drivers</h4>
                             </div>
-                            <div class="card-body p-0 mt-0" id="driverContainer">
+                            <div class="card-body p-0 mt-0 driverChartCard" id="driverContainer">
                                 <canvas id="driverChart" width="515" height="400"></canvas>
                             </div>
                         </div>

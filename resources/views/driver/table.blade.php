@@ -1,4 +1,4 @@
-<table class="table table-bordered" id="driverTbl">
+<table class="table table-bordered driver-table" id="driverTbl">
     <thead>
     <tr>
         <th scope="col">{{ __('Name') }}</th>

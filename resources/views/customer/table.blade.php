@@ -1,4 +1,4 @@
-<table class="table table-bordered" id="customerTbl">
+<table class="table table-bordered customer-table" id="customerTbl">
     <thead>
     <tr>
         <th scope="col">{{ __('Name') }}</th>
