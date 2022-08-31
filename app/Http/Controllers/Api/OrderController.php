@@ -1091,10 +1091,12 @@ class OrderController extends AppBaseController
     {
         try {
             $duration=60;
+            date_default_timezone_set('Asia/Kolkata');
             $start=Carbon::now()->minute(0)->second(0);
             $end='08:00PM';
             $start = new DateTime($start);
             $end = new DateTime($end);
+
             $start_time = $start->format('H:i');
             $end_time = $end->format('H:i');
             $i=0;
@@ -1104,8 +1106,7 @@ class OrderController extends AppBaseController
                 $start_time = date('H:i',strtotime('+'.$duration.' minutes',strtotime($start_time)));
                 $i++;
                 if(strtotime($start_time) <= strtotime($end_time)){
-                    $time[$i]['start'] = $start;
-                    $time[$i]['end'] = $end;
+                    $time[$i] = date('h:i a',strtotime($start)).'-'.date('h:i a',strtotime($end));
                 }
             }
 
