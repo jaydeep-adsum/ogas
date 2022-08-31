@@ -16,7 +16,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->dateTime('date');
-            $table->enum('time_slot',[0,1,2,3]);
+            $table->string('time_slot');
             $table->integer('total');
             $table->integer('driver_tip')->nullable();
             $table->unsignedInteger('customer_id');

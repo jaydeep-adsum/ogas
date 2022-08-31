@@ -11,6 +11,8 @@ use App\Repositories\OrderRepository;
 use App\Traits\ResponseTrait;
 use App\Traits\UtilityTrait;
 use Auth;
+use Carbon\Carbon;
+use DateTime;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -120,11 +122,6 @@ class OrderController extends AppBaseController
      *     description="
      *  Create Order
      *   Date : YYYY-MM-DD
-     *   Time Slot :
-     *     1: Now
-     *     2: 09AM - 12PM
-     *     3: 12pm - 03PM
-     *     4: 03PM - 06pm
      *   Pass quantity,type and product_id comma seprated.
      *   Type:
      *     1: Refill
@@ -992,6 +989,8 @@ class OrderController extends AppBaseController
         }
     }
 
+
+
     /**
      * Swagger definition for Products
      *
@@ -1042,6 +1041,75 @@ class OrderController extends AppBaseController
             }
 
             return $this->sendResponse($order, ('Ongoing Orders fetch successfully.'));
+        } catch (Exception $ex) {
+            return $this->sendError($ex);
+        }
+    }
+
+    /**
+     * Swagger definition for Products
+     *
+     * @OA\Get(
+     *     tags={"Customer"},
+     *     path="/time-slots",
+     *     description="Time Slots",
+     *     summary="Time Slots",
+     *     operationId="timeSlots",
+     * @OA\Parameter(
+     *     name="Content-Language",
+     *     in="header",
+     *     description="Content-Language",
+     *     required=false,@OA\Schema(type="string")
+     *     ),
+     * @OA\Response(
+     *     response=200,
+     *     description="Succuess response"
+     *     ,@OA\JsonContent(ref="#/components/schemas/SuccessResponse")
+     *     ),
+     * @OA\Response(
+     *     response="400",
+     *     description="Validation error"
+     *     ,@OA\JsonContent(ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response="401",
+     *     description="Not Authorized Invalid or missing Authorization header"
+     *     ,@OA\JsonContent
+     *     (ref="#/components/schemas/ErrorResponse")
+     * ),
+     * @OA\Response(
+     *     response=500,
+     *     description="Unexpected error"
+     *     ,@OA\JsonContent(ref="#/components/schemas/ErrorResponse")
+     *  ),
+     * security={
+     *     {"API-Key": {}}
+     * }
+     * )
+     */
+    public function timeSlots(Request $request)
+    {
+        try {
+            $duration=60;
+            $start=Carbon::now()->minute(0)->second(0);
+            $end='08:00PM';
+            $start = new DateTime($start);
+            $end = new DateTime($end);
+            $start_time = $start->format('H:i');
+            $end_time = $end->format('H:i');
+            $i=0;
+            while(strtotime($start_time) <= strtotime($end_time)){
+                $start = $start_time;
+                $end = date('H:i',strtotime('+'.$duration.' minutes',strtotime($start_time)));
+                $start_time = date('H:i',strtotime('+'.$duration.' minutes',strtotime($start_time)));
+                $i++;
+                if(strtotime($start_time) <= strtotime($end_time)){
+                    $time[$i]['start'] = $start;
+                    $time[$i]['end'] = $end;
+                }
+            }
+
+            return $this->sendResponse($time, ('Time Slots fetch successfully.'));
         } catch (Exception $ex) {
             return $this->sendError($ex);
         }

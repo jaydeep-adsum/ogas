@@ -49,15 +49,7 @@
                     <div class="col-sm-4 invoice-col">
                         <h5><label>Order Detail</label></h5>
                         <div class="col-md-12">{{ Form::label(__('invoice_id ').':') }} <i class="fa-solid fa-hashtag"></i>{{ $order->invoice_id }}</div>
-                        <div class="col-md-12">{{ Form::label(__('time_slot ').':') }}@if($order->time_slot==0)
-                                {{'Now'}}
-                            @elseif($order->time_slot==1)
-                                {{'9AM - 12PM'}}
-                            @elseif($order->time_slot==2)
-                                {{'12PM - 3PM'}}
-                            @elseif($order->time_slot==3)
-                                {{'3PM - 6PM'}}
-                            @endif</div>
+                        <div class="col-md-12">{{ Form::label(__('time_slot ').':') }} {{ $order->time_slot}}</div>
                         <div class="col-md-12">
                         <label>{{ Form::label(__('order_status ').':') }} </label>
                         @if($order->status==0)

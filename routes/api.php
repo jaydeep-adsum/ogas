@@ -64,6 +64,7 @@ Route::namespace('Api')->group(
             Route::get('home-order-history', [OrderController::class, 'homeOrderHistory']);
             Route::post('cancel-customer-order', [OrderController::class, 'cancelCustomerOrder']);
             Route::get('products', [ProductController::class, 'index']);
+            Route::get('time-slots',[OrderController::class,'timeSlots']);
         });
     }
 );
