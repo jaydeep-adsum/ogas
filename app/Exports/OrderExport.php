@@ -18,7 +18,8 @@ class OrderExport implements FromCollection, WithHeadings
         $data = [];
         foreach ($order as $item){
             $data[] = [
-                'id'=>$item->id,
+                'order_id'=>$item->id,
+                'invoice_id'=>$item->id,
                 'location'=>$item->address->location,
                 'latitude'=>$item->address->latitude,
                 'longitude'=>$item->address->longitude,

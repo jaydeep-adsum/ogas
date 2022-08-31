@@ -1091,7 +1091,6 @@ class OrderController extends AppBaseController
     {
         try {
             $duration=60;
-            date_default_timezone_set('Asia/Kolkata');
             $start=Carbon::now()->minute(0)->second(0);
             $end='08:00PM';
             $start = new DateTime($start);
