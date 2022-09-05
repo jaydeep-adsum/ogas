@@ -1090,6 +1090,7 @@ class OrderController extends AppBaseController
     public function timeSlots(Request $request)
     {
         try {
+            date_default_timezone_set("Asia/Muscat");
             $duration=60;
             $start=Carbon::now()->minute(0)->second(0);
             $end='08:00PM';
