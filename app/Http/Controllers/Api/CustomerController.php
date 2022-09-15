@@ -104,7 +104,6 @@ class CustomerController extends AppBaseController
                 'mobile' => 'required|numeric|unique:customers',
                 'name' => 'required',
                 'payment_customer_id' => 'required',
-                'email' => 'required',
             ]);
 
             $error = (object)[];
