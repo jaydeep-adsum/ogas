@@ -61,10 +61,6 @@ class CustomerController extends AppBaseController
      *     type="string"
      *     ),
      * @OA\Property(
-     *     property="email",
-     *     type="string"
-     *     ),
-     * @OA\Property(
      *     property="device_token",
      *     type="string"
      *     ),
