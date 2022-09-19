@@ -1092,12 +1092,16 @@ class OrderController extends AppBaseController
         try {
             date_default_timezone_set("Asia/Muscat");
             $duration=60;
-            $start=Carbon::now()->minute(0)->second(0);
+            $startToday =Carbon::now()->minute(0)->second(0);
             $end='08:00PM';
-            $start = new DateTime($start);
+            $startTommorow =Carbon::tomorrow()->hour(9)->minute(0)->second(0);
+
+            $start = new DateTime($startToday);
+            $tommorow = new DateTime($startTommorow);
             $end = new DateTime($end);
 
             $start_time = $start->format('H:i');
+            $start_time_tommorow = $tommorow->format('H:i');
             $end_time = $end->format('H:i');
             $i=0;
             while(strtotime($start_time) <= strtotime($end_time)){
@@ -1109,8 +1113,20 @@ class OrderController extends AppBaseController
                     $time[$i] = date('h:i a',strtotime($start)).'-'.date('h:i a',strtotime($end));
                 }
             }
+            $j=0;
+            while(strtotime($start_time_tommorow) <= strtotime($end_time)){
+                $tommorow = $start_time_tommorow;
+                $end = date('H:i',strtotime('+'.$duration.' minutes',strtotime($start_time_tommorow)));
+                $start_time_tommorow = date('H:i',strtotime('+'.$duration.' minutes',strtotime($start_time_tommorow)));
+                $j++;
+                if(strtotime($start_time_tommorow) <= strtotime($end_time)){
+                    $timeto[$j] = date('h:i a',strtotime($tommorow)).'-'.date('h:i a',strtotime($end));
+                }
+            }
+            $data['today'] = $time;
+            $data['tommorow'] = $timeto;
 
-            return $this->sendResponse($time, ('Time Slots fetch successfully.'));
+            return $this->sendResponse($data, ('Time Slots fetch successfully.'));
         } catch (Exception $ex) {
             return $this->sendError($ex);
         }
